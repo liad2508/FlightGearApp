@@ -1,0 +1,59 @@
+﻿<Window x:Class="WpfApp1.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:m="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"
+        xmlns:uc="clr-namespace:WpfApp1"
+        xmlns:local="clr-namespace:WpfApp1"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+
+    <Grid>
+
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="620*"/>
+            <ColumnDefinition Width="173*"/>
+        </Grid.ColumnDefinitions>
+        <Label HorizontalContentAlignment="Center" Foreground="Black" Margin="458,10,34.333,369.667" Background="#FF63638F" Content="control panel" Grid.ColumnSpan="2" RenderTransformOrigin="0.5,0.5" Padding="5" ScrollViewer.CanContentScroll="True" FontWeight="Bold" FontStyle="Italic" FontSize="16" FontFamily="Aharoni" Opacity="0.995">
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform X="4"/>
+                </TransformGroup>
+            </Label.RenderTransform>
+        </Label>
+
+        <m:Map CredentialsProvider="INSERT_YOUR_BING_MAPS_KEY" x:Name="myMap" Margin="0,-10,174,9.667" ZoomLevel="0.25">
+            <RadioButton HorizontalAlignment="Left" Height="37" VerticalAlignment="Center" Width="59" Background="#FFE80F0F" BorderBrush="#FF070505" MinHeight="3" Margin="34,-103,0,486.667" IsChecked="True" RenderTransformOrigin="0.235,0.643">
+                <RadioButton.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform X="50" Y="300"/>
+                    </TransformGroup>
+                </RadioButton.RenderTransform>
+
+            </RadioButton>
+
+
+
+
+        </m:Map>
+        <uc:Joystick Loaded="Joystick_Loaded" Margin="395,1,-231.667,379.667" Grid.Column="1" RenderTransformOrigin="0.5,0.5" >
+            <local:Joystick.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleX="-1"/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </local:Joystick.RenderTransform>
+        </uc:Joystick>
+    </Grid>
+
+</Window>
