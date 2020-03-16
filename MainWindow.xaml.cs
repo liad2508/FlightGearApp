@@ -12,7 +12,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using FlightGearApp;
+using FlightGearApp.model;
 using Microsoft.Maps.MapControl.WPF;
+
 
 namespace WpfApp1
 {
@@ -21,13 +24,15 @@ namespace WpfApp1
     /// </summary>
     public partial class MainWindow : Window
     {
-      
+        private FlightViewModel vm;
+
         public MainWindow()
         {
             InitializeComponent();
-            
-               //Set the map mode to Aerial with labels
-               myMap.Mode = new AerialMode(true); 
+            this.vm = new FlightViewModel(new FlightModel(new ConcreteTelnetClient()));            
+            DataContext = vm;
+            //Set the map mode to Aerial with labels
+            myMap.Mode = new AerialMode(true);           
         }
 
         private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -38,6 +43,21 @@ namespace WpfApp1
         private void Joystick_Loaded(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void Window_Activated(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Joystick_MouseEnter(object sender, MouseEventArgs e)
+        {
+            li.FontSize = 10;
+        }
+
+        private void Joystick_MouseLeave(object sender, MouseEventArgs e)
+        {
+            li.FontSize = 30;
         }
     }
 }

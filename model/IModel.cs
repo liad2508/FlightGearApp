@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FlightGearApp
 {
-    interface IModel
+    interface IModel : INotifyPropertyChanged
     {
         void connect(string ip, int port);
         void disconnect();
