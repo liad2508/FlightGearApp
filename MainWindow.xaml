@@ -10,6 +10,12 @@
         Title="MainWindow" Height="450" Width="1000">
 
     <Grid>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="Black" Offset="0"/>
+                <GradientStop Color="#FF122B57" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
         <!--
         <Grid.RowDefinitions>
             <RowDefinition Height="380*"/>
@@ -51,9 +57,30 @@
 
         </m:Map>
 
+        <Slider Name="throttle"  Margin="750,361,0,28.667" 
+  Width="100" Orientation="Horizontal" HorizontalAlignment="Left" 
+  Value="50" Minimum="0" Maximum="200" 
+  SmallChange="1" LargeChange="10"
+  TickPlacement="BottomRight" TickFrequency="10"/>
+
+        <Slider Name="aileron"  Margin="650,279,0,110.667" 
+  Width="100" Orientation="Horizontal" HorizontalAlignment="Left" 
+  Value="50" Minimum="0" Maximum="200" 
+  SmallChange="1" LargeChange="10"
+  TickPlacement="BottomRight" TickFrequency="10" RenderTransformOrigin="0.5,0.5">
+            <Slider.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-89.584"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Slider.RenderTransform>
+        </Slider>
 
 
-        <Viewbox HorizontalAlignment="Left" Height="260" Margin="649,119,0,0" VerticalAlignment="Top" Width="307" RenderTransformOrigin="0.5,0.5">
+        <Viewbox HorizontalAlignment="Left" Height="260" Margin="625,110,0,0" VerticalAlignment="Top" Width="307" RenderTransformOrigin="0.5,0.5">
+
             <Viewbox.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -62,7 +89,7 @@
                     <TranslateTransform/>
                 </TransformGroup>
             </Viewbox.RenderTransform>
-            <uc:Joystick Loaded="Joystick_Loaded" Margin="401,115,-237.667,233" Grid.Column="1" RenderTransformOrigin="0.928,0.428" MouseEnter="Joystick_MouseEnter" MouseLeave="Joystick_MouseLeave" Height="79" Width="559" Foreground="#FF1D050A" >
+            <uc:Joystick Loaded="Joystick_Loaded" Margin="401,115,-237.667,233" Grid.Column="1" RenderTransformOrigin="0.928,0.428" MouseEnter="Joystick_MouseEnter" MouseLeave="Joystick_MouseLeave" Height="118" Width="598" Foreground="#FF1D050A" >
                 <local:Joystick.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform ScaleX="-1"/>
@@ -111,7 +138,58 @@
             <Label Grid.Row="2" Grid.Column="2" Margin="32,24.667,24.333,-0.333" Grid.RowSpan="2" Grid.ColumnSpan="2" Height="33" VerticalAlignment="Top" FontStyle="Italic">Roll:</Label>
         </Grid>
         <Label Content="Control Panel" HorizontalContentAlignment="Center" Margin="646,15,10.333,0" VerticalAlignment="Top" Height="40" Width="337" Background="#FF57E91D" FontWeight="Bold" FontStyle="Italic" FontSize="20"/>
-
+        <Label Content="Rudder" HorizontalContentAlignment="Center" Margin="825,265,28.333,0" VerticalAlignment="Top" Height="32"  FontStyle="Italic" FontSize="13" RenderTransformOrigin="0.5,0.5" Foreground="#FFF1EBEB">
+            <Label.Background>
+                <ImageBrush/>
+            </Label.Background>
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="89.589"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Label.RenderTransform>
+        </Label>
+        <Label Content="Elevator" HorizontalContentAlignment="Center" Margin="731,176,122.333,0" VerticalAlignment="Top" Height="32"  FontStyle="Italic" FontSize="13" RenderTransformOrigin="0.5,0.5" Foreground="#FFF1EBEB">
+            <Label.Background>
+                <ImageBrush/>
+            </Label.Background>
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="359.513"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Label.RenderTransform>
+        </Label>
+        <Label Content="Aileron" HorizontalContentAlignment="Center" Margin="597,281,256.333,0" VerticalAlignment="Top" Height="32"  FontStyle="Italic" FontSize="13" RenderTransformOrigin="0.5,0.5" Foreground="#FFF1EBEB">
+            <Label.Background>
+                <ImageBrush/>
+            </Label.Background>
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="270.151"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Label.RenderTransform>
+        </Label>
+        <Label Content="Throttle" HorizontalContentAlignment="Center" Margin="728,385,125.333,0" VerticalAlignment="Top" Height="32"  FontStyle="Italic" FontSize="13" RenderTransformOrigin="0.5,0.5" Foreground="#FFF1EBEB">
+            <Label.Background>
+                <ImageBrush/>
+            </Label.Background>
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="359.513"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Label.RenderTransform>
+        </Label>
 
         <!--
         <Grid Margin="511,36,10.333,98" Grid.ColumnSpan="2">
