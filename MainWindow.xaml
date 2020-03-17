@@ -7,9 +7,10 @@
         xmlns:uc="clr-namespace:WpfApp1"
         xmlns:local="clr-namespace:WpfApp1"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="900">
+        Title="MainWindow" Height="450" Width="1000">
 
     <Grid>
+        <!--
         <Grid.RowDefinitions>
             <RowDefinition Height="380*"/>
             <RowDefinition Height="41*"/>
@@ -17,21 +18,22 @@
 
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="680*"/>
-            <ColumnDefinition Width="213*"/>
-        </Grid.ColumnDefinitions>
-        <Label x:Name="li" HorizontalContentAlignment="Center" Foreground="#FF010205" Margin="492,0,0.333,344" Background="#FF4757B4" Content="control panel" Grid.ColumnSpan="2" RenderTransformOrigin="0.5,0.5" Padding="6" ScrollViewer.CanContentScroll="True" FontWeight="Bold" FontStyle="Italic" FontSize="16" FontFamily="Aharoni" Opacity="0.995" MouseEnter="li_MouseEnter">
+            <ColumnDefinition Width="785*"/>
+            <ColumnDefinition Width="208*"/>
+        </Grid.ColumnDefinitions>-->
+        <!-- <Label x:Name="li" HorizontalContentAlignment="Center" Foreground="#FF010205" Margin="630,9,26.333,0" Background="#FF4757B4" Content="Control Panel" RenderTransformOrigin="0.5,0.5" Padding="6" ScrollViewer.CanContentScroll="True" FontWeight="Bold" FontStyle="Italic" FontSize="16" FontFamily="Aharoni" Opacity="0.995" MouseEnter="li_MouseEnter" Height="31" VerticalAlignment="Top">
             <Label.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
                     <SkewTransform/>
-                    <RotateTransform/>
+                    <RotateTransform Angle="-0.02"/>
                     <TranslateTransform X="4"/>
                 </TransformGroup>
             </Label.RenderTransform>
-        </Label>
+        </Label> -->
 
-        <m:Map CredentialsProvider="INSERT_YOUR_BING_MAPS_KEY" x:Name="myMap" Margin="0,-10,174,9.667" ZoomLevel="0.25" Grid.RowSpan="2">
+
+        <m:Map CredentialsProvider="INSERT_YOUR_BING_MAPS_KEY" x:Name="myMap" Margin="10,10,368.333,9.667" ZoomLevel="0.25">
             <RadioButton HorizontalAlignment="Left" Height="37" VerticalAlignment="Center" Width="59" Background="#FFE80F0F" BorderBrush="#FF070505" MinHeight="3" Margin="34,-103,0,486.667" IsChecked="True" RenderTransformOrigin="0.235,0.643">
                 <RadioButton.RenderTransform>
                     <TransformGroup>
@@ -49,7 +51,9 @@
 
         </m:Map>
 
-        <Viewbox Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="268" Margin="549,167,0,-14.333" VerticalAlignment="Top" Width="295" Grid.RowSpan="2" RenderTransformOrigin="0.5,0.5">
+
+
+        <Viewbox HorizontalAlignment="Left" Height="260" Margin="649,119,0,0" VerticalAlignment="Top" Width="307" RenderTransformOrigin="0.5,0.5">
             <Viewbox.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -70,6 +74,46 @@
             </uc:Joystick>
         </Viewbox>
 
+
+        <Grid Margin="646,55,10.333,250.667" RenderTransformOrigin="0.447,-0.654" Background="#FF459B6E" OpacityMask="#FF1A62A8">
+            <Grid.ColumnDefinitions>
+
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="100" />
+                <ColumnDefinition Width="50"/>
+
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="28" />
+                <RowDefinition Height="28" />
+                <RowDefinition Height="28" />
+                <RowDefinition Height="28" />
+            </Grid.RowDefinitions>
+
+
+            <TextBox Grid.Row="0" Grid.Column="1" Margin="25.333,0,-19.667,6" Height="19" VerticalAlignment="Bottom"  />
+            <TextBox Grid.Row="1" Grid.Column="1" Margin="25.333,0,-19.667,6.333" Height="19" VerticalAlignment="Bottom"  />
+            <TextBox Grid.Row="2" Grid.Column="1" Margin="25.333,0,-19.667,6" Height="19" VerticalAlignment="Bottom"  />
+            <TextBox Grid.Row="3" Grid.Column="1" Margin="25.333,0,-19.667,6" Height="19" VerticalAlignment="Bottom" />
+            <TextBox Grid.Row="0" Grid.Column="3" Margin="25.333,0,-19.667,6" Height="19" VerticalAlignment="Bottom" />
+            <TextBox Grid.Row="1" Grid.Column="3" Margin="25.333,0,-19.667,6.333" Height="19" VerticalAlignment="Bottom" />
+            <TextBox Grid.Row="2" Grid.Column="3" Margin="25.333,0,-19.667,6" Height="19" VerticalAlignment="Bottom" />
+            <TextBox Grid.Row="3" Grid.Column="3" Margin="25.333,0,-19.667,6" Height="19" VerticalAlignment="Bottom"  />
+
+            <Label Margin="0,0,0.667,26.333" Grid.RowSpan="2" FontStyle="Italic" >Heading-Degree:</Label>
+            <Label Grid.Row="1" Grid.Column="0" Margin="0,0,0.667,0.333" FontStyle="Italic">Ground Speed:</Label>
+            <Label Grid.Row="1" Grid.Column="0" Margin="0,26,0.667,0" Grid.RowSpan="2" FontStyle="Italic">Vertical Speed:</Label>
+            <Label Grid.Row="2" Grid.Column="0" Margin="0,24.667,0.667,0" Grid.RowSpan="2" FontStyle="Italic">Airspeed:</Label>
+            <Label Grid.Row="0" Grid.Column="2" Margin="32.333,0,-26.667,26.333" Grid.RowSpan="2" FontStyle="Italic">Altitude:</Label>
+            <Label Grid.Row="1" Grid.Column="2" Margin="32.333,0,-26.667,0.333" FontStyle="Italic">Altimeter:</Label>
+            <Label Grid.Row="1" Grid.Column="2" Margin="32.333,26,-26.667,0" Grid.RowSpan="2" FontStyle="Italic">Pitch:</Label>
+            <Label Grid.Row="2" Grid.Column="2" Margin="32,24.667,24.333,-0.333" Grid.RowSpan="2" Grid.ColumnSpan="2" Height="33" VerticalAlignment="Top" FontStyle="Italic">Roll:</Label>
+        </Grid>
+        <Label Content="Control Panel" HorizontalContentAlignment="Center" Margin="646,15,10.333,0" VerticalAlignment="Top" Height="40" Width="337" Background="#FF57E91D" FontWeight="Bold" FontStyle="Italic" FontSize="20"/>
+
+
+        <!--
         <Grid Margin="511,36,10.333,98" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="250" />
@@ -87,18 +131,7 @@
                 <RowDefinition Height="28" />
             </Grid.RowDefinitions>
 
-            <!--
-            <TextBox Grid.Column="1" RenderTransformOrigin="0.5,0.5" Height="20" Margin="27,0,26.334,0" VerticalAlignment="Top" Width="50" Grid.ColumnSpan="2">
-                <TextBox.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform/>
-                        <SkewTransform/>
-                        <RotateTransform Angle="0.069"/>
-                        <TranslateTransform/>
-                    </TransformGroup>
-                </TextBox.RenderTransform>
-            </TextBox>
-            -->
+         
             <TextBox Grid.Row="0" Grid.Column="1" Margin="0,0,0,6" Height="19" VerticalAlignment="Bottom" />
             <TextBox Grid.Row="1" Grid.Column="1" Margin="0,0,0,6" Height="19" VerticalAlignment="Bottom" />
             <TextBox Grid.Row="2" Grid.Column="1" Margin="0,0,0,6" Height="19" VerticalAlignment="Bottom" />
@@ -117,6 +150,7 @@
             <Label Grid.Row="6">attitude-indicator_internal-pitch-deg:</Label>
             <Label Grid.Row="7">altimeter_indicated-altitude-ft:</Label>
         </Grid>
+        -->
     </Grid>
 
 </Window>
