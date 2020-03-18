@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -8,24 +11,39 @@ namespace FlightGearApp.model
 {
     class ConcreteTelnetClient : ITelnetClient
     {
+        private TcpClient _client;
+        private NetworkStream _ns;
+
+
+        // This method connects the simulator to the program
         public void connect(string ip, int port)
         {
-            throw new NotImplementedException();
+            _client = new TcpClient("localhost", 5402);
+            _ns = _client.GetStream();
         }
+
 
         public void disconnect()
         {
-            throw new NotImplementedException();
+            _ns.Close();
+            _client.Close();
         }
 
+        // This menthod get the data form the simulator: aileron, elevator, latitude
         public string read()
         {
-            throw new NotImplementedException();
+            string retval;
+            byte[] bytes = new byte[1024];
+            int bytesRead = _ns.Read(bytes, 0, bytes.Length);
+            retval = Encoding.ASCII.GetString(bytes, 0, bytesRead);
+            return retval;
         }
 
         public void write(string command)
         {
-            throw new NotImplementedException();
+            byte[] bytes = new byte[1024];
+            bytes = Encoding.ASCII.GetBytes(command);
+            _ns.Write(bytes, 0, bytes.Length);
         }
     }
 }
