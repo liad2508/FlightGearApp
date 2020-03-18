@@ -57,16 +57,18 @@
 
         </m:Map>
 
-        <Slider Name="throttle"  Margin="750,361,0,28.667" 
+        <Slider Name="throttle"  Margin="775,361,0,28.667" 
   Width="100" Orientation="Horizontal" HorizontalAlignment="Left" 
-  Value="50" Minimum="0" Maximum="200" 
+  Value="{Binding VM_throttle}" Minimum="-1" Maximum="1"                
   SmallChange="1" LargeChange="10"
   TickPlacement="BottomRight" TickFrequency="10"/>
 
-        <Slider Name="aileron"  Margin="650,279,0,110.667" 
+
+        <Slider Name="aileron"  Margin="686,271,0,118.667" 
   Width="100" Orientation="Horizontal" HorizontalAlignment="Left" 
-  Value="50" Minimum="0" Maximum="200" 
+  Value="{Binding aileron}" Minimum="0" Maximum="200" 
   SmallChange="1" LargeChange="10"
+    
   TickPlacement="BottomRight" TickFrequency="10" RenderTransformOrigin="0.5,0.5">
             <Slider.RenderTransform>
                 <TransformGroup>
@@ -79,7 +81,7 @@
         </Slider>
 
 
-        <Viewbox HorizontalAlignment="Left" Height="260" Margin="625,110,0,0" VerticalAlignment="Top" Width="307" RenderTransformOrigin="0.5,0.5">
+        <Viewbox HorizontalAlignment="Left" Height="260" Margin="655,113,0,0" VerticalAlignment="Top" Width="307" RenderTransformOrigin="0.5,0.5">
 
             <Viewbox.RenderTransform>
                 <TransformGroup>
@@ -89,7 +91,7 @@
                     <TranslateTransform/>
                 </TransformGroup>
             </Viewbox.RenderTransform>
-            <uc:Joystick Loaded="Joystick_Loaded" Margin="401,115,-237.667,233" Grid.Column="1" RenderTransformOrigin="0.928,0.428" MouseEnter="Joystick_MouseEnter" MouseLeave="Joystick_MouseLeave" Height="118" Width="598" Foreground="#FF1D050A" >
+            <uc:Joystick x:Name="joystick" Loaded="Joystick_Loaded" Margin="401,115,-237.667,233" Grid.Column="1" RenderTransformOrigin="0.928,0.428" Height="118" Width="598" Foreground="#FF1D050A" >
                 <local:Joystick.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform ScaleX="-1"/>
@@ -137,8 +139,8 @@
             <Label Grid.Row="1" Grid.Column="2" Margin="32.333,26,-26.667,0" Grid.RowSpan="2" FontStyle="Italic">Pitch:</Label>
             <Label Grid.Row="2" Grid.Column="2" Margin="32,24.667,24.333,-0.333" Grid.RowSpan="2" Grid.ColumnSpan="2" Height="33" VerticalAlignment="Top" FontStyle="Italic">Roll:</Label>
         </Grid>
-        <Label Content="Control Panel" HorizontalContentAlignment="Center" Margin="646,15,10.333,0" VerticalAlignment="Top" Height="40" Width="337" Background="#FF57E91D" FontWeight="Bold" FontStyle="Italic" FontSize="20"/>
-        <Label Content="Rudder" HorizontalContentAlignment="Center" Margin="825,265,28.333,0" VerticalAlignment="Top" Height="32"  FontStyle="Italic" FontSize="13" RenderTransformOrigin="0.5,0.5" Foreground="#FFF1EBEB">
+        <Label x:Name="li" Content="Control Panel" HorizontalContentAlignment="Center" Margin="646,15,10.333,0" VerticalAlignment="Top" Height="40" Width="337" Background="#FF6C716A" FontWeight="Bold" FontStyle="Italic" FontSize="20"/>
+        <Label Content="Rudder" HorizontalContentAlignment="Center" Margin="856,265,-2.667,0" VerticalAlignment="Top" Height="32"  FontStyle="Italic" FontSize="13" RenderTransformOrigin="0.5,0.5" Foreground="#FFF1EBEB">
             <Label.Background>
                 <ImageBrush/>
             </Label.Background>
@@ -151,7 +153,7 @@
                 </TransformGroup>
             </Label.RenderTransform>
         </Label>
-        <Label Content="Elevator" HorizontalContentAlignment="Center" Margin="731,176,122.333,0" VerticalAlignment="Top" Height="32"  FontStyle="Italic" FontSize="13" RenderTransformOrigin="0.5,0.5" Foreground="#FFF1EBEB">
+        <Label Content="Elevator" HorizontalContentAlignment="Center" Margin="757,179,96.333,0" VerticalAlignment="Top" Height="32"  FontStyle="Italic" FontSize="13" RenderTransformOrigin="0.5,0.5" Foreground="#FFF1EBEB">
             <Label.Background>
                 <ImageBrush/>
             </Label.Background>
@@ -164,7 +166,7 @@
                 </TransformGroup>
             </Label.RenderTransform>
         </Label>
-        <Label Content="Aileron" HorizontalContentAlignment="Center" Margin="597,281,256.333,0" VerticalAlignment="Top" Height="32"  FontStyle="Italic" FontSize="13" RenderTransformOrigin="0.5,0.5" Foreground="#FFF1EBEB">
+        <Label Content="Aileron" HorizontalContentAlignment="Center" Margin="625,269,228.333,0" VerticalAlignment="Top" Height="32"  FontStyle="Italic" FontSize="13" RenderTransformOrigin="0.5,0.5" Foreground="#FFF1EBEB">
             <Label.Background>
                 <ImageBrush/>
             </Label.Background>
@@ -177,7 +179,7 @@
                 </TransformGroup>
             </Label.RenderTransform>
         </Label>
-        <Label Content="Throttle" HorizontalContentAlignment="Center" Margin="728,385,125.333,0" VerticalAlignment="Top" Height="32"  FontStyle="Italic" FontSize="13" RenderTransformOrigin="0.5,0.5" Foreground="#FFF1EBEB">
+        <Label Content="Throttle" HorizontalContentAlignment="Center" Margin="755,385,98.333,0" VerticalAlignment="Top" Height="32"  FontStyle="Italic" FontSize="13" RenderTransformOrigin="0.5,0.5" Foreground="#FFF1EBEB">
             <Label.Background>
                 <ImageBrush/>
             </Label.Background>
