@@ -30,18 +30,18 @@ namespace FlightGearApp
         }
 
         // Properties:
+        private double aileron;
         public double VM_Aileron
         {
             get 
             {
                 Console.WriteLine("Aileron: View <-- VM <-- Model");
-                NotifyPropertyChanged("VM_Aileron");
-                return model.aileron; 
+                return this.aileron;
             }
             set
             {
                 Console.WriteLine("Aileron: View --> VM --> Model");
-                model.setAileron(value);
+                this.model.changeAileron(this.aileron);
             }
         }
 
@@ -60,18 +60,21 @@ namespace FlightGearApp
             }
         }
 
+        private double throttle;
         public double VM_Throttle
         {
             get 
             {
                 Console.WriteLine("Throttle: View <-- VM <-- Model");
-                NotifyPropertyChanged("VM_Throttle");
-                return model.throttle; 
+                return this.throttle;            
+              
             } 
             set
             {
                 Console.WriteLine("Throttle: View --> VM --> Model");
-                model.setThrottle(value);
+                this.throttle = value;
+                this.model.changeThrottle(this.throttle);               
+
             }
         }
 
@@ -130,9 +133,12 @@ namespace FlightGearApp
             get { return model.pitch; }
         }
 
+        private double a;
         public double VM_AirSpeed
         {
-            get { return model.airSpeed; }
+            // get { return model.airSpeed; }
+            get { return a; }
+            set { a = value; }
         }
 
         public double VM_Roll
@@ -140,5 +146,10 @@ namespace FlightGearApp
             get { return model.roll; }
         }
 
+
+        public void changeThrottle(double t)
+        {
+
+        }
     }
 }

@@ -1,11 +1,11 @@
-﻿<Window x:Class="WpfApp1.MainWindow"
+﻿<Window x:Class="WpfApp2.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:m="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"
-        xmlns:uc="clr-namespace:WpfApp1"
-        xmlns:local="clr-namespace:WpfApp1"
+        xmlns:uc="clr-namespace:WpfApp2"
+        xmlns:local="clr-namespace:WpfApp2"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="1000">
 
@@ -59,14 +59,14 @@
 
         <Slider Name="throttle"  Margin="775,361,0,28.667" 
   Width="100" Orientation="Horizontal" HorizontalAlignment="Left" 
-  Value="{Binding VM_throttle}" Minimum="-1" Maximum="1"                
+  Value="{Binding VM_Throttle}" Minimum="-1" Maximum="1"                
   SmallChange="1" LargeChange="10"
   TickPlacement="BottomRight" TickFrequency="10"/>
 
 
         <Slider Name="aileron"  Margin="686,271,0,118.667" 
   Width="100" Orientation="Horizontal" HorizontalAlignment="Left" 
-  Value="{Binding aileron}" Minimum="0" Maximum="200" 
+  Value="{Binding VM_Aileron}" Minimum="-1" Maximum="1" 
   SmallChange="1" LargeChange="10"
     
   TickPlacement="BottomRight" TickFrequency="10" RenderTransformOrigin="0.5,0.5">
@@ -104,7 +104,7 @@
         </Viewbox>
 
 
-        <Grid Margin="646,55,10.333,250.667" RenderTransformOrigin="0.447,-0.654" Background="#FF459B6E" OpacityMask="#FF1A62A8">
+        <Grid Margin="646,55,10.333,250.667" RenderTransformOrigin="0.447,-0.654" Background="#FF0A869C" OpacityMask="#FF1A62A8">
             <Grid.ColumnDefinitions>
 
                 <ColumnDefinition Width="100"/>
@@ -119,25 +119,24 @@
                 <RowDefinition Height="28" />
                 <RowDefinition Height="28" />
             </Grid.RowDefinitions>
-
-
-            <TextBox Grid.Row="0" Grid.Column="1" Margin="25.333,0,-19.667,6" Height="19" VerticalAlignment="Bottom"  />
-            <TextBox Grid.Row="1" Grid.Column="1" Margin="25.333,0,-19.667,6.333" Height="19" VerticalAlignment="Bottom"  />
-            <TextBox Grid.Row="2" Grid.Column="1" Margin="25.333,0,-19.667,6" Height="19" VerticalAlignment="Bottom"  />
-            <TextBox Grid.Row="3" Grid.Column="1" Margin="25.333,0,-19.667,6" Height="19" VerticalAlignment="Bottom" />
-            <TextBox Grid.Row="0" Grid.Column="3" Margin="25.333,0,-19.667,6" Height="19" VerticalAlignment="Bottom" />
-            <TextBox Grid.Row="1" Grid.Column="3" Margin="25.333,0,-19.667,6.333" Height="19" VerticalAlignment="Bottom" />
-            <TextBox Grid.Row="2" Grid.Column="3" Margin="25.333,0,-19.667,6" Height="19" VerticalAlignment="Bottom" />
-            <TextBox Grid.Row="3" Grid.Column="3" Margin="25.333,0,-19.667,6" Height="19" VerticalAlignment="Bottom"  />
+            <ProgressBar Value="{Binding VM_AirSpeed}" Grid.Column="1" HorizontalAlignment="Left" Height="15" Margin="10.333,4,0,0" Grid.Row="3" VerticalAlignment="Top" Width="61" Grid.ColumnSpan="2"/>
+            <ProgressBar Value="{Binding VM_AirSpeed}" HorizontalAlignment="Left" Height="15" Margin="10.333,7.667,0,0" Grid.Row="2" VerticalAlignment="Top" Width="61" Grid.ColumnSpan="2" Grid.Column="1"/>
+            <ProgressBar Value="{Binding VM_AirSpeed}" Grid.Column="1" HorizontalAlignment="Left" Height="15" Margin="10.333,8,0,0" VerticalAlignment="Top" Width="61" Grid.ColumnSpan="2"/>
+            <ProgressBar Value="{Binding VM_AirSpeed}" Grid.Column="3" HorizontalAlignment="Left" Height="15" Margin="14,5,-24.333,0" Grid.Row="3" VerticalAlignment="Top" Width="61"/>
+            <ProgressBar Value="{Binding VM_AirSpeed}" Grid.Column="3" HorizontalAlignment="Left" Height="15" Margin="14,7.333,-24.333,0" Grid.Row="1" VerticalAlignment="Top" Width="61" RenderTransformOrigin="2.779,-2.744"/>
+            <ProgressBar Value="{Binding VM_AirSpeed}" Grid.Column="3" HorizontalAlignment="Left" Height="15" Margin="14,7.667,-24.333,0" Grid.Row="2" VerticalAlignment="Top" Width="61"/>
+            <ProgressBar Value="{Binding VM_AirSpeed}" Grid.Column="3" HorizontalAlignment="Left" Height="15" Margin="14,9,-24.333,0" VerticalAlignment="Top" Width="61"/>
+            <ProgressBar Value="{Binding VM_AirSpeed}" Grid.Column="1" HorizontalAlignment="Left" Height="15" Margin="10.333,7.333,0,0" Grid.Row="1" VerticalAlignment="Top" Width="61" Grid.ColumnSpan="2"/>
 
             <Label Margin="0,0,0.667,26.333" Grid.RowSpan="2" FontStyle="Italic" >Heading-Degree:</Label>
             <Label Grid.Row="1" Grid.Column="0" Margin="0,0,0.667,0.333" FontStyle="Italic">Ground Speed:</Label>
             <Label Grid.Row="1" Grid.Column="0" Margin="0,26,0.667,0" Grid.RowSpan="2" FontStyle="Italic">Vertical Speed:</Label>
-            <Label Grid.Row="2" Grid.Column="0" Margin="0,24.667,0.667,0" Grid.RowSpan="2" FontStyle="Italic">Airspeed:</Label>
+            <Label Grid.Row="2" Grid.Column="0" Margin="0,24.667,0.667,0" Grid.RowSpan="2"  FontStyle="Italic">Airspeed:</Label>
             <Label Grid.Row="0" Grid.Column="2" Margin="32.333,0,-26.667,26.333" Grid.RowSpan="2" FontStyle="Italic">Altitude:</Label>
             <Label Grid.Row="1" Grid.Column="2" Margin="32.333,0,-26.667,0.333" FontStyle="Italic">Altimeter:</Label>
             <Label Grid.Row="1" Grid.Column="2" Margin="32.333,26,-26.667,0" Grid.RowSpan="2" FontStyle="Italic">Pitch:</Label>
             <Label Grid.Row="2" Grid.Column="2" Margin="32,24.667,24.333,-0.333" Grid.RowSpan="2" Grid.ColumnSpan="2" Height="33" VerticalAlignment="Top" FontStyle="Italic">Roll:</Label>
+
         </Grid>
         <Label x:Name="li" Content="Control Panel" HorizontalContentAlignment="Center" Margin="646,15,10.333,0" VerticalAlignment="Top" Height="40" Width="337" Background="#FF6C716A" FontWeight="Bold" FontStyle="Italic" FontSize="20"/>
         <Label Content="Rudder" HorizontalContentAlignment="Center" Margin="856,265,-2.667,0" VerticalAlignment="Top" Height="32"  FontStyle="Italic" FontSize="13" RenderTransformOrigin="0.5,0.5" Foreground="#FFF1EBEB">

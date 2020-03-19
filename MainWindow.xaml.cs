@@ -17,7 +17,7 @@ using FlightGearApp.model;
 using Microsoft.Maps.MapControl.WPF;
 
 
-namespace WpfApp1
+namespace WpfApp2
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -32,7 +32,14 @@ namespace WpfApp1
             this.vm = new FlightViewModel(new FlightModel(new ConcreteTelnetClient()));            
             DataContext = vm;
             //Set the map mode to Aerial with labels
-            myMap.Mode = new AerialMode(true);           
+            myMap.Mode = new AerialMode(true);
+            //vm.VM_Rudder = 0.5;
+            FlightModel m = new FlightModel(new ConcreteTelnetClient());
+            //m.connect("127.0.0.1", 5402);
+            Console.WriteLine("hi");
+            vm.VM_AirSpeed = 50;
+            double b = vm.VM_Aileron;
+         
         }
 
         private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)

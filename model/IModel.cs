@@ -15,8 +15,8 @@ namespace FlightGearApp
         // Declaring all the Properties
         // The forth Joystick Properties:
         double elevator { set; get; }
-        double aileron { set; get; }
-        double throttle { set; get; }
+        //double aileron { set; get; }
+        //double throttle { set; get; }
         double rudder { set; get; }
 
         // coordinates Properties
@@ -34,10 +34,12 @@ namespace FlightGearApp
         double roll { set; get; }
 
         void setRudder(double rudderVal);
-        void setThrottle(double thrVal);
+        //void setThrottle(double thrVal);
         void setElevator(double eleVal);
-        void setAileron(double aileronVal);
+        //void setAileron(double aileronVal);
 
         // we need to add functions to the interface
+        void changeThrottle(double throttle);
+        void changeAileron(double aileron);
     }
 }

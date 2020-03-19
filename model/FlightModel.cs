@@ -31,7 +31,7 @@ namespace FlightGearApp
             }
         }
 
-        public double aileron
+       /* public double aileron
         {
             get { return aileron; }
             set
@@ -39,8 +39,9 @@ namespace FlightGearApp
                 aileron = value;
                 NotifyPropertyChanged("Aileron");
             }
-        }
+        }*/
 
+       /*
         public double throttle
         {
             get { return throttle; }
@@ -48,8 +49,9 @@ namespace FlightGearApp
             {
                 throttle = value;
                 NotifyPropertyChanged("Throttle");
+                
             }
-        }
+        }*/
 
         public double rudder
         {
@@ -185,13 +187,13 @@ namespace FlightGearApp
                 {
                     // Gets:
                     this.telnetClient.write("get /controls/flight/aileron \n");
-                    aileron = Double.Parse(telnetClient.read());
+                    //aileron = Double.Parse(telnetClient.read());
                     this.telnetClient.write("get /controls/flight/elevator \n");
                     elevator = Double.Parse(telnetClient.read());
                     this.telnetClient.write("get /controls/flight/rudder \n");
                     rudder = Double.Parse(telnetClient.read());
                     this.telnetClient.write("get /controls/engines/current-engine/throttle \n");
-                    throttle = Double.Parse(telnetClient.read());
+                    //throttle = Double.Parse(telnetClient.read());
                     this.telnetClient.write("get /position/latitude-deg \n");
                     lat = Double.Parse(telnetClient.read());
                     this.telnetClient.write("get /position/longitude-deg \n");
@@ -228,11 +230,12 @@ namespace FlightGearApp
             this.telnetClient.write("set /controls/flight/rudder" + rudderVal.ToString() + "\n");
         }
 
+        /*
         public void setThrottle(double thrVal)
         {
             throttle = thrVal;
             this.telnetClient.write("set /controls/engines/current-engine/throttle" + thrVal.ToString() + "\n");
-        }
+        }*/
 
         public void setElevator(double eleVal)
         {
@@ -240,11 +243,23 @@ namespace FlightGearApp
             this.telnetClient.write("set /controls/flight/elevator" + eleVal.ToString() + "\n");
         }
 
-        public void setAileron(double aileronVal)
+        /*public void setAileron(double aileronVal)
         {
             aileron = aileronVal;
             this.telnetClient.write("set /controls/flight/aileron" + aileronVal.ToString() + "\n");
+        }*/
+
+        public void changeThrottle(double throttle)
+        {
+            Console.WriteLine("bla bla");
+            this.telnetClient.write("set /controls/engines/current-engine/throttle" + throttle.ToString() + "\n");
+            
         }
 
+        public void changeAileron(double aileron)
+        {
+            Console.WriteLine("hiiii");
+            this.telnetClient.write("set /controls/flight/aileron" + aileron.ToString() + "\n");
+        }
     }
 }
