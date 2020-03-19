@@ -26,6 +26,7 @@ namespace WpfApp1
         }
         private void centerKnob_Completed(object sender, EventArgs e) { }
         private Point firstPoint = new Point();
+        
       
 
         private void Knob_MouseDown(object sender, MouseButtonEventArgs e)
@@ -33,13 +34,16 @@ namespace WpfApp1
             if (e.ChangedButton == MouseButton.Left)
             {
                 this.firstPoint = e.GetPosition(this);
-            }
+                Knob.CaptureMouse();                  
+            }           
         }
 
         private void Knob_MouseUp(object sender, MouseButtonEventArgs e)
-        {
+        {            
             knobPosition.X = 0;
             knobPosition.Y = 0;
+            Knob.ReleaseMouseCapture();
+
         }
 
         private void Knob_MouseMove(object sender, MouseEventArgs e)
@@ -48,12 +52,12 @@ namespace WpfApp1
             {
                 double x = e.GetPosition(this).X - this.firstPoint.X;
                 double y = e.GetPosition(this).Y - this.firstPoint.Y;
-                if (Math.Sqrt(x*x + y*y) < Base.Width / 2)
+                if (Math.Sqrt(x * x + y * y) < Base.Width / 6)
                 {
                     knobPosition.X = x;
                     knobPosition.Y = y;
-                }
+                }  
             }
-        }
+        }        
     }
 }
