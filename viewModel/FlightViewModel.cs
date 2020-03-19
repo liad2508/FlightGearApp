@@ -29,17 +29,116 @@ namespace FlightGearApp
                 this.PropertyChanged(this, new PropertyChangedEventArgs(propName));
         }
 
-        // properties - through the VM the view will recieve the model's data
-        public double VM_aileron
+        // Properties:
+        public double VM_Aileron
         {
-            get { return model.aileron; }
+            get 
+            {
+                Console.WriteLine("Aileron: View <-- VM <-- Model");
+                NotifyPropertyChanged("VM_Aileron");
+                return model.aileron; 
+            }
+            set
+            {
+                Console.WriteLine("Aileron: View --> VM --> Model");
+                model.setAileron(value);
+            }
         }
 
-        public double VM_elevator
+        public double VM_Elevator
         {
-            get { return model.elevator; }
+            get 
+            {
+                Console.WriteLine("Elevator: View <-- VM <-- Model");
+                NotifyPropertyChanged("VM_Elevator");
+                return model.elevator; 
+            }
+            set
+            {
+                Console.WriteLine("Elevator: View --> VM --> Model");
+                model.setElevator(value);
+            }
         }
 
-        
+        public double VM_Throttle
+        {
+            get 
+            {
+                Console.WriteLine("Throttle: View <-- VM <-- Model");
+                NotifyPropertyChanged("VM_Throttle");
+                return model.throttle; 
+            } 
+            set
+            {
+                Console.WriteLine("Throttle: View --> VM --> Model");
+                model.setThrottle(value);
+            }
+        }
+
+        public double VM_Rudder
+        {
+            get 
+            {
+                Console.WriteLine("Rudder: View <-- VM <-- Model");
+                NotifyPropertyChanged("VM_Rudder");
+                return model.rudder;  
+            }
+            set
+            {
+                Console.WriteLine("Rudder: View --> VM --> Model");
+                model.setRudder(value);
+            }
+        }
+
+        public double VM_Lat
+        {
+            get { return model.lat; }
+        }
+
+        public double VM_Lon
+        {
+            get { return model.lon; }
+        }
+
+        public double VM_HeadingDegree
+        {
+            get { return model.heading_Degree; }
+        }
+
+        public double VM_Altitude
+        {
+            get { return model.altitude; }
+        }
+
+        public double VM_GroundSpeed
+        {
+            get { return model.ground_Speed; }
+        }
+
+        public double VM_Altimeter
+        {
+            get { return model.altimeter; }
+        }
+
+        public double VM_VerticalSpeed
+        {
+            get { return model.vertical_Speed; }
+        }
+
+        public double VM_Pitch
+        {
+            get { return model.pitch; }
+        }
+
+        public double VM_AirSpeed
+        {
+            get { return model.airSpeed; }
+        }
+
+        public double VM_Roll
+        {
+            get { return model.roll; }
+        }
+
     }
 }

@@ -221,15 +221,30 @@ namespace FlightGearApp
             }).Start();
         }
 
+        // Sets function for the 4th JoyStick's Properties
         public void setRudder(double rudderVal)
         {
             rudder = rudderVal;
             this.telnetClient.write("set /controls/flight/rudder" + rudderVal.ToString() + "\n");
-            
         }
-        
 
-        
+        public void setThrottle(double thrVal)
+        {
+            throttle = thrVal;
+            this.telnetClient.write("set /controls/engines/current-engine/throttle" + thrVal.ToString() + "\n");
+        }
+
+        public void setElevator(double eleVal)
+        {
+            elevator = eleVal;
+            this.telnetClient.write("set /controls/flight/elevator" + eleVal.ToString() + "\n");
+        }
+
+        public void setAileron(double aileronVal)
+        {
+            aileron = aileronVal;
+            this.telnetClient.write("set /controls/flight/aileron" + aileronVal.ToString() + "\n");
+        }
 
     }
 }

@@ -33,6 +33,10 @@ namespace FlightGearApp
         double airSpeed { set; get; }
         double roll { set; get; }
 
+        void setRudder(double rudderVal);
+        void setThrottle(double thrVal);
+        void setElevator(double eleVal);
+        void setAileron(double aileronVal);
 
         // we need to add functions to the interface
     }

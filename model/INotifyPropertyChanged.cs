@@ -14,6 +14,4 @@ namespace FlightGearApp
     {
         event PropertyChangedEventHandler PropertyChanged;
     }
-
-
 }
