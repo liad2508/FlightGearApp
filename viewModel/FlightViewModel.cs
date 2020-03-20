@@ -20,6 +20,12 @@ namespace FlightGearApp
             };
 
         }
+
+        public IModel getModel()
+        {
+            return this.model;
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         public void NotifyPropertyChanged(string propName)
@@ -41,6 +47,7 @@ namespace FlightGearApp
             set
             {
                 Console.WriteLine("Aileron: View --> VM --> Model");
+                this.aileron = value;
                 this.model.changeAileron(this.aileron);
             }
         }
@@ -138,7 +145,9 @@ namespace FlightGearApp
         //private double a;
         public double VM_AirSpeed
         {
-            get { return model.airSpeed; }
+            get {
+                Console.WriteLine("im VM_AirSpeed " + model.airSpeed.ToString());
+                return model.airSpeed; }
            // get { return a; }
             //set { a = value; }
         }

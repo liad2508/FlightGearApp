@@ -34,10 +34,10 @@ namespace WpfApp2
             //Set the map mode to Aerial with labels
             myMap.Mode = new AerialMode(true);
             //vm.VM_Rudder = 0.5;
+            
+            vm.getModel().connect("127.0.0.1", 5402);
+            vm.getModel().start();
            
-            //m.connect("127.0.0.1", 5402);
-            Console.WriteLine("hi");            
-            //double b = vm.VM_Aileron;
          
         }
 

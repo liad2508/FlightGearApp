@@ -18,8 +18,8 @@ namespace FlightGearApp
         {
             this.telnetClient = telnetClient;
             this.stop = false;
-            this.air = 70;
-            this.altitude = 30;
+            //this.airSpeed = 65;
+           
             
             
         }
@@ -202,40 +202,91 @@ namespace FlightGearApp
             {
                 while (!stop)
                 {
-                    // Gets:
-                    this.telnetClient.write("get /controls/flight/aileron \n");
-                    //aileron = Double.Parse(telnetClient.read());
-                    this.telnetClient.write("get /controls/flight/elevator \n");
-                    elevator = Double.Parse(telnetClient.read());
-                    this.telnetClient.write("get /controls/flight/rudder \n");
-                    rudder = Double.Parse(telnetClient.read());
-                    this.telnetClient.write("get /controls/engines/current-engine/throttle \n");
-                    //throttle = Double.Parse(telnetClient.read());
-                    this.telnetClient.write("get /position/latitude-deg \n");
-                    lat = Double.Parse(telnetClient.read());
-                    this.telnetClient.write("get /position/longitude-deg \n");
-                    lon = Double.Parse(telnetClient.read());
-                    this.telnetClient.write("get /instrumentation/heading-indicator/indicated-heading-deg \n");
-                    heading_Degree = Double.Parse(telnetClient.read());
-                    this.telnetClient.write("get /instrumentation/gps/indicated-altitude-ft \n");
-                    altitude = Double.Parse(telnetClient.read());
-                    this.telnetClient.write("get /instrumentation/gps/indicated-ground-speed-kt \n");
-                    ground_Speed = Double.Parse(telnetClient.read());
-                    this.telnetClient.write("get /instrumentation/altimeter/indicated-altitude-ft \n");
-                    altimeter = Double.Parse(telnetClient.read());
-                    this.telnetClient.write("get /instrumentation/gps/indicated-vertical-speed \n");
-                    vertical_Speed = Double.Parse(telnetClient.read());
-                    this.telnetClient.write("get /instrumentation/attitude-indicator/internal-pitch-deg \n");
-                    pitch = Double.Parse(telnetClient.read());
-                    this.telnetClient.write("get /instrumentation/airspeed-indicator/indicated-speed-kt \n");
-                    airSpeed = Double.Parse(telnetClient.read());
-                    Console.WriteLine("start loop");
-                    airSpeed = 20;
-                    this.telnetClient.write("get /instrumentation/attitude-indicator/internal-roll-deg \n");
-                    roll = Double.Parse(telnetClient.read());
+                    // Gets: 
+                    string s;
+                    int len;
+                    this.telnetClient.write("set /instrumentation/airspeed-indicator/indicated-speed-kt 10\r\n");
+                    this.telnetClient.write("get airspeed-indicator_indicated-speed-kt\r\n");           
+                    s = (getBetween(telnetClient.read(), "=", "(double)")).Trim();
+                    len = s.Length;                    
+                    airSpeed = Double.Parse(s.Substring(1,len-2));
+                    
 
-                    // Sets: check it
-                    //this.telnetClient.write("set /controls/flight/aileron \n");
+                    this.telnetClient.write("get /controls/flight/aileron\r\n");
+                    s = (getBetween(telnetClient.read(), "=", "(double)")).Trim();
+                    len = s.Length;
+                    aileron = Double.Parse(s.Substring(1, len - 2));
+
+
+                    this.telnetClient.write("get /controls/flight/elevator\r\n");                   
+                    s = (getBetween(telnetClient.read(), "=", "(double)")).Trim();
+                    len = s.Length;
+                    elevator = Double.Parse(s.Substring(1, len - 2));
+
+
+
+                    this.telnetClient.write("get /controls/flight/rudder\r\n");
+                    s = (getBetween(telnetClient.read(), "=", "(double)")).Trim();
+                    len = s.Length;
+                    rudder = Double.Parse(s.Substring(1, len - 2));
+
+
+                    this.telnetClient.write("get /controls/engines/current-engine/throttle\r\n");
+                    s = (getBetween(telnetClient.read(), "=", "(double)")).Trim();
+                    len = s.Length;
+                    throttle = Double.Parse(s.Substring(1, len - 2));
+
+                    this.telnetClient.write("get /position/latitude-deg\r\n");
+                    s = (getBetween(telnetClient.read(), "=", "(double)")).Trim();
+                    len = s.Length;
+                    lat = Double.Parse(s.Substring(1, len - 2));
+
+                    this.telnetClient.write("get /position/longitude-deg\r\n");
+                    s = (getBetween(telnetClient.read(), "=", "(double)")).Trim();
+                    len = s.Length;
+                    lon = Double.Parse(s.Substring(1, len - 2));
+
+
+                    this.telnetClient.write("get /instrumentation/heading-indicator/indicated-heading-deg\r\n");
+                    s = (getBetween(telnetClient.read(), "=", "(double)")).Trim();
+                    len = s.Length;
+                    heading_Degree = Double.Parse(s.Substring(1, len - 2));
+
+
+                    this.telnetClient.write("get /instrumentation/gps/indicated-altitude-ft\r\n");
+                    s = (getBetween(telnetClient.read(), "=", "(double)")).Trim();
+                    len = s.Length;
+                    altitude = Double.Parse(s.Substring(1, len - 2));
+
+
+                    this.telnetClient.write("get /instrumentation/gps/indicated-ground-speed-kt\r\n");
+                    s = (getBetween(telnetClient.read(), "=", "(double)")).Trim();
+                    len = s.Length;
+                    ground_Speed = Double.Parse(s.Substring(1, len - 2));
+
+
+                    this.telnetClient.write("get /instrumentation/altimeter/indicated-altitude-ft\r\n");
+                    s = (getBetween(telnetClient.read(), "=", "(double)")).Trim();
+                    len = s.Length;
+                    altimeter = Double.Parse(s.Substring(1, len - 2));
+
+
+                    this.telnetClient.write("get /instrumentation/gps/indicated-vertical-speed\r\n");
+                    s = (getBetween(telnetClient.read(), "=", "(double)")).Trim();
+                    len = s.Length;
+                    vertical_Speed = Double.Parse(s.Substring(1, len - 2));
+
+
+                    this.telnetClient.write("get /instrumentation/attitude-indicator/internal-pitch-deg\r\n");
+                    s = (getBetween(telnetClient.read(), "=", "(double)")).Trim();
+                    len = s.Length;
+                    pitch = Double.Parse(s.Substring(1, len - 2));
+                                       
+                    this.telnetClient.write("get /instrumentation/attitude-indicator/internal-roll-deg\r\n");
+                    s = (getBetween(telnetClient.read(), "=", "(double)")).Trim();
+                    len = s.Length;
+                    roll = Double.Parse(s.Substring(1, len - 2));
+                 
                     Thread.Sleep(250);
                 }
 
@@ -269,16 +320,31 @@ namespace FlightGearApp
         }*/
 
         public void changeThrottle(double throttle)
-        {
-            Console.WriteLine("bla bla");
-            this.telnetClient.write("set /controls/engines/current-engine/throttle" + throttle.ToString() + "\n");
+        {           
             
+            this.telnetClient.write("set /controls/engines/current-engine/throttle " + throttle.ToString() + "\r\n");
+
         }
 
         public void changeAileron(double aileron)
         {
-            Console.WriteLine("hiiii");
-            this.telnetClient.write("set /controls/flight/aileron" + aileron.ToString() + "\n");
+            
+            this.telnetClient.write("set /controls/flight/aileron " + aileron.ToString() + "r\n");
+        }
+
+        private static string getBetween(string strSource, string strStart, string strEnd)
+        {
+            int Start, End;
+            if (strSource.Contains(strStart) && strSource.Contains(strEnd))
+            {
+                Start = strSource.IndexOf(strStart, 0) + strStart.Length;
+                End = strSource.IndexOf(strEnd, Start);
+                return strSource.Substring(Start, End - Start);
+            }
+            else
+            {
+                return "";
+            }
         }
     }
 }
