@@ -1,3 +1,11 @@
-1. maybe need to implements the concrete class of the interface Itelnet
-2.we need to add commands between the vm and m
-3.verify if we need add more properties ti the model
+אם הערכים חורגים מהטווח מינימום מקסימום לקחת את הערך הקרוב ביותר1.
+2.לבדוק במפרט מה הערכים מינימום מקסימום של הסימולטור
+3.אם מקבלים ניתוב שגוי להחזיר error בלי קריסה
+
+משימות
+1.מטוס שיזוז בהתאם על המפה
+2.גויסטיק
+
+1.מטוס לא יוצא מגבולות המפה
+
+
