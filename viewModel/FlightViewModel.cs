@@ -123,9 +123,11 @@ namespace FlightGearApp
             get { return model.altimeter; }
         }
 
+        
         public double VM_VerticalSpeed
         {
             get { return model.vertical_Speed; }
+            
         }
 
         public double VM_Pitch
@@ -133,12 +135,12 @@ namespace FlightGearApp
             get { return model.pitch; }
         }
 
-        private double a;
+        //private double a;
         public double VM_AirSpeed
         {
-            // get { return model.airSpeed; }
-            get { return a; }
-            set { a = value; }
+            get { return model.airSpeed; }
+           // get { return a; }
+            //set { a = value; }
         }
 
         public double VM_Roll

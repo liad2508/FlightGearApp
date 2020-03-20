@@ -18,146 +18,163 @@ namespace FlightGearApp
         {
             this.telnetClient = telnetClient;
             this.stop = false;
+            this.air = 70;
+            this.altitude = 30;
+            
+            
         }
 
         // implements all the Properties
+        private double _elevator;
         public double elevator
         {
-            get { return elevator; }
+            get { return _elevator; }
             set
             {
-                elevator = value;
+                _elevator = value;
                 NotifyPropertyChanged("Elevator");
             }
         }
 
-       /* public double aileron
-        {
-            get { return aileron; }
-            set
-            {
-                aileron = value;
-                NotifyPropertyChanged("Aileron");
-            }
-        }*/
+        private double _aileron;
+         public double aileron
+         {
+             get { return _aileron; }
+             set
+             {
+                 _aileron = value;
+                 NotifyPropertyChanged("Aileron");
+             }
+         }
 
-       /*
-        public double throttle
-        {
-            get { return throttle; }
-            set
-            {
-                throttle = value;
-                NotifyPropertyChanged("Throttle");
-                
-            }
-        }*/
+        private double _throttle;
+         public double throttle
+         {
+             get { return _throttle; }
+             set
+             {
+                 _throttle = value;
+                 NotifyPropertyChanged("Throttle");
 
+             }
+         }
+
+        private double _rudder;
         public double rudder
         {
-            get { return rudder; }
+            get { return _rudder; }
             set
             {
-                //rudder = value;
+                _rudder = value;
                 NotifyPropertyChanged("Rudder");
             }
         }
 
         // The X coordinate
+        private double x;
         public double lat
         { 
-            get { return lat; }
+            get { return x; }
             set {
-                lat = value;
+                x = value;
                 NotifyPropertyChanged("Latitude");
             }
         }
 
         // The Y coordinate
+        private double y;
         public double lon
         { 
-            get { return lon; }
+            get { return y; }
             set {
-                lon = value;
+                y = value;
                 NotifyPropertyChanged("Longitude");
             }
         }
 
+        private double headingDegree;
         public double heading_Degree
         {
-            get { return heading_Degree; }
+            get { return headingDegree; }
             set
             {
-                heading_Degree = value;
+                headingDegree = value;
                 NotifyPropertyChanged("Heading Degree");
             }
         }
 
+        private double _altitude;
         public double altitude 
         {
-            get { return altitude; }
+            get { return _altitude; }
             set
             {
-                altitude = value;
+                _altitude = value;
                 NotifyPropertyChanged("Altitude");
             }
         }
 
+        private double groundSpeed;
         public double ground_Speed
         {
-            get { return ground_Speed; }
+            get { return groundSpeed; }
             set
             {
-                ground_Speed = value;
+                groundSpeed = value;
                 NotifyPropertyChanged("Ground Speed");
             }
         }
 
+        private double _altimeter;
         public double altimeter
         {
-            get { return altimeter; }
+            get { return _altimeter; }
             set 
             {
-                altimeter = value;
+                _altimeter = value;
                 NotifyPropertyChanged("Altimeter");
             }
         }
 
+        private double verticalSpeed;
         public double vertical_Speed 
         { 
-            get { return vertical_Speed; } 
+            get { return verticalSpeed; } 
             set
             {
-                vertical_Speed = value;
+                verticalSpeed = value;
                 NotifyPropertyChanged("Vertical Speed");
             }
         }
 
+        private double _pitch;
         public double pitch
         {
-            get { return pitch; } 
+            get { return _pitch; } 
             set
             {
-                pitch = value;
+                _pitch = value;
                 NotifyPropertyChanged("Pitch");
             }
         }
 
+        private double air;
         public double airSpeed
         {
-            get { return airSpeed; }
-            set 
+             get { return air; }
+             set 
             {
-                airSpeed = value;
+                air = value;
                 NotifyPropertyChanged("AirSpeed");
             }
         }
+        private double _roll;
         public double roll
         {
-            get { return roll; }
+            get { return _roll; }
             set
             {
-                roll = value;
+                _roll = value;
                 NotifyPropertyChanged("Roll");
             } 
         }
@@ -212,6 +229,8 @@ namespace FlightGearApp
                     pitch = Double.Parse(telnetClient.read());
                     this.telnetClient.write("get /instrumentation/airspeed-indicator/indicated-speed-kt \n");
                     airSpeed = Double.Parse(telnetClient.read());
+                    Console.WriteLine("start loop");
+                    airSpeed = 20;
                     this.telnetClient.write("get /instrumentation/attitude-indicator/internal-roll-deg \n");
                     roll = Double.Parse(telnetClient.read());
 
