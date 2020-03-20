@@ -18,10 +18,10 @@ namespace FlightGearApp
         {
             this.telnetClient = telnetClient;
             this.stop = false;
-            //this.airSpeed = 65;
-           
-            
-            
+            this.airSpeed = 65;
+            this.lat = 0;
+            this.lon = 0;        
+                        
         }
 
         // implements all the Properties
@@ -77,7 +77,7 @@ namespace FlightGearApp
             get { return x; }
             set {
                 x = value;
-                NotifyPropertyChanged("Latitude");
+                NotifyPropertyChanged("Lat");
             }
         }
 
@@ -88,7 +88,7 @@ namespace FlightGearApp
             get { return y; }
             set {
                 y = value;
-                NotifyPropertyChanged("Longitude");
+                NotifyPropertyChanged("Lon");
             }
         }
 

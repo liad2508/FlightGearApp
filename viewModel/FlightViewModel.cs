@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
+using System.Windows;
 
 namespace FlightGearApp
 {
@@ -99,12 +100,19 @@ namespace FlightGearApp
                 model.setRudder(value);
             }
         }
-
-        public double VM_Lat
+        public Thickness Margin
         {
-            get { return model.lat; }
+            get { return new Thickness(VM_Lat, VM_Lon, 0, 0); }
         }
 
+        // The X coordinate
+        public double VM_Lat
+        {
+            get {
+                Console.WriteLine("im VM_Lat" + model.lat.ToString());                
+                return model.lat; }
+        }
+        // The Y coordinate
         public double VM_Lon
         {
             get { return model.lon; }
@@ -142,14 +150,13 @@ namespace FlightGearApp
             get { return model.pitch; }
         }
 
-        //private double a;
+        
         public double VM_AirSpeed
         {
             get {
                 Console.WriteLine("im VM_AirSpeed " + model.airSpeed.ToString());
                 return model.airSpeed; }
-           // get { return a; }
-            //set { a = value; }
+         
         }
 
         public double VM_Roll
