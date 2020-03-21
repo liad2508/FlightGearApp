@@ -18,6 +18,20 @@ namespace WpfApp2
     /// <summary>
     /// Interaction logic for Joystick.xaml
     /// </summary>
+    /// 
+    public delegate void PositionChange(object sender, PositionChangeEventArgs e);
+
+    public class PositionChangeEventArgs : EventArgs
+    {
+        private string data;
+        public PositionChangeEventArgs(string d)
+        {
+            this.data = d;
+        }
+
+        public string positionChanged {  get { return data; } }
+    }
+
     public partial class Joystick : UserControl
     {
         public Joystick()
@@ -26,20 +40,73 @@ namespace WpfApp2
         }
         private void centerKnob_Completed(object sender, EventArgs e) { }
         private Point firstPoint = new Point();
+        bool mousePressed = false;
+        double x, y, x1, y1, positionX, positionY;
+        private double rightBorder = 45;
+        private double leftBoarder = -45;
+        private double upBorder = 45;
+        private double downBoarder = -45;
+        public event PositionChange positionchange;
         
-      
+        public double PositionY
+        {
+            get
+            {
+                return this.positionY;
+            }
+            set
+            {
+                if(value > upBorder)
+                {
+                    positionY = upBorder;
+                }
+                else if (value < downBoarder)
+                {
+                    positionY = downBoarder;
+                }
+                else
+                {
+                    positionY = value;
+                    positionchange(this, new PositionChangeEventArgs("Y"));
+                }
+            }
+        }
+
+        public double PositionX
+        {
+            get
+            {
+                return this.positionX;
+            }
+            set
+            {
+                if (value > rightBorder)
+                {
+                    positionY = rightBorder;
+                }
+                else if (value < leftBoarder)
+                {
+                    positionY = leftBoarder;
+                }
+                else
+                {
+                    positionY = value;
+                    positionchange(this, new PositionChangeEventArgs("Y"));
+                }
+            }
+        }
 
         private void Knob_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left)
             {
                 this.firstPoint = e.GetPosition(this);
-                Knob.CaptureMouse();                  
-            }           
+                Knob.CaptureMouse();
+            }
         }
 
         private void Knob_MouseUp(object sender, MouseButtonEventArgs e)
-        {            
+        {
             knobPosition.X = 0;
             knobPosition.Y = 0;
             Knob.ReleaseMouseCapture();
@@ -48,7 +115,7 @@ namespace WpfApp2
 
         private void Knob_MouseMove(object sender, MouseEventArgs e)
         {
-           if (e.LeftButton == MouseButtonState.Pressed)
+            if (e.LeftButton == MouseButtonState.Pressed)
             {
                 double x = e.GetPosition(this).X - this.firstPoint.X;
                 double y = e.GetPosition(this).Y - this.firstPoint.Y;
@@ -56,8 +123,10 @@ namespace WpfApp2
                 {
                     knobPosition.X = x;
                     knobPosition.Y = y;
-                }  
+                }
             }
-        }        
+        }   
+       
+        
     }
 }
