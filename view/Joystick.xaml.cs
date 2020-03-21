@@ -82,16 +82,16 @@ namespace WpfApp2
             {
                 if (value > rightBorder)
                 {
-                    positionY = rightBorder;
+                    positionX = rightBorder;
                 }
                 else if (value < leftBoarder)
                 {
-                    positionY = leftBoarder;
+                    positionX = leftBoarder;
                 }
                 else
                 {
-                    positionY = value;
-                    positionchange(this, new PositionChangeEventArgs("Y"));
+                    positionX = value;
+                    positionchange(this, new PositionChangeEventArgs("X"));
                 }
             }
         }

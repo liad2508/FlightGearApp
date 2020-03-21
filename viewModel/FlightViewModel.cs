@@ -60,18 +60,19 @@ namespace FlightGearApp
             }
         }
 
+        private double elevator;
         public double VM_Elevator
         {
             get 
             {
                 Console.WriteLine("Elevator: View <-- VM <-- Model");
-                NotifyPropertyChanged("VM_Elevator");
-                return model.elevator; 
+                return this.elevator;
             }
             set
             {
                 Console.WriteLine("Elevator: View --> VM --> Model");
-                model.setElevator(value);
+                this.elevator = value;
+                this.model.changeElevator(this.elevator);
             }
         }
 
@@ -92,19 +93,19 @@ namespace FlightGearApp
 
             }
         }
-
+        private double rudder;
         public double VM_Rudder
         {
             get 
             {
-                Console.WriteLine("Rudder: View <-- VM <-- Model");
-                NotifyPropertyChanged("VM_Rudder");
-                return model.rudder;  
+                Console.WriteLine("Rudder: View <-- VM <-- Model " + this.rudder.ToString());
+                return rudder;  
             }
             set
             {
-                Console.WriteLine("Rudder: View --> VM --> Model");
-                model.setRudder(value);
+                Console.WriteLine("Rudder: View --> VM --> Model" + this.rudder.ToString());
+                this.rudder = value;
+                this.model.changeRudder(this.rudder);
             }
         }
         public Thickness Margin

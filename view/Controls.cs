@@ -33,6 +33,7 @@ namespace WpfApp1.view
                 {
                     double pos = joystick.PositionY;
                     double elevator = joystick.PositionY / BOARDER_UP;
+                    
                 }
             };
 

@@ -381,5 +381,15 @@ namespace FlightGearApp
                 return "";
             }
         }
+
+        public void changeRudder(double rudder)
+        {
+            this.telnetClient.write("set /controls/flight/rudder " + rudder.ToString() + "r\n");
+        }
+
+        public void changeElevator(double elevator)
+        {
+            this.telnetClient.write("set /controls/flight/elevator " + elevator.ToString() + "r\n");
+        }
     }
 }

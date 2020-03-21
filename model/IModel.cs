@@ -41,5 +41,7 @@ namespace FlightGearApp
         // we need to add functions to the interface
         void changeThrottle(double throttle);
         void changeAileron(double aileron);
+        void changeRudder(double rudder);
+        void changeElevator(double elevator);
     }
 }
