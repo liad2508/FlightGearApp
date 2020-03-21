@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -15,6 +16,7 @@ using System.Windows.Shapes;
 using FlightGearApp;
 using FlightGearApp.model;
 using Microsoft.Maps.MapControl.WPF;
+using System.ComponentModel;
 
 
 namespace WpfApp2
@@ -25,22 +27,107 @@ namespace WpfApp2
     public partial class MainWindow : Window
     {
         private FlightViewModel vm;
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
 
         public MainWindow()
         {
             InitializeComponent();
-            this.vm = new FlightViewModel(new FlightModel(new ConcreteTelnetClient()));            
-            DataContext = vm;
-            //Set the map mode to Aerial with labels
+            //FlightModel f = new FlightModel(new ConcreteTelnetClient());
+            //this.vm = new FlightViewModel(f);
+            this.vm = new FlightViewModel(new FlightModel(new ConcreteTelnetClient()));
             myMap.Mode = new AerialMode(true);
+            DataContext = vm;
+            vm.VM_Connect("127.0.0.1", 5402);
+            updateView();
+
+
+
+
+
+            //DataContext = vm;
+            //Set the map mode to Aerial with labels
+           // myMap.Mode = new AerialMode(true);
             //vm.VM_Rudder = 0.5;
 
             //vm.getModel().connect("127.0.0.1", 5402);
-            //vm.getModel().start();
+            //vm.getModel().start();            
+            //f.connect("127.0.0.1", 5402);
+            /*
+            Thread t = new Thread(f.start);
+            t.Start();
+            t.Join();*/
+            Console.WriteLine("Never");
+        }
 
-          
+        public void updateView()
+        {
+            this.vm.PropertyChanged += delegate (object sender, PropertyChangedEventArgs e)
+            {
+                {
+                    if (e.PropertyName.Equals("VM_AirSpeed"))
+                    {                        
+                        Dispatcher.BeginInvoke(
+                      new ThreadStart(() => air_tag.Value = vm.VM_AirSpeed));
+                    }
+                    if (e.PropertyName.Equals("VM_VerticalSpeed"))
+                    {
+                        Dispatcher.BeginInvoke(
+                              new ThreadStart(() => ver_speed.Value = vm.VM_VerticalSpeed
+                              ));
+                    }
+                  
+                    if(e.PropertyName.Equals("VM_HeadingDegree"))
+                    {
+                        Dispatcher.BeginInvoke(
+                     new ThreadStart(() => head_deg.Value = vm.VM_HeadingDegree));
+                    }
+
+                    if (e.PropertyName.Equals("VM_Roll"))
+                    {
+                        Dispatcher.BeginInvoke(
+                     new ThreadStart(() => roll_tag.Value = vm.VM_Roll));
+                    }
+
+                    if (e.PropertyName.Equals("VM_Altimeter"))
+                    {
+                        Dispatcher.BeginInvoke(
+                     new ThreadStart(() => altimeter_tag.Value = vm.VM_Altimeter));
+                    }
+
+                    if (e.PropertyName.Equals("VM_Pitch"))
+                    {
+                        Dispatcher.BeginInvoke(
+                     new ThreadStart(() => pitch_tag.Value = vm.VM_Pitch));
+                    }
+
+                    if (e.PropertyName.Equals("VM_Altitude"))
+                    {
+                        Dispatcher.BeginInvoke(
+                     new ThreadStart(() => altitude_tag.Value = vm.VM_Altitude));
+                    }
+
+                    if (e.PropertyName.Equals("VM_GroundSpeed"))
+                    {
+                        Dispatcher.BeginInvoke(
+                     new ThreadStart(() => ground_tag.Value = vm.VM_GroundSpeed));
+                    }
 
 
+
+
+                };
+            };
+        }
+     
+
+        private void Vm_PropertyChanged1(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void Vm_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)

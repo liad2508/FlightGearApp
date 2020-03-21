@@ -15,11 +15,18 @@ namespace FlightGearApp
         public FlightViewModel(IModel m)
         {
             this.model = m;
-            model.PropertyChanged += delegate (Object sender, PropertyChangedEventArgs e)
+            model.PropertyChanged +=
+                delegate (Object sender, PropertyChangedEventArgs e)
             {
-                NotifyPropertyChanged("VM_" + e.PropertyName);
+                NotifyPropertyChanged("VM_"+e.PropertyName);
             };
 
+
+        }
+
+        public void VM_Connect(string ip, int port)
+        {
+            this.model.connect(ip, port);
         }
 
         public IModel getModel()
@@ -150,13 +157,19 @@ namespace FlightGearApp
             get { return model.pitch; }
         }
 
-        
+        private double vm_air;
         public double VM_AirSpeed
         {
             get {
                 Console.WriteLine("im VM_AirSpeed " + model.airSpeed.ToString());
-                return model.airSpeed; }
-         
+                //NotifyPropertyChanged("VM_AirSpeed");
+                //vm_air = model.airSpeed;
+                return model.airSpeed; }   
+            set
+            {
+                vm_air = value;
+               
+            }
         }
 
         public double VM_Roll

@@ -126,14 +126,14 @@
                 <RowDefinition Height="28" />
             </Grid.RowDefinitions>
 
-            <ProgressBar Value="{Binding VM_AirSpeed, Mode=OneWay}" Grid.Column="1" HorizontalAlignment="Left" Height="15" Margin="10.333,4,0,0" Grid.Row="3" VerticalAlignment="Top" Width="61" Grid.ColumnSpan="2"  Minimum="0" Maximum="20"/>
-            <ProgressBar Value="{Binding VM_VerticalSpeed, Mode=OneWay}" HorizontalAlignment="Left" Height="15" Margin="10.333,7.667,0,0" Grid.Row="2" VerticalAlignment="Top" Width="61" Grid.ColumnSpan="2" Grid.Column="1"/>
-            <ProgressBar Value="{Binding VM_HeadingDegree, Mode=OneWay}" Grid.Column="1" HorizontalAlignment="Left" Height="15" Margin="10.333,8,0,0" VerticalAlignment="Top" Width="61" Grid.ColumnSpan="2"/>
-            <ProgressBar Value="{Binding VM_Roll, Mode=OneWay}" Grid.Column="3" HorizontalAlignment="Left" Height="15" Margin="14,5,-24.333,0" Grid.Row="3" VerticalAlignment="Top" Width="61"/>
-            <ProgressBar Value="{Binding VM_Altimeter, Mode=OneWay}" Grid.Column="3" HorizontalAlignment="Left" Height="15" Margin="14,7.333,-24.333,0" Grid.Row="1" VerticalAlignment="Top" Width="61" RenderTransformOrigin="2.779,-2.744"/>
-            <ProgressBar Value="{Binding VM_Pitch, Mode=OneWay}" Grid.Column="3" HorizontalAlignment="Left" Height="15" Margin="14,7.667,-24.333,0" Grid.Row="2" VerticalAlignment="Top" Width="61"/>
-            <ProgressBar Value="{Binding VM_Altitude, Mode=OneWay}" Grid.Column="3" HorizontalAlignment="Left" Height="15" Margin="14,9,-24.333,0" VerticalAlignment="Top" Width="61"/>
-            <ProgressBar Value="{Binding VM_GroundSpeed, Mode=OneWay}" Grid.Column="1" HorizontalAlignment="Left" Height="15" Margin="10.333,7.333,0,0" Grid.Row="1" VerticalAlignment="Top" Width="61" Grid.ColumnSpan="2"/>
+            <ProgressBar x:Name="air_tag" Value="{Binding VM_AirSpeed,Mode=OneWay}" Grid.Column="1" HorizontalAlignment="Left" Height="15" Margin="10.333,4,0,0" Grid.Row="3" VerticalAlignment="Top" Width="61" Grid.ColumnSpan="2"  Minimum="0" Maximum="20"/>
+            <ProgressBar x:Name="ver_speed" Value="{Binding VM_VerticalSpeed, Mode=OneWay}" HorizontalAlignment="Left" Height="15" Margin="10.333,7.667,0,0" Grid.Row="2" VerticalAlignment="Top" Width="61" Grid.ColumnSpan="2" Grid.Column="1"/>
+            <ProgressBar x:Name="head_deg" Value="{Binding VM_HeadingDegree, Mode=OneWay}" Grid.Column="1" HorizontalAlignment="Left" Height="15" Margin="10.333,8,0,0" VerticalAlignment="Top" Width="61" Grid.ColumnSpan="2"/>
+            <ProgressBar x:Name="roll_tag" Value="{Binding VM_Roll,Mode=OneWay}" Grid.Column="3" HorizontalAlignment="Left" Height="15" Margin="14,5,-24.333,0" Grid.Row="3" VerticalAlignment="Top" Width="61"/>
+            <ProgressBar x:Name="altimeter_tag" Value="{Binding VM_Altimeter,Mode=OneWay}" Grid.Column="3" HorizontalAlignment="Left" Height="15" Margin="14,7.333,-24.333,0" Grid.Row="1" VerticalAlignment="Top" Width="61" RenderTransformOrigin="2.779,-2.744"/>
+            <ProgressBar x:Name="pitch_tag" Value="{Binding VM_Pitch,Mode=OneWay}" Grid.Column="3" HorizontalAlignment="Left" Height="15" Margin="14,7.667,-24.333,0" Grid.Row="2" VerticalAlignment="Top" Width="61"/>
+            <ProgressBar x:Name="altitude_tag" Value="{Binding VM_Altitude,Mode=OneWay}" Grid.Column="3" HorizontalAlignment="Left" Height="15" Margin="14,9,-24.333,0" VerticalAlignment="Top" Width="61"/>
+            <ProgressBar x:Name="ground_tag" Value="{Binding VM_GroundSpeed, Mode=OneWay}" Grid.Column="1" HorizontalAlignment="Left" Height="15" Margin="10.333,7.333,0,0" Grid.Row="1" VerticalAlignment="Top" Width="61" Grid.ColumnSpan="2"/>
 
             <Label Margin="0,0,0.667,26.333" Grid.RowSpan="2" FontStyle="Italic" >Heading-Degree:</Label>
             <Label Grid.Row="1" Grid.Column="0" Margin="0,0,0.667,0.333" FontStyle="Italic">Ground Speed:</Label>
@@ -143,7 +143,8 @@
             <Label Grid.Row="1" Grid.Column="2" Margin="32.333,0,-26.667,0.333" FontStyle="Italic">Altimeter:</Label>
             <Label Grid.Row="1" Grid.Column="2" Margin="32.333,26,-26.667,0" Grid.RowSpan="2" FontStyle="Italic">Pitch:</Label>
             <Label Grid.Row="2" Grid.Column="2" Margin="32,24.667,24.333,-0.333" Grid.RowSpan="2" Grid.ColumnSpan="2" Height="33" VerticalAlignment="Top" FontStyle="Italic">Roll:</Label>
-
+          <!--  <Label x:Name="air_tag"  Grid.Column="1" HorizontalAlignment="Left" Margin="10.333,0,0,2.667" Grid.Row="2" VerticalAlignment="Bottom" Background="#FFEEE7E7" Grid.ColumnSpan="2" Width="61" Height="30" Grid.RowSpan="2"/>
+-->
         </Grid>
         <Label x:Name="li" Content="Control Panel" HorizontalContentAlignment="Center" Margin="646,15,10.333,0" VerticalAlignment="Top" Height="40" Width="337" Background="#FF6C716A" FontWeight="Bold" FontStyle="Italic" FontSize="20"/>
         <Label Content="Rudder" HorizontalContentAlignment="Center" Margin="856,265,-2.667,0" VerticalAlignment="Top" Height="32"  FontStyle="Italic" FontSize="13" RenderTransformOrigin="0.5,0.5" Foreground="#FFF1EBEB">
