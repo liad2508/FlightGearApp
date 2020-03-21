@@ -268,11 +268,13 @@ namespace FlightGearApp
                             len = s.Length;
                             throttle = Double.Parse(s.Substring(1, len - 2));
 
+                            this.telnetClient.write("set /position/latitude-deg 0\r\n");
                             this.telnetClient.write("get /position/latitude-deg\r\n");
                             s = (getBetween(telnetClient.read(), "=", "(double)")).Trim();
                             len = s.Length;
                             lat = Double.Parse(s.Substring(1, len - 2));
 
+                            this.telnetClient.write("set /position/longitude-deg 0\r\n");
                             this.telnetClient.write("get /position/longitude-deg\r\n");
                             s = (getBetween(telnetClient.read(), "=", "(double)")).Trim();
                             len = s.Length;
@@ -319,7 +321,19 @@ namespace FlightGearApp
                             len = s.Length;
                             roll = Double.Parse(s.Substring(1, len - 2));
 
-                            
+
+                            this.telnetClient.write("set /position/latitude-deg 300\r\n");
+                            this.telnetClient.write("get /position/latitude-deg\r\n");
+                            s = (getBetween(telnetClient.read(), "=", "(double)")).Trim();
+                            len = s.Length;
+                            lat = Double.Parse(s.Substring(1, len - 2));
+
+                            this.telnetClient.write("set /position/longitude-deg 200\r\n");
+                            this.telnetClient.write("get /position/longitude-deg\r\n");
+                            s = (getBetween(telnetClient.read(), "=", "(double)")).Trim();
+                            len = s.Length;
+                            lon = Double.Parse(s.Substring(1, len - 2));
+
                         }
                     
                     }

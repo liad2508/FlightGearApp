@@ -41,7 +41,7 @@
 
         <m:Map CredentialsProvider="INSERT_YOUR_BING_MAPS_KEY" x:Name="myMap" Margin="10,10,368.333,9.667" ZoomLevel="0.25" Center="{Binding Margin}">
 
-            <Image x:Name="_image" Source="airplane.png" HorizontalAlignment="Left" Height="48" VerticalAlignment="Top" Width="51" RenderTransformOrigin="204.748,2.323" Margin="344,82,0,0"  />
+            <Image x:Name="_image" Source="airplane.png" HorizontalAlignment="Left" Height="48" VerticalAlignment="Top" Width="51" RenderTransformOrigin="204.748,2.323" Margin="345,82,0,0"  />
             <Image HorizontalAlignment="Left" Height="401" VerticalAlignment="Top" Width="615" Margin="0,0,0,-0.333"/>
 
             <!-- 

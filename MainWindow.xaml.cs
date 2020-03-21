@@ -112,6 +112,11 @@ namespace WpfApp2
                      new ThreadStart(() => ground_tag.Value = vm.VM_GroundSpeed));
                     }
 
+                    if (e.PropertyName.Equals("VM_Lat") || e.PropertyName.Equals("VM_Lon"))
+                    {
+                        Dispatcher.BeginInvoke(
+                     new ThreadStart(() => _image.Margin = vm.Margin));
+                    }
 
 
 
