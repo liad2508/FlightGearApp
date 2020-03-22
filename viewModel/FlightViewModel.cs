@@ -117,7 +117,7 @@ namespace FlightGearApp
         public double VM_Lat
         {
             get {
-                Console.WriteLine("im VM_Lat" + model.lat.ToString());                
+                              
                 return model.lat; }
         }
         // The Y coordinate
@@ -162,9 +162,7 @@ namespace FlightGearApp
         public double VM_AirSpeed
         {
             get {
-                Console.WriteLine("im VM_AirSpeed " + model.airSpeed.ToString());
-                //NotifyPropertyChanged("VM_AirSpeed");
-                //vm_air = model.airSpeed;
+               
                 return model.airSpeed; }   
             set
             {

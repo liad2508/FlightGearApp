@@ -28,6 +28,9 @@ namespace WpfApp2
     {
         private FlightViewModel vm;
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        const Double BOARDER_UP = 45;
+        const Double BOARDER_RIGHT = 45;
+        //public Joystick joystick;
 
         public MainWindow()
         {
@@ -37,8 +40,10 @@ namespace WpfApp2
             this.vm = new FlightViewModel(new FlightModel(new ConcreteTelnetClient()));
             myMap.Mode = new AerialMode(true);
             DataContext = vm;
+            //Thread connect = new Thread(() => vm.VM_Connect("127.0.0.1", 5402));
             vm.VM_Connect("127.0.0.1", 5402);
             updateView();
+            updateJoystick();
 
 
 
@@ -57,6 +62,29 @@ namespace WpfApp2
             t.Start();
             t.Join();*/
             Console.WriteLine("Never");
+        }
+
+        public void updateJoystick()
+        {
+            this.joystick.positionchange += delegate (object sender, PositionChangeEventArgs e)
+            {
+                if (e.positionChanged.Equals("X"))
+                {                    
+                    double rudder = joystick.PositionX / BOARDER_RIGHT;
+                    Dispatcher.BeginInvoke(
+                      new ThreadStart(() => vm.VM_Rudder = rudder));
+                    Console.WriteLine("change rudderrr" + rudder.ToString());
+
+                }
+                if (e.positionChanged.Equals("Y"))
+                {                   
+                    double elevator = joystick.PositionY / BOARDER_UP;
+                    Dispatcher.BeginInvoke(
+                      new ThreadStart(() => vm.VM_Elevator = elevator));
+                    Console.WriteLine("change elevator " + elevator.ToString());
+
+                }
+            };
         }
 
         public void updateView()

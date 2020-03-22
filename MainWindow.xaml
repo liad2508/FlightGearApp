@@ -147,7 +147,7 @@
 -->
         </Grid>
         <Label x:Name="li" Content="Control Panel" HorizontalContentAlignment="Center" Margin="646,15,10.333,0" VerticalAlignment="Top" Height="40" Width="337" Background="#FF6C716A" FontWeight="Bold" FontStyle="Italic" FontSize="20"/>
-        <Label Content="Rudder" Target="{Binding VM_Rudder}" HorizontalContentAlignment="Center" Margin="856,265,-2.667,0" VerticalAlignment="Top" Height="32"  FontStyle="Italic" FontSize="13" RenderTransformOrigin="0.5,0.5" Foreground="#FFF1EBEB">
+        <Label x:Name="rudder_tag" Content="Rudder" Target="{Binding VM_Rudder}" HorizontalContentAlignment="Center" Margin="856,265,-2.667,0" VerticalAlignment="Top" Height="32"  FontStyle="Italic" FontSize="13" RenderTransformOrigin="0.5,0.5" Foreground="#FFF1EBEB">
             <Label.Background>
                 <ImageBrush/>
             </Label.Background>

@@ -222,9 +222,31 @@ namespace FlightGearApp
 
                         lock (balanceLock)
                         {
+
+                           
+
                             // Gets: 
                             string s;
                             int len;
+
+                            /*
+                            for (int i = 0; i < 500; i++)
+                            {
+                                this.telnetClient.write("set /position/latitude-deg " + i.ToString() + "\r\n");
+                                this.telnetClient.write("get /position/latitude-deg\r\n");
+                                s = (getBetween(telnetClient.read(), "=", "(double)")).Trim();
+                                len = s.Length;
+                                lat = Double.Parse(s.Substring(1, len - 2));
+
+                                this.telnetClient.write("set /position/longitude-deg " + i.ToString() + "\r\n");
+                                this.telnetClient.write("get /position/longitude-deg\r\n");
+                                s = (getBetween(telnetClient.read(), "=", "(double)")).Trim();
+                                len = s.Length;
+                                lon = Double.Parse(s.Substring(1, len - 2));
+
+                            }*/
+
+
 
                             this.telnetClient.write("set /instrumentation/airspeed-indicator/indicated-speed-kt 10\r\n");
                             //this.telnetClient.write("get /instrumentation/airspeed-indicator/indicated-speed-kt\r\n");

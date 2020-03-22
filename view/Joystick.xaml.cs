@@ -66,9 +66,9 @@ namespace WpfApp2
                 }
                 else
                 {
-                    positionY = value;
-                    positionchange(this, new PositionChangeEventArgs("Y"));
+                    positionY = value;                   
                 }
+                positionchange(this, new PositionChangeEventArgs("Y"));
             }
         }
 
@@ -90,9 +90,9 @@ namespace WpfApp2
                 }
                 else
                 {
-                    positionX = value;
-                    positionchange(this, new PositionChangeEventArgs("X"));
+                    positionX = value;                    
                 }
+                positionchange(this, new PositionChangeEventArgs("X"));
             }
         }
 
@@ -122,7 +122,9 @@ namespace WpfApp2
                 if (Math.Sqrt(x * x + y * y) < Base.Width / 6)
                 {
                     knobPosition.X = x;
+                    PositionX = -x;
                     knobPosition.Y = y;
+                    PositionY = -y;
                 }
             }
         }   

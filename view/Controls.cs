@@ -8,7 +8,7 @@ using System.Windows.Controls;
 using WpfApp2;
 
 
-
+/*
 namespace WpfApp1.view
 {
     public partial class Controls : UserControl1
@@ -27,6 +27,9 @@ namespace WpfApp1.view
                 {
                     double pos = joystick.PositionX;
                     double rudder = joystick.PositionX / BOARDER_UP;
+
+                    Console.WriteLine("change rudderrr");
+                   
                 }
                 // UPDATE THE ViewModel
                 else if (e.positionChanged.Equals("Y")) 
@@ -44,3 +47,4 @@ namespace WpfApp1.view
 
     }
 }
+*/
