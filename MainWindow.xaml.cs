@@ -73,7 +73,8 @@ namespace WpfApp2
                     double rudder = joystick.PositionX / BOARDER_RIGHT;
                     Dispatcher.BeginInvoke(
                       new ThreadStart(() => vm.VM_Rudder = rudder));
-                    Console.WriteLine("change rudderrr" + rudder.ToString());
+                    rudder_tag.Text = rudder.ToString();
+                    
 
                 }
                 if (e.positionChanged.Equals("Y"))
@@ -81,7 +82,8 @@ namespace WpfApp2
                     double elevator = joystick.PositionY / BOARDER_UP;
                     Dispatcher.BeginInvoke(
                       new ThreadStart(() => vm.VM_Elevator = elevator));
-                    Console.WriteLine("change elevator " + elevator.ToString());
+                    elevator_tag.Text = elevator.ToString();
+                    
 
                 }
             };

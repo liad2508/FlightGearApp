@@ -108,7 +108,9 @@ namespace WpfApp2
         private void Knob_MouseUp(object sender, MouseButtonEventArgs e)
         {
             knobPosition.X = 0;
+            PositionX = 0;
             knobPosition.Y = 0;
+            PositionY = 0;
             Knob.ReleaseMouseCapture();
 
         }
