@@ -8,33 +8,30 @@
         xmlns:local="clr-namespace:WpfApp2"
         mc:Ignorable="d"
         Title="MainWindow" Height="486.637" Width="1000">
-    
-    
+
+
 
     <Grid>
-        <StackPanel>
-            <TextBlock>
-                    Go to <Hyperlink NavigateUri="Page2.xaml"> Page 2 </Hyperlink>
-            </TextBlock>
-        </StackPanel>
-        <Image HorizontalAlignment="Left" Height="457" VerticalAlignment="Top" Width="993"
-               Source="airplane_mode.jpg" Stretch="Fill"/>
+
+        <Image HorizontalAlignment="Left" Width="993"
+               Source="luf.jpg" Stretch="Fill" 
+               RenderTransformOrigin="0.433,0.533" Margin="0,0,0,0.333" />
 
         <TextBox x:Name ="tb1" HorizontalAlignment="Left" 
-             Height="34" Margin="317,349,0,0" TextWrapping="Wrap"
+             Height="25" Margin="581,243,0,0" TextWrapping="Wrap"
              Text="" VerticalAlignment="Top" Width="148"/>
 
         <TextBox x:Name ="tb2" HorizontalAlignment="Left"
-              Height="34" Margin="555,349,0,0" TextWrapping="Wrap" 
+              Height="25" Margin="581,292,0,0" TextWrapping="Wrap" 
               Text=""
-             VerticalAlignment="Top" Width="142"/>
+             VerticalAlignment="Top" Width="148"/>
 
-        <Label Content="IP:" HorizontalAlignment="Left" Margin="267,359,0,0"
+        <Label Content="IP:" HorizontalAlignment="Left" Margin="532,243,0,0"
                VerticalAlignment="Top" RenderTransformOrigin="0.284,-0.41" Height="50"
-               Foreground="Orange"/>
-        <Label Content="Port:" HorizontalAlignment="Left" Margin="493,354,0,0"
+               Foreground="Blue" FontWeight="Bold" FontStyle="Italic"/>
+        <Label Content="Port:" HorizontalAlignment="Left" Margin="522,295,0,0"
                VerticalAlignment="Top" RenderTransformOrigin="1.039,0.508" Height="36"
-               Width="57" Foreground="Orange">
+               Width="57" Foreground="Blue" FontWeight="Bold" FontStyle="Italic">
             <Label.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -45,8 +42,14 @@
             </Label.RenderTransform>
         </Label>
 
-        <Button x:Name="connect_button" Content="Connect" HorizontalAlignment="Left" Margin="743,359,0,0"
-                VerticalAlignment="Top" Width="75" Click="connect_button_Click"/>
+        <Button x:Name="connect_button" Content="Connect" HorizontalAlignment="Left" Margin="620,341,0,0"
+                VerticalAlignment="Top" Width="75" Click="connect_button_Click" RenderTransformOrigin="-0.667,2.073"/>
+
+        <Label Content="  LOGIN:" HorizontalAlignment="Left" Margin="620,199,0,0"
+               VerticalAlignment="Top" Width="75" Foreground="Blue" FontWeight="Bold" FontStyle="Italic" RenderTransformOrigin="0.462,0.327"/>
+        <Label x:Name="flightsimlabel" Content="Flight Simulator Application"
+               HorizontalAlignment="Left" Margin="24,28,0,0" VerticalAlignment="Top"
+               Height="46" Width="336" FontWeight="Bold" Foreground="White" FontSize="18" FontStyle="Italic"/>
 
 
     </Grid>
