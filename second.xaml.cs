@@ -16,6 +16,7 @@ using FlightGearApp.model;
 using Microsoft.Maps.MapControl.WPF;
 using System.Threading;
 using System.ComponentModel;
+using System.Configuration;
 
 namespace WpfApp2
 {
@@ -28,14 +29,31 @@ namespace WpfApp2
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         const Double BOARDER_UP = 45;
         const Double BOARDER_RIGHT = 45;
+
+        [Obsolete]
         public second()
         {
             InitializeComponent();
             this.vm = new FlightViewModel(new FlightModel(new ConcreteTelnetClient()));
-            //Map.Mode = new AerialMode(true);
+            //Map.Mode = new AerialMode(true);           
+           
+            string Ip = ConfigurationSettings.AppSettings["Ip"]; ;
+            int port = Int32.Parse(ConfigurationSettings.AppSettings["Port"]); 
+
+            string userIp = ((MainWindow)Application.Current.MainWindow).tb1.Text;
+            string userPort = ((MainWindow)Application.Current.MainWindow).tb2.Text;
+            if (!userIp.Equals(""))
+            {
+                Ip = userIp;
+            }
+            if (!userPort.Equals(""))
+            {
+                port = Int32.Parse(userPort);
+            }
+            
             DataContext = vm;
-            //Thread connect = new Thread(() => vm.VM_Connect("127.0.0.1", 5402));
-            //vm.VM_Connect("127.0.0.1", 5402);
+            Thread connect = new Thread(() => vm.VM_Connect(Ip, port));
+            //vm.VM_Connect(Ip, port);
             updateView();
             updateJoystick();
         }

@@ -48,8 +48,8 @@
         <Label Content="  LOGIN:" HorizontalAlignment="Left" Margin="620,199,0,0"
                VerticalAlignment="Top" Width="75" Foreground="Blue" FontWeight="Bold" FontStyle="Italic" RenderTransformOrigin="0.462,0.327"/>
         <Label x:Name="flightsimlabel" Content="Flight Simulator Application"
-               HorizontalAlignment="Left" Margin="24,28,0,0" VerticalAlignment="Top"
-               Height="46" Width="336" FontWeight="Bold" Foreground="White" FontSize="18" FontStyle="Italic"/>
+               HorizontalAlignment="Left" Margin="373,32,0,0" VerticalAlignment="Top"
+               Height="46" Width="336" Foreground="Black" FontSize="18" Background="Transparent" FontWeight="Bold" FontStyle="Italic"/>
 
 
     </Grid>

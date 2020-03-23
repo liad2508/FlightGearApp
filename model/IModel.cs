@@ -10,7 +10,8 @@ namespace FlightGearApp
     {
         void connect(string ip, int port);
         void disconnect();
-        void start();  
+        void startFromServer();
+        void startFromSimulator();
         
         // Declaring all the Properties
         // The forth Joystick Properties:

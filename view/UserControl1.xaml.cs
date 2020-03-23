@@ -22,7 +22,7 @@ namespace WpfApp1.view
     {
         public UserControl1()
         {
-            InitializeComponent();
+            //InitializeComponent();
         }
     }
 }

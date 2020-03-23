@@ -29,10 +29,11 @@ namespace WpfApp2
         private void connect_button_Click(object sender, RoutedEventArgs e)
         {
             if (true) {
-                //second sec = new second();
-                //sec.ShowDialog();
-                NavigationService nav = NavigationService.GetNavigationService(this);
-                nav.Navigate(new Uri("second.xaml", UriKind.RelativeOrAbsolute));
+                this.Hide();
+                second sec = new second();
+                sec.ShowDialog();
+                this.Show();
+             
             } else { 
                 Console.WriteLine("IP or Port are incorrect");
             }

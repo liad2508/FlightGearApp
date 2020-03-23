@@ -54,7 +54,7 @@ namespace FlightGearApp
             }
             set
             {
-                Console.WriteLine("Aileron: View --> VM --> Model");
+                Console.WriteLine("Aileron: View --> VM --> Model" + this.aileron.ToString());
                 this.aileron = value;
                 this.model.changeAileron(this.aileron);
             }
@@ -110,7 +110,7 @@ namespace FlightGearApp
         }
         public Thickness Margin
         {
-            get { return new Thickness(VM_Lat, VM_Lon, 0, 0); }
+            get { return new Thickness(VM_Lat, VM_Lat, VM_Lon, VM_Lon); }
         }
 
         // The X coordinate
