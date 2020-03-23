@@ -52,8 +52,8 @@ namespace WpfApp2
             }
             
             DataContext = vm;
-            Thread connect = new Thread(() => vm.VM_Connect(Ip, port));
-            //vm.VM_Connect(Ip, port);
+            //Thread connect = new Thread(() => vm.VM_Connect(Ip, port));
+            vm.VM_Connect(Ip, port);
             updateView();
             updateJoystick();
         }
@@ -90,6 +90,7 @@ namespace WpfApp2
                     {
                         Dispatcher.BeginInvoke(
                       new ThreadStart(() => air_tag.Value = vm.VM_AirSpeed));
+                        Console.WriteLine("air spedddddd " + vm.VM_AirSpeed);
                     }
                     if (e.PropertyName.Equals("VM_VerticalSpeed"))
                     {

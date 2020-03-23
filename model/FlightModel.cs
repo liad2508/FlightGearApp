@@ -11,6 +11,7 @@ namespace FlightGearApp
     class FlightModel : IModel
     {
         private volatile Boolean stop;
+        public Mutex MuTexLock = new Mutex();
         ITelnetClient telnetClient;
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -393,21 +394,34 @@ namespace FlightGearApp
 
         public void changeThrottle(double throttle)
         {
-          
 
-                lock (balanceLock)
-                {
-                    this.telnetClient.write("set /controls/engines/current-engine/throttle " + throttle.ToString() + "\r\n");
-                }
+
+            //MuTexLock.WaitOne();
+            //{
+
+            //  if (!isLocked(balanceLock))
+            // {
+
+            //  lock (balanceLock)
+            //  {
+            MuTexLock.WaitOne();
+            this.telnetClient.write("set /controls/engines/current-engine/throttle " + throttle.ToString() + "\r\n");
+                    this.telnetClient.read();
+               // }
+           // }
+                //}
+            MuTexLock.ReleaseMutex();
             
 
         }
 
         public void changeAileron(double aileron)
         {
-            
-            this.telnetClient.write("set /controls/flight/aileron " + aileron.ToString() + "r\n");
-            Console.WriteLine("change telnet  aileron");
+            MuTexLock.WaitOne();
+            this.telnetClient.write("set /controls/flight/aileron " + aileron.ToString() + "\r\n");
+            this.telnetClient.read();
+            Console.WriteLine("change telnet  aileronnnnnnn " + aileron.ToString());
+            MuTexLock.ReleaseMutex();
         }
 
         private static string getBetween(string strSource, string strStart, string strEnd)
@@ -427,12 +441,18 @@ namespace FlightGearApp
 
         public void changeRudder(double rudder)
         {
-            this.telnetClient.write("set /controls/flight/rudder " + rudder.ToString() + "r\n");
+            MuTexLock.WaitOne();
+            this.telnetClient.write("set /controls/flight/rudder " + rudder.ToString() + "\r\n");
+            this.telnetClient.read();
+            MuTexLock.ReleaseMutex();
         }
 
         public void changeElevator(double elevator)
         {
-            this.telnetClient.write("set /controls/flight/elevator " + elevator.ToString() + "r\n");
+            MuTexLock.WaitOne();
+            this.telnetClient.write("set /controls/flight/elevator " + elevator.ToString() + "\r\n");
+            this.telnetClient.read();
+            MuTexLock.ReleaseMutex();
         }
 
 
@@ -443,16 +463,18 @@ namespace FlightGearApp
             {
                 while (!stop)
                 {
-                    if (!isLocked(balanceLock))
-                    {
+                    //if (!isLocked(balanceLock))
+                    //{
 
-                        lock (balanceLock)
-                        {
-                            Console.WriteLine("serverrr");
+                    //lock (balanceLock)
+                    //{
+                    MuTexLock.WaitOne();
+                    Console.WriteLine("serverrr");
                             string s;               
 
                             this.telnetClient.write("get /instrumentation/airspeed-indicator/indicated-speed-kt\r\n");
-                            s = telnetClient.read();                           
+                            s = telnetClient.read();
+                            Console.WriteLine(s);                   
                             this.airSpeed = Double.Parse(s);                      
 
                             this.telnetClient.write("get /controls/flight/aileron\r\n");
@@ -521,9 +543,10 @@ namespace FlightGearApp
                             this.telnetClient.write("get /position/longitude-deg\r\n");
                             s = telnetClient.read();                            
                             lon = Double.Parse(s);
-                        }
+                    //}
 
-                    }
+                    //}
+                    MuTexLock.ReleaseMutex();
                     Thread.Sleep(250);
                 }
             }).Start();

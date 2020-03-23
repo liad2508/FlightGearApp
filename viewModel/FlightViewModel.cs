@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
 using System.Windows;
+using System.Threading;
 
 namespace FlightGearApp
 {
@@ -56,7 +57,9 @@ namespace FlightGearApp
             {
                 Console.WriteLine("Aileron: View --> VM --> Model" + this.aileron.ToString());
                 this.aileron = value;
-                this.model.changeAileron(this.aileron);
+                Thread t2 = new Thread(() => this.model.changeAileron(this.aileron));
+                //this.model.changeAileron(this.aileron);
+                t2.Start();
             }
         }
 
@@ -72,7 +75,9 @@ namespace FlightGearApp
             {
                 Console.WriteLine("Elevator: View --> VM --> Model");
                 this.elevator = value;
-                this.model.changeElevator(this.elevator);
+                Thread t3 = new Thread(() => this.model.changeElevator(this.elevator));
+                t3.Start();
+                //this.model.changeElevator(this.elevator);
             }
         }
 
@@ -89,7 +94,9 @@ namespace FlightGearApp
             {
                 Console.WriteLine("Throttle: View --> VM --> Model");
                 this.throttle = value;
-                this.model.changeThrottle(this.throttle);               
+                Thread t = new Thread(() => this.model.changeThrottle(this.throttle));
+                //this.model.changeThrottle(this.throttle); 
+                t.Start();
 
             }
         }
@@ -105,7 +112,9 @@ namespace FlightGearApp
             {
                 Console.WriteLine("Rudder: View --> VM --> Model" + this.rudder.ToString());
                 this.rudder = value;
-                this.model.changeRudder(this.rudder);
+                Thread t1 = new Thread(() => this.model.changeRudder(this.rudder));
+                //this.model.changeRudder(this.rudder);
+                t1.Start();
             }
         }
         public Thickness Margin
