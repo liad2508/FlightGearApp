@@ -1,8 +1,8 @@
-﻿using System;
+﻿using FlightGearApp;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -11,45 +11,28 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
-using FlightGearApp;
 using FlightGearApp.model;
 using Microsoft.Maps.MapControl.WPF;
+using System.Threading;
 using System.ComponentModel;
-
 
 namespace WpfApp2
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for second.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class second : Window
     {
-        private void connect_button_Click(object sender, RoutedEventArgs e)
-        {
-            if (true) {
-                //second sec = new second();
-                //sec.ShowDialog();
-                NavigationService nav = NavigationService.GetNavigationService(this);
-                nav.Navigate(new Uri("second.xaml", UriKind.RelativeOrAbsolute));
-            } else { 
-                Console.WriteLine("IP or Port are incorrect");
-            }
-        }
-
-        /*private FlightViewModel vm;
+        private FlightViewModel vm;
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         const Double BOARDER_UP = 45;
         const Double BOARDER_RIGHT = 45;
-
-        public MainWindow()
+        public second()
         {
             InitializeComponent();
-            //FlightModel f = new FlightModel(new ConcreteTelnetClient());
-            //this.vm = new FlightViewModel(f);
             this.vm = new FlightViewModel(new FlightModel(new ConcreteTelnetClient()));
-            myMap.Mode = new AerialMode(true);
+            //Map.Mode = new AerialMode(true);
             DataContext = vm;
             //Thread connect = new Thread(() => vm.VM_Connect("127.0.0.1", 5402));
             //vm.VM_Connect("127.0.0.1", 5402);
@@ -62,16 +45,16 @@ namespace WpfApp2
             this.joystick.positionchange += delegate (object sender, PositionChangeEventArgs e)
             {
                 if (e.positionChanged.Equals("X"))
-                {                    
+                {
                     double rudder = joystick.PositionX / BOARDER_RIGHT;
                     Dispatcher.BeginInvoke(
                       new ThreadStart(() => vm.VM_Rudder = rudder));
                     rudder_tag.Text = rudder.ToString();
-                    
+
 
                 }
                 if (e.positionChanged.Equals("Y"))
-                {                   
+                {
                     double elevator = joystick.PositionY / BOARDER_UP;
                     Dispatcher.BeginInvoke(
                       new ThreadStart(() => vm.VM_Elevator = elevator));
@@ -86,7 +69,7 @@ namespace WpfApp2
             {
                 {
                     if (e.PropertyName.Equals("VM_AirSpeed"))
-                    {                        
+                    {
                         Dispatcher.BeginInvoke(
                       new ThreadStart(() => air_tag.Value = vm.VM_AirSpeed));
                     }
@@ -96,8 +79,8 @@ namespace WpfApp2
                               new ThreadStart(() => ver_speed.Value = vm.VM_VerticalSpeed
                               ));
                     }
-                  
-                    if(e.PropertyName.Equals("VM_HeadingDegree"))
+
+                    if (e.PropertyName.Equals("VM_HeadingDegree"))
                     {
                         Dispatcher.BeginInvoke(
                      new ThreadStart(() => head_deg.Value = vm.VM_HeadingDegree));
@@ -144,7 +127,7 @@ namespace WpfApp2
                 };
             };
         }
-     
+
 
         private void Vm_PropertyChanged1(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
@@ -180,6 +163,9 @@ namespace WpfApp2
         {
             li.FontSize = 30;
         }
-    }*/
+
+
+
+
     }
 }
