@@ -86,6 +86,8 @@ namespace WpfApp2
             this.vm.PropertyChanged += delegate (object sender, PropertyChangedEventArgs e)
             {
                 {
+
+
                     if (e.PropertyName.Equals("VM_AirSpeed"))
                     {
                         Dispatcher.BeginInvoke(
@@ -137,12 +139,10 @@ namespace WpfApp2
 
                     if (e.PropertyName.Equals("VM_Lat") || e.PropertyName.Equals("VM_Lon"))
                     {
-                        Dispatcher.BeginInvoke(
-                     new ThreadStart(() => _image.Margin = vm.Margin));
+                        Dispatcher.BeginInvoke(                    
+                    new ThreadStart(() => MapLayer.SetPosition(plane,new Location(vm.VM_Lat,vm.VM_Lon))));
+                        
                     }
-
-
-
                 };
             };
         }

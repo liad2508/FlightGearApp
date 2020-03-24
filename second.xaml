@@ -7,9 +7,12 @@
         xmlns:uc="clr-namespace:WpfApp2"
         xmlns:local="clr-namespace:WpfApp2"
         mc:Ignorable="d"
+        
         Title="second" Height="450" Width = "1000">
     <Grid RenderTransformOrigin="0.501,0.508">
+        
         <Grid.Background>
+            
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                 <GradientStop Color="Black" Offset="0"/>
                 <GradientStop Color="#FF122B57" Offset="1"/>
@@ -38,28 +41,13 @@
         </Label> -->
 
 
-        <m:Map CredentialsProvider="INSERT_YOUR_BING_MAPS_KEY" x:Name="myMap" Margin="10,10,368.333,9.667" ZoomLevel="0.25" Center="{Binding Margin}">
-
-            <Image x:Name="_image" Source="airplane.png" HorizontalAlignment="Left" Height="48" VerticalAlignment="Top" Width="51" RenderTransformOrigin="204.748,2.323"  />
-            <Image HorizontalAlignment="Left" Height="401" VerticalAlignment="Top" Width="615" Margin="0,0,0,-0.333"/>
-
-            <!-- 
-            <RadioButton HorizontalAlignment="Left" Height="37" VerticalAlignment="Center" Width="59" Background="#FFE80F0F" BorderBrush="#FF070505" MinHeight="3" Margin="34,-103,0,486.667" IsChecked="True" RenderTransformOrigin="0.235,0.643">
-                <RadioButton.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform/>
-                        <SkewTransform/>
-                        <RotateTransform/>
-                        <TranslateTransform X="50" Y="300"/>
-                    </TransformGroup>
-                </RadioButton.RenderTransform>
-
-            </RadioButton>
-            -->
-
-
-
-
+        <m:Map CredentialsProvider="INSERT_YOUR_BING_MAPS_KEY" x:Name="myMap" Margin="10,10,368.333,9.667" ZoomLevel="0" Center="{Binding Margin}">
+            
+            <Canvas Width="5" Height="8" x:Name="plane"
+                    m:MapLayer.Position="30,40"
+                    m:MapLayer.PositionOrigin="BottomCenter" Opacity="0.7">
+                <Image x:Name="_image" Source="airplane.png" HorizontalAlignment="Left" Height="48" VerticalAlignment="Top" Width="20" Margin="0,0,0,0"  />        
+            </Canvas>
         </m:Map>
 
         <Slider Name="throttle"  Margin="775,361,0,28.667" 
