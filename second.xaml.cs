@@ -35,9 +35,9 @@ namespace WpfApp2
         {
             InitializeComponent();
             this.vm = new FlightViewModel(new FlightModel(new ConcreteTelnetClient()));
-            //Map.Mode = new AerialMode(true);           
+            //myMap.Mode = new AerialMode(true);           
            
-            string Ip = ConfigurationSettings.AppSettings["Ip"]; ;
+            string Ip = ConfigurationSettings.AppSettings["Ip"]; 
             int port = Int32.Parse(ConfigurationSettings.AppSettings["Port"]); 
 
             string userIp = ((MainWindow)Application.Current.MainWindow).tb1.Text;
@@ -51,8 +51,7 @@ namespace WpfApp2
                 port = Int32.Parse(userPort);
             }
             
-            DataContext = vm;
-            //Thread connect = new Thread(() => vm.VM_Connect(Ip, port));
+            DataContext = vm;                       
             vm.VM_Connect(Ip, port);
             updateView();
             updateJoystick();
@@ -62,21 +61,29 @@ namespace WpfApp2
         {
             this.joystick.positionchange += delegate (object sender, PositionChangeEventArgs e)
             {
-                if (e.positionChanged.Equals("X"))
                 {
-                    double rudder = joystick.PositionX / BOARDER_RIGHT;
-                    Dispatcher.BeginInvoke(
-                      new ThreadStart(() => vm.VM_Rudder = rudder));
-                    rudder_tag.Text = rudder.ToString();
+                    
+                        if (e.positionChanged.Equals("X"))
+                        {
+                            double rudder = joystick.PositionX / BOARDER_RIGHT;
+                            //Dispatcher.BeginInvoke(
+                            //new ThreadStart(() => 
+                            vm.VM_Rudder = rudder;
+                            //));
+                            rudder_tag.Text = rudder.ToString();
 
 
-                }
-                if (e.positionChanged.Equals("Y"))
-                {
-                    double elevator = joystick.PositionY / BOARDER_UP;
-                    Dispatcher.BeginInvoke(
-                      new ThreadStart(() => vm.VM_Elevator = elevator));
-                    elevator_tag.Text = elevator.ToString();
+                        }
+                        if (e.positionChanged.Equals("Y"))
+                        {
+                            double elevator = joystick.PositionY / BOARDER_UP;
+                            // Dispatcher.BeginInvoke(
+                            //new ThreadStart(() =>
+                            vm.VM_Elevator = elevator;
+                            //));
+                            elevator_tag.Text = elevator.ToString();
+                        }
+                   
                 }
             };
         }
@@ -86,63 +93,99 @@ namespace WpfApp2
             this.vm.PropertyChanged += delegate (object sender, PropertyChangedEventArgs e)
             {
                 {
+                    this.Dispatcher.Invoke(() =>
+                    {
 
 
-                    if (e.PropertyName.Equals("VM_AirSpeed"))
-                    {
-                        Dispatcher.BeginInvoke(
-                      new ThreadStart(() => air_tag.Value = vm.VM_AirSpeed));
-                        Console.WriteLine("air spedddddd " + vm.VM_AirSpeed);
-                    }
-                    if (e.PropertyName.Equals("VM_VerticalSpeed"))
-                    {
-                        Dispatcher.BeginInvoke(
-                              new ThreadStart(() => ver_speed.Value = vm.VM_VerticalSpeed
-                              ));
-                    }
+                        if (e.PropertyName.Equals("VM_AirSpeed"))
+                        {
+                            //Dispatcher.BeginInvoke(
+                            //new ThreadStart(() =>
+                            air_tag.Value = vm.VM_AirSpeed;
+                            //));
 
-                    if (e.PropertyName.Equals("VM_HeadingDegree"))
-                    {
-                        Dispatcher.BeginInvoke(
-                     new ThreadStart(() => head_deg.Value = vm.VM_HeadingDegree));
-                    }
+                        }
+                        if (e.PropertyName.Equals("VM_VerticalSpeed"))
+                        {
+                            //Dispatcher.BeginInvoke(
+                            //new ThreadStart(() =>
+                            ver_speed.Value = vm.VM_VerticalSpeed;
+                            //));
+                        }
 
-                    if (e.PropertyName.Equals("VM_Roll"))
-                    {
-                        Dispatcher.BeginInvoke(
-                     new ThreadStart(() => roll_tag.Value = vm.VM_Roll));
-                    }
+                        if (e.PropertyName.Equals("VM_HeadingDegree"))
+                        {
+                            // Dispatcher.BeginInvoke(
+                            // new ThreadStart(() => 
+                            head_deg.Value = vm.VM_HeadingDegree;
+                            //));
+                        }
 
-                    if (e.PropertyName.Equals("VM_Altimeter"))
-                    {
-                        Dispatcher.BeginInvoke(
-                     new ThreadStart(() => altimeter_tag.Value = vm.VM_Altimeter));
-                    }
+                        if (e.PropertyName.Equals("VM_Roll"))
+                        {
+                            //Dispatcher.BeginInvoke(
+                            //new ThreadStart(() =>
+                            roll_tag.Value = vm.VM_Roll;
+                            //));
+                        }
 
-                    if (e.PropertyName.Equals("VM_Pitch"))
-                    {
-                        Dispatcher.BeginInvoke(
-                     new ThreadStart(() => pitch_tag.Value = vm.VM_Pitch));
-                    }
+                        if (e.PropertyName.Equals("VM_Altimeter"))
+                        {
+                            // Dispatcher.BeginInvoke(
+                            //new ThreadStart(() =>
+                            altimeter_tag.Value = vm.VM_Altimeter;
+                            //)) ;
+                        }
 
-                    if (e.PropertyName.Equals("VM_Altitude"))
-                    {
-                        Dispatcher.BeginInvoke(
-                     new ThreadStart(() => altitude_tag.Value = vm.VM_Altitude));
-                    }
+                        if (e.PropertyName.Equals("VM_Pitch"))
+                        {
+                            //Dispatcher.BeginInvoke(
+                            //new ThreadStart(() => 
+                            pitch_tag.Value = vm.VM_Pitch;
+                            //));
+                        }
 
-                    if (e.PropertyName.Equals("VM_GroundSpeed"))
-                    {
-                        Dispatcher.BeginInvoke(
-                     new ThreadStart(() => ground_tag.Value = vm.VM_GroundSpeed));
-                    }
+                        if (e.PropertyName.Equals("VM_Altitude"))
+                        {
+                            //Dispatcher.BeginInvoke(
+                            //new ThreadStart(() =>
+                            altitude_tag.Value = vm.VM_Altitude;
+                            //));
+                        }
 
-                    if (e.PropertyName.Equals("VM_Lat") || e.PropertyName.Equals("VM_Lon"))
-                    {
-                        Dispatcher.BeginInvoke(                    
-                    new ThreadStart(() => MapLayer.SetPosition(plane,new Location(vm.VM_Lat,vm.VM_Lon))));
-                        
-                    }
+                        if (e.PropertyName.Equals("VM_GroundSpeed"))
+                        {
+                            //Dispatcher.BeginInvoke(
+                            //new ThreadStart(() =>
+                            ground_tag.Value = vm.VM_GroundSpeed;
+                            //));
+                        }
+
+                        if (e.PropertyName.Equals("VM_Lat") || e.PropertyName.Equals("VM_Lon"))
+                        {
+                            //this.Dispatcher.Invoke(() =>
+                            // { 
+                            if (vm.VM_Lat > -81 && vm.VM_Lat < 81 && vm.VM_Lon > -180 && vm.VM_Lon < 180)
+                            {
+                                lat_tag.Foreground = Brushes.Green;
+                                lat_tag.Text = "Latitude: " + vm.VM_Lat
+                                + ", Longtitude: " + vm.VM_Lon;
+                            }
+                            else
+                            {
+                                lat_tag.Foreground = Brushes.Red;
+                                lat_tag.Text = "Invalid airplane coordinates";
+                            }
+
+                            MapLayer.SetPosition(plane, new Location(vm.VM_Lat, vm.VM_Lon));
+
+                            //});
+                        }
+
+                        // end of 1st dispatcher invoke
+                    });
+
+
                 };
             };
         }

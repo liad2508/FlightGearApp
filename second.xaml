@@ -10,9 +10,14 @@
         
         Title="second" Height="450" Width = "1000">
     <Grid RenderTransformOrigin="0.501,0.508">
-        
+       
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="46*"/>
+            <ColumnDefinition Width="947*"/>
+        </Grid.ColumnDefinitions>
+
         <Grid.Background>
-            
+
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                 <GradientStop Color="Black" Offset="0"/>
                 <GradientStop Color="#FF122B57" Offset="1"/>
@@ -41,28 +46,31 @@
         </Label> -->
 
 
-        <m:Map CredentialsProvider="INSERT_YOUR_BING_MAPS_KEY" x:Name="myMap" Margin="10,10,368.333,9.667" ZoomLevel="0" Center="{Binding Margin}">
-            
+        <m:Map CredentialsProvider="5iBEqLV4wJCTxuTELWwD~tnCo7PaYxJ5dY4gZnT5OrA~AvRL0tyooGFj5rKTHmJdF-994CI9upWm-MpCB_hIpjlDK-JUdaPn7JScsLpZ8MU6" 
+               x:Name="myMap" Margin="10,42,363.333,9.667" ZoomLevel="0" Center="{Binding Margin}" Grid.ColumnSpan="2" Background="#FFE10D0D">
+           
             <Canvas Width="5" Height="8" x:Name="plane"
-                    m:MapLayer.Position="30,40"
+                    m:MapLayer.Position="30,50"
                     m:MapLayer.PositionOrigin="BottomCenter" Opacity="0.7">
-                <Image x:Name="_image" Source="airplane.png" HorizontalAlignment="Left" Height="48" VerticalAlignment="Top" Width="20" Margin="0,0,0,0"  />        
+                <Image x:Name="_image" Source="loc.png" HorizontalAlignment="Left" Height="55" VerticalAlignment="Top" Width="30" Margin="0,0,0,0"  />
             </Canvas>
+           
         </m:Map>
+        <TextBox x:Name="lat_tag"  Grid.Column="1" HorizontalAlignment="Left" Height="27" Margin="161,10,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="387" Background="Black" BorderBrush="#FF000410"/>
 
-        <Slider Name="throttle"  Margin="775,361,0,28.667" 
+        <Slider Name="throttle"  Margin="729,361,0,28.667" 
   Width="100" Orientation="Horizontal" HorizontalAlignment="Left" 
   Value="{Binding VM_Throttle}" Minimum="0" Maximum="1"                
   SmallChange="1" LargeChange="10"
-  TickPlacement="BottomRight" TickFrequency="10"/>
+  TickPlacement="BottomRight" TickFrequency="10" Grid.Column="1"/>
 
 
-        <Slider Name="aileron"  Margin="686,271,0,118.667" 
+        <Slider Name="aileron"  Margin="640,271,0,118.667" 
   Width="100" Orientation="Horizontal" HorizontalAlignment="Left" 
   Value="{Binding VM_Aileron}" Minimum="-1" Maximum="1" 
   SmallChange="1" LargeChange="10"
     
-  TickPlacement="BottomRight" TickFrequency="10" RenderTransformOrigin="0.5,0.5">
+  TickPlacement="BottomRight" TickFrequency="10" RenderTransformOrigin="0.5,0.5" Grid.Column="1">
             <Slider.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -74,7 +82,7 @@
         </Slider>
 
 
-        <Viewbox HorizontalAlignment="Left" Height="260" Margin="655,113,0,0" VerticalAlignment="Top" Width="307" RenderTransformOrigin="0.5,0.5">
+        <Viewbox HorizontalAlignment="Left" Height="260" Margin="609,113,0,0" VerticalAlignment="Top" Width="307" RenderTransformOrigin="0.5,0.5" Grid.Column="1">
 
             <Viewbox.RenderTransform>
                 <TransformGroup>
@@ -98,7 +106,7 @@
         </Viewbox>
 
 
-        <Grid Margin="646,55,10.333,250.667" RenderTransformOrigin="0.447,-0.654" Background="#FF0A6C7D" OpacityMask="#FF1A62A8">
+        <Grid Margin="600,55,10.333,250.667" RenderTransformOrigin="0.447,-0.654" Background="#FF0A6C7D" OpacityMask="#FF1A62A8" Grid.Column="1">
             <Grid.ColumnDefinitions>
 
                 <ColumnDefinition Width="100"/>
@@ -134,11 +142,11 @@
             <!--  <Label x:Name="air_tag"  Grid.Column="1" HorizontalAlignment="Left" Margin="10.333,0,0,2.667" Grid.Row="2" VerticalAlignment="Bottom" Background="#FFEEE7E7" Grid.ColumnSpan="2" Width="61" Height="30" Grid.RowSpan="2"/>
 -->
         </Grid>
-        <Label x:Name="li" Content="Control Panel" HorizontalContentAlignment="Center" Margin="646,15,10.333,0" VerticalAlignment="Top" Height="40" Width="337" Background="#FF6C716A" FontWeight="Bold" FontStyle="Italic" FontSize="20"/>
+        <Label x:Name="li" Content="Control Panel" HorizontalContentAlignment="Center" Margin="600,15,10.333,0" VerticalAlignment="Top" Height="40" Width="337" Background="#FF626761" FontWeight="Bold" FontStyle="Italic" FontSize="20" Grid.Column="1"/>
 
-        <TextBox x:Name="rudder_tag" TextWrapping="Wrap" HorizontalContentAlignment="Center" Margin="905,303,33.333,91.667"/>
-        <TextBox x:Name="elevator_tag" TextWrapping="Wrap" HorizontalContentAlignment="Center" Margin="885,189,54.333,205.667"/>
-        <Label  Content="Rudder" Target="{Binding VM_Rudder}" HorizontalContentAlignment="Center" Margin="862,259,3.333,0" VerticalAlignment="Top" Height="32"  FontStyle="Italic" FontSize="13" RenderTransformOrigin="0.5,0.5" Foreground="#FFF1EBEB">
+        <TextBox x:Name="rudder_tag" Text="0" TextWrapping="Wrap" HorizontalContentAlignment="Center" Margin="859,306,31.333,88.667" Grid.Column="1"/>
+        <TextBox x:Name="elevator_tag" Text="0" TextWrapping="Wrap" HorizontalContentAlignment="Center" Margin="839,189,53.333,205.667" Grid.Column="1"/>
+        <Label  Content="Rudder" Target="{Binding VM_Rudder}" HorizontalContentAlignment="Center" Margin="816,259,3.333,0" VerticalAlignment="Top" Height="32"  FontStyle="Italic" FontSize="13" RenderTransformOrigin="0.5,0.5" Foreground="#FFF1EBEB" Grid.Column="1">
 
             <Label.Background>
                 <ImageBrush/>
@@ -152,7 +160,7 @@
                 </TransformGroup>
             </Label.RenderTransform>
         </Label>
-        <Label Content="Elevator" HorizontalContentAlignment="Center" Margin="756,184,97.333,0" VerticalAlignment="Top" Height="32"  FontStyle="Italic" FontSize="13" RenderTransformOrigin="0.5,0.5" Foreground="#FFF1EBEB">
+        <Label Content="Elevator" HorizontalContentAlignment="Center" Margin="710,184,97.333,0" VerticalAlignment="Top" Height="32"  FontStyle="Italic" FontSize="13" RenderTransformOrigin="0.5,0.5" Foreground="#FFF1EBEB" Grid.Column="1">
             <Label.Background>
                 <ImageBrush/>
             </Label.Background>
@@ -165,7 +173,7 @@
                 </TransformGroup>
             </Label.RenderTransform>
         </Label>
-        <Label Content="Aileron" HorizontalContentAlignment="Center" Margin="625,269,228.333,0" VerticalAlignment="Top" Height="32"  FontStyle="Italic" FontSize="13" RenderTransformOrigin="0.5,0.5" Foreground="#FFF1EBEB">
+        <Label Content="Aileron" HorizontalContentAlignment="Center" Margin="579,269,228.333,0" VerticalAlignment="Top" Height="32"  FontStyle="Italic" FontSize="13" RenderTransformOrigin="0.5,0.5" Foreground="#FFF1EBEB" Grid.Column="1">
             <Label.Background>
                 <ImageBrush/>
             </Label.Background>
@@ -178,7 +186,7 @@
                 </TransformGroup>
             </Label.RenderTransform>
         </Label>
-        <Label Content="Throttle" HorizontalContentAlignment="Center" Margin="755,385,98.333,0" VerticalAlignment="Top" Height="32"  FontStyle="Italic" FontSize="13" RenderTransformOrigin="0.5,0.5" Foreground="#FFF1EBEB">
+        <Label Content="Throttle" HorizontalContentAlignment="Center" Margin="709,385,98.333,0" VerticalAlignment="Top" Height="32"  FontStyle="Italic" FontSize="13" RenderTransformOrigin="0.5,0.5" Foreground="#FFF1EBEB" Grid.Column="1">
             <Label.Background>
                 <ImageBrush/>
             </Label.Background>
@@ -191,6 +199,8 @@
                 </TransformGroup>
             </Label.RenderTransform>
         </Label>
+       
+
 
         <!--
         <Grid Margin="511,36,10.333,98" Grid.ColumnSpan="2">

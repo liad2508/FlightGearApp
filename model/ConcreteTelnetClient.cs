@@ -17,8 +17,8 @@ namespace FlightGearApp.model
 
         // This method connects the simulator to the program
         public void connect(string ip, int port)
-        {
-            _client = new TcpClient("localhost", 5402);
+        {           
+            _client = new TcpClient("localhost", port);
             _ns = _client.GetStream();
         }
 
@@ -29,10 +29,12 @@ namespace FlightGearApp.model
             _client.Close();
         }
 
-        // This menthod get the data form the simulator: aileron, elevator, latitude
+        // This menthod get the data form the simulator
         public string read()
         {
+            
             string retval;
+            _ns.ReadTimeout = 10000;
             byte[] bytes = new byte[1024];
             int bytesRead = _ns.Read(bytes, 0, bytes.Length);
             retval = Encoding.ASCII.GetString(bytes, 0, bytesRead);
@@ -41,6 +43,7 @@ namespace FlightGearApp.model
 
         public void write(string command)
         {
+            
             byte[] bytes = new byte[1024];
             bytes = Encoding.ASCII.GetBytes(command);
             _ns.Write(bytes, 0, bytes.Length);

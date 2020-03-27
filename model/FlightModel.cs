@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
+using System.Windows;
+using WpfApp2;
 
 namespace FlightGearApp
 {
@@ -111,7 +113,7 @@ namespace FlightGearApp
             set
             {
                 headingDegree = value;
-                NotifyPropertyChanged("Heading Degree");
+                NotifyPropertyChanged("HeadingDegree");
             }
         }
 
@@ -133,7 +135,7 @@ namespace FlightGearApp
             set
             {
                 groundSpeed = value;
-                NotifyPropertyChanged("Ground Speed");
+                NotifyPropertyChanged("GroundSpeed");
             }
         }
 
@@ -155,7 +157,7 @@ namespace FlightGearApp
             set
             {
                 verticalSpeed = value;
-                NotifyPropertyChanged("Vertical Speed");
+                NotifyPropertyChanged("VerticalSpeed");
             }
         }
 
@@ -208,6 +210,7 @@ namespace FlightGearApp
         public void disconnect()
         {
             this.stop = true;
+
             this.telnetClient.disconnect();
         }
 
@@ -215,153 +218,165 @@ namespace FlightGearApp
         {
             new Thread(delegate ()
             {
-                while (!stop)
+                try
                 {
-                    if (!isLocked(balanceLock))
+                    while (!stop)
                     {
-
-                        lock (balanceLock)
+                        if (!isLocked(balanceLock))
                         {
 
-                           
-
-                            // Gets: 
-                            string s;
-                            int len;
-
-                            /*
-                            double k = 0;
-                            for (int i = 0; i < 10; i++)
+                            lock (balanceLock)
                             {
-                                
-                                this.telnetClient.write("set /position/latitude-deg " + k.ToString() + "\r\n");
+
+
+
+                                // Gets: 
+                                string s;
+                                int len;
+
+                                /*
+                                double k = 0;
+                                for (int i = 0; i < 10; i++)
+                                {
+
+                                    this.telnetClient.write("set /position/latitude-deg " + k.ToString() + "\r\n");
+                                    this.telnetClient.write("get /position/latitude-deg\r\n");
+                                    s = (getBetween(telnetClient.read(), "=", "(double)")).Trim();
+                                    len = s.Length;
+                                    lat = Double.Parse(s.Substring(1, len - 2));
+
+                                    this.telnetClient.write("set /position/longitude-deg " + k.ToString() + "\r\n");
+                                    this.telnetClient.write("get /position/longitude-deg\r\n");
+                                    s = (getBetween(telnetClient.read(), "=", "(double)")).Trim();
+                                    len = s.Length;
+                                    lon = Double.Parse(s.Substring(1, len - 2));
+                                    k += 0.2;
+                                }*/
+
+
+
+                                this.telnetClient.write("set /instrumentation/airspeed-indicator/indicated-speed-kt 10\r\n");
+                                //this.telnetClient.write("get /instrumentation/airspeed-indicator/indicated-speed-kt\r\n");
+                                s = (getBetween(telnetClient.read(), "=", "(double)")).Trim();
+                                len = s.Length;
+                                this.airSpeed = Double.Parse(s.Substring(1, len - 2));
+                                //airSpeed = new airSpeed;
+
+
+                                this.telnetClient.write("get /controls/flight/aileron 20\r\n");
+                                this.telnetClient.write("get /controls/flight/aileron\r\n");
+                                s = (getBetween(telnetClient.read(), "=", "(double)")).Trim();
+                                len = s.Length;
+                                aileron = Double.Parse(s.Substring(1, len - 2));
+
+                                // try
+                                this.telnetClient.write("set /instrumentation/airspeed-indicator/indicated-speed-kt 15\r\n");
+                                //this.telnetClient.write("get /instrumentation/airspeed-indicator/indicated-speed-kt\r\n");
+                                s = (getBetween(telnetClient.read(), "=", "(double)")).Trim();
+                                len = s.Length;
+                                this.airSpeed = Double.Parse(s.Substring(1, len - 2));
+                                //
+
+
+
+                                this.telnetClient.write("get /controls/flight/elevator\r\n");
+                                s = (getBetween(telnetClient.read(), "=", "(double)")).Trim();
+                                len = s.Length;
+                                elevator = Double.Parse(s.Substring(1, len - 2));
+
+
+
+                                this.telnetClient.write("get /controls/flight/rudder\r\n");
+                                s = (getBetween(telnetClient.read(), "=", "(double)")).Trim();
+                                len = s.Length;
+                                rudder = Double.Parse(s.Substring(1, len - 2));
+
+
+                                this.telnetClient.write("get /controls/engines/current-engine/throttle\r\n");
+                                s = (getBetween(telnetClient.read(), "=", "(double)")).Trim();
+                                len = s.Length;
+                                throttle = Double.Parse(s.Substring(1, len - 2));
+
+                                this.telnetClient.write("set /position/latitude-deg 0\r\n");
                                 this.telnetClient.write("get /position/latitude-deg\r\n");
                                 s = (getBetween(telnetClient.read(), "=", "(double)")).Trim();
                                 len = s.Length;
                                 lat = Double.Parse(s.Substring(1, len - 2));
 
-                                this.telnetClient.write("set /position/longitude-deg " + k.ToString() + "\r\n");
+                                this.telnetClient.write("set /position/longitude-deg 0\r\n");
                                 this.telnetClient.write("get /position/longitude-deg\r\n");
                                 s = (getBetween(telnetClient.read(), "=", "(double)")).Trim();
                                 len = s.Length;
                                 lon = Double.Parse(s.Substring(1, len - 2));
-                                k += 0.2;
-                            }*/
 
 
-
-                            this.telnetClient.write("set /instrumentation/airspeed-indicator/indicated-speed-kt 10\r\n");
-                            //this.telnetClient.write("get /instrumentation/airspeed-indicator/indicated-speed-kt\r\n");
-                            s = (getBetween(telnetClient.read(), "=", "(double)")).Trim();
-                            len = s.Length;
-                            this.airSpeed = Double.Parse(s.Substring(1, len - 2));
-                            //airSpeed = new airSpeed;
+                                this.telnetClient.write("get /instrumentation/heading-indicator/indicated-heading-deg\r\n");
+                                s = (getBetween(telnetClient.read(), "=", "(double)")).Trim();
+                                len = s.Length;
+                                heading_Degree = Double.Parse(s.Substring(1, len - 2));
 
 
-                            this.telnetClient.write("get /controls/flight/aileron 20\r\n");
-                            this.telnetClient.write("get /controls/flight/aileron\r\n");
-                            s = (getBetween(telnetClient.read(), "=", "(double)")).Trim();
-                            len = s.Length;
-                            aileron = Double.Parse(s.Substring(1, len - 2));
-
-                            // try
-                            this.telnetClient.write("set /instrumentation/airspeed-indicator/indicated-speed-kt 15\r\n");
-                            //this.telnetClient.write("get /instrumentation/airspeed-indicator/indicated-speed-kt\r\n");
-                            s = (getBetween(telnetClient.read(), "=", "(double)")).Trim();
-                            len = s.Length;
-                            this.airSpeed = Double.Parse(s.Substring(1, len - 2));
-                            //
+                                this.telnetClient.write("get /instrumentation/gps/indicated-altitude-ft\r\n");
+                                s = (getBetween(telnetClient.read(), "=", "(double)")).Trim();
+                                len = s.Length;
+                                altitude = Double.Parse(s.Substring(1, len - 2));
 
 
-
-                            this.telnetClient.write("get /controls/flight/elevator\r\n");
-                            s = (getBetween(telnetClient.read(), "=", "(double)")).Trim();
-                            len = s.Length;
-                            elevator = Double.Parse(s.Substring(1, len - 2));
-
+                                this.telnetClient.write("get /instrumentation/gps/indicated-ground-speed-kt\r\n");
+                                s = (getBetween(telnetClient.read(), "=", "(double)")).Trim();
+                                len = s.Length;
+                                ground_Speed = Double.Parse(s.Substring(1, len - 2));
 
 
-                            this.telnetClient.write("get /controls/flight/rudder\r\n");
-                            s = (getBetween(telnetClient.read(), "=", "(double)")).Trim();
-                            len = s.Length;
-                            rudder = Double.Parse(s.Substring(1, len - 2));
+                                this.telnetClient.write("get /instrumentation/altimeter/indicated-altitude-ft\r\n");
+                                s = (getBetween(telnetClient.read(), "=", "(double)")).Trim();
+                                len = s.Length;
+                                altimeter = Double.Parse(s.Substring(1, len - 2));
 
 
-                            this.telnetClient.write("get /controls/engines/current-engine/throttle\r\n");
-                            s = (getBetween(telnetClient.read(), "=", "(double)")).Trim();
-                            len = s.Length;
-                            throttle = Double.Parse(s.Substring(1, len - 2));
-
-                            this.telnetClient.write("set /position/latitude-deg 0\r\n");
-                            this.telnetClient.write("get /position/latitude-deg\r\n");
-                            s = (getBetween(telnetClient.read(), "=", "(double)")).Trim();
-                            len = s.Length;
-                            lat = Double.Parse(s.Substring(1, len - 2));
-
-                            this.telnetClient.write("set /position/longitude-deg 0\r\n");
-                            this.telnetClient.write("get /position/longitude-deg\r\n");
-                            s = (getBetween(telnetClient.read(), "=", "(double)")).Trim();
-                            len = s.Length;
-                            lon = Double.Parse(s.Substring(1, len - 2));
+                                this.telnetClient.write("get /instrumentation/gps/indicated-vertical-speed\r\n");
+                                s = (getBetween(telnetClient.read(), "=", "(double)")).Trim();
+                                len = s.Length;
+                                vertical_Speed = Double.Parse(s.Substring(1, len - 2));
 
 
-                            this.telnetClient.write("get /instrumentation/heading-indicator/indicated-heading-deg\r\n");
-                            s = (getBetween(telnetClient.read(), "=", "(double)")).Trim();
-                            len = s.Length;
-                            heading_Degree = Double.Parse(s.Substring(1, len - 2));
+                                this.telnetClient.write("get /instrumentation/attitude-indicator/internal-pitch-deg\r\n");
+                                s = (getBetween(telnetClient.read(), "=", "(double)")).Trim();
+                                len = s.Length;
+                                pitch = Double.Parse(s.Substring(1, len - 2));
+
+                                this.telnetClient.write("get /instrumentation/attitude-indicator/internal-roll-deg\r\n");
+                                s = (getBetween(telnetClient.read(), "=", "(double)")).Trim();
+                                len = s.Length;
+                                roll = Double.Parse(s.Substring(1, len - 2));
 
 
-                            this.telnetClient.write("get /instrumentation/gps/indicated-altitude-ft\r\n");
-                            s = (getBetween(telnetClient.read(), "=", "(double)")).Trim();
-                            len = s.Length;
-                            altitude = Double.Parse(s.Substring(1, len - 2));
+                                this.telnetClient.write("set /position/latitude-deg 300\r\n");
+                                this.telnetClient.write("get /position/latitude-deg\r\n");
+                                s = (getBetween(telnetClient.read(), "=", "(double)")).Trim();
+                                len = s.Length;
+                                lat = Double.Parse(s.Substring(1, len - 2));
 
+                                this.telnetClient.write("set /position/longitude-deg 200\r\n");
+                                this.telnetClient.write("get /position/longitude-deg\r\n");
+                                s = (getBetween(telnetClient.read(), "=", "(double)")).Trim();
+                                len = s.Length;
+                                lon = Double.Parse(s.Substring(1, len - 2));
 
-                            this.telnetClient.write("get /instrumentation/gps/indicated-ground-speed-kt\r\n");
-                            s = (getBetween(telnetClient.read(), "=", "(double)")).Trim();
-                            len = s.Length;
-                            ground_Speed = Double.Parse(s.Substring(1, len - 2));
-
-
-                            this.telnetClient.write("get /instrumentation/altimeter/indicated-altitude-ft\r\n");
-                            s = (getBetween(telnetClient.read(), "=", "(double)")).Trim();
-                            len = s.Length;
-                            altimeter = Double.Parse(s.Substring(1, len - 2));
-
-
-                            this.telnetClient.write("get /instrumentation/gps/indicated-vertical-speed\r\n");
-                            s = (getBetween(telnetClient.read(), "=", "(double)")).Trim();
-                            len = s.Length;
-                            vertical_Speed = Double.Parse(s.Substring(1, len - 2));
-
-
-                            this.telnetClient.write("get /instrumentation/attitude-indicator/internal-pitch-deg\r\n");
-                            s = (getBetween(telnetClient.read(), "=", "(double)")).Trim();
-                            len = s.Length;
-                            pitch = Double.Parse(s.Substring(1, len - 2));
-
-                            this.telnetClient.write("get /instrumentation/attitude-indicator/internal-roll-deg\r\n");
-                            s = (getBetween(telnetClient.read(), "=", "(double)")).Trim();
-                            len = s.Length;
-                            roll = Double.Parse(s.Substring(1, len - 2));
-
-
-                            this.telnetClient.write("set /position/latitude-deg 300\r\n");
-                            this.telnetClient.write("get /position/latitude-deg\r\n");
-                            s = (getBetween(telnetClient.read(), "=", "(double)")).Trim();
-                            len = s.Length;
-                            lat = Double.Parse(s.Substring(1, len - 2));
-
-                            this.telnetClient.write("set /position/longitude-deg 200\r\n");
-                            this.telnetClient.write("get /position/longitude-deg\r\n");
-                            s = (getBetween(telnetClient.read(), "=", "(double)")).Trim();
-                            len = s.Length;
-                            lon = Double.Parse(s.Substring(1, len - 2));
+                            }
 
                         }
-                    
+                        Thread.Sleep(250);
                     }
-                    Thread.Sleep(250);
+                } catch (Exception e)
+                {
+                    Console.WriteLine("eroroooorrrr");
+                    string messageBoxText = "Do you want to save changes?";
+                    string caption = "Word Processor";
+                    MessageBoxButton button = MessageBoxButton.YesNoCancel;
+                    MessageBoxImage icon = MessageBoxImage.Warning;
+                    // Display message box
+                    MessageBox.Show(messageBoxText, caption, button, icon);
                 }
             }).Start();
         }
@@ -455,100 +470,124 @@ namespace FlightGearApp
             MuTexLock.ReleaseMutex();
         }
 
-
-
+        [Obsolete]
         public void startFromServer()
         {
             new Thread(delegate ()
             {
-                while (!stop)
+                try
                 {
-                    //if (!isLocked(balanceLock))
-                    //{
+                    while (!stop)
+                    {
+                        MuTexLock.WaitOne();
+                        Console.WriteLine("serverrr");
+                        string s;
 
-                    //lock (balanceLock)
-                    //{
-                    MuTexLock.WaitOne();
-                    Console.WriteLine("serverrr");
-                            string s;               
+                        this.telnetClient.write("get /instrumentation/airspeed-indicator/indicated-speed-kt\r\n");
+                        s = telnetClient.read();
+                        Console.WriteLine(s);
+                        this.airSpeed = Double.Parse(s);
 
-                            this.telnetClient.write("get /instrumentation/airspeed-indicator/indicated-speed-kt\r\n");
-                            s = telnetClient.read();
-                            Console.WriteLine(s);                   
-                            this.airSpeed = Double.Parse(s);                      
+                        this.telnetClient.write("get /controls/flight/aileron\r\n");
+                        s = telnetClient.read();
+                        aileron = Double.Parse(s);
 
-                            this.telnetClient.write("get /controls/flight/aileron\r\n");
-                            s = telnetClient.read();                            
-                            aileron = Double.Parse(s);
-                                                     
-                            this.telnetClient.write("get /controls/flight/elevator\r\n");
-                            s = telnetClient.read();                            
-                            elevator = Double.Parse(s);
+                        this.telnetClient.write("get /controls/flight/elevator\r\n");
+                        s = telnetClient.read();
+                        elevator = Double.Parse(s);
 
-                            this.telnetClient.write("get /controls/flight/rudder\r\n");
-                            s = telnetClient.read();                            
-                            rudder = Double.Parse(s);
+                        this.telnetClient.write("get /controls/flight/rudder\r\n");
+                        s = telnetClient.read();
+                        rudder = Double.Parse(s);
 
-                            this.telnetClient.write("get /controls/engines/current-engine/throttle\r\n");
-                            s = telnetClient.read();                            
-                            throttle = Double.Parse(s);
-                            
-                            this.telnetClient.write("get /position/latitude-deg\r\n");
-                            s = telnetClient.read();                           
-                            lat = Double.Parse(s);
-                            
-                            this.telnetClient.write("get /position/longitude-deg\r\n");
-                            s = telnetClient.read();
-                            lon = Double.Parse(s);
+                        this.telnetClient.write("get /controls/engines/current-engine/throttle\r\n");
+                        s = telnetClient.read();
+                        throttle = Double.Parse(s);
 
-                            this.telnetClient.write("get /instrumentation/heading-indicator/indicated-heading-deg\r\n");
-                            s = telnetClient.read();
-                            heading_Degree = Double.Parse(s);
+                        this.telnetClient.write("get /position/latitude-deg\r\n");
+                        s = telnetClient.read();
+                        lat = Double.Parse(s);
+
+                        this.telnetClient.write("get /position/longitude-deg\r\n");
+                        s = telnetClient.read();
+                        lon = Double.Parse(s);
+
+                        this.telnetClient.write("get /instrumentation/heading-indicator/indicated-heading-deg\r\n");
+                        s = telnetClient.read();
+                        heading_Degree = Double.Parse(s);
 
 
-                            this.telnetClient.write("get /instrumentation/gps/indicated-altitude-ft\r\n");
-                            s = telnetClient.read();
-                            altitude = Double.Parse(s);
+                        this.telnetClient.write("get /instrumentation/gps/indicated-altitude-ft\r\n");
+                        s = telnetClient.read();
+                        altitude = Double.Parse(s);
 
 
-                            this.telnetClient.write("get /instrumentation/gps/indicated-ground-speed-kt\r\n");
-                            s = telnetClient.read();                           
-                            ground_Speed = Double.Parse(s);
+                        this.telnetClient.write("get /instrumentation/gps/indicated-ground-speed-kt\r\n");
+                        s = telnetClient.read();
+                        ground_Speed = Double.Parse(s);
 
 
-                            this.telnetClient.write("get /instrumentation/altimeter/indicated-altitude-ft\r\n");
-                            s = telnetClient.read();                            
-                            altimeter = Double.Parse(s);
+                        this.telnetClient.write("get /instrumentation/altimeter/indicated-altitude-ft\r\n");
+                        s = telnetClient.read();
+                        altimeter = Double.Parse(s);
 
 
-                            this.telnetClient.write("get /instrumentation/gps/indicated-vertical-speed\r\n");
-                            s = telnetClient.read();
-                            vertical_Speed = Double.Parse(s);
+                        this.telnetClient.write("get /instrumentation/gps/indicated-vertical-speed\r\n");
+                        s = telnetClient.read();
+                        vertical_Speed = Double.Parse(s);
 
 
-                            this.telnetClient.write("get /instrumentation/attitude-indicator/internal-pitch-deg\r\n");
-                            s = telnetClient.read();                           
-                            pitch = Double.Parse(s);
+                        this.telnetClient.write("get /instrumentation/attitude-indicator/internal-pitch-deg\r\n");
+                        s = telnetClient.read();
+                        pitch = Double.Parse(s);
 
-                            this.telnetClient.write("get /instrumentation/attitude-indicator/internal-roll-deg\r\n");
-                            s = telnetClient.read();                            ;
-                            roll = Double.Parse(s);
+                        this.telnetClient.write("get /instrumentation/attitude-indicator/internal-roll-deg\r\n");
+                        s = telnetClient.read(); ;
+                        roll = Double.Parse(s);
 
-                            
-                            this.telnetClient.write("get /position/latitude-deg\r\n");
-                            s = telnetClient.read();                           
-                            lat = Double.Parse(s);
 
-                            
-                            this.telnetClient.write("get /position/longitude-deg\r\n");
-                            s = telnetClient.read();                            
-                            lon = Double.Parse(s);
-                    //}
+                        this.telnetClient.write("get /position/latitude-deg\r\n");
+                        s = telnetClient.read();
+                        lat = Double.Parse(s);
 
-                    //}
-                    MuTexLock.ReleaseMutex();
-                    Thread.Sleep(250);
-                }
+
+                        this.telnetClient.write("get /position/longitude-deg\r\n");
+                        s = telnetClient.read();
+                        lon = Double.Parse(s);
+                        //}
+
+                        //}
+                        MuTexLock.ReleaseMutex();
+                        Thread.Sleep(250);
+                    }
+                } catch(Exception e)
+                {
+                    
+                    string messageBoxText = "Do you want to connect again?";
+                    string caption = "Error Connection";
+                    MessageBoxButton button = MessageBoxButton.YesNo;
+                    MessageBoxImage icon = MessageBoxImage.Warning;
+                    // Display message box
+                    MessageBoxResult result = MessageBox.Show(messageBoxText, caption, button, icon);
+                   
+                    switch (result)
+                    {
+                        case MessageBoxResult.Yes:
+                            //disconnect();
+                            Application.Current.Dispatcher.Invoke((Action)delegate
+                            {
+                                MainWindow window = new MainWindow();
+                                //App.Current.second.Close();
+                                App.Current.MainWindow = window;
+                                App.Current.MainWindow.Show();
+                            });
+                            break;
+                        case MessageBoxResult.No:
+                            disconnect();
+                            Environment.Exit(0);
+                            break;
+                    }
+                    }
             }).Start();
         }
     }
