@@ -25,6 +25,11 @@ namespace FlightGearApp
 
         }
 
+        public void VM_Disconnect()
+        {
+            this.model.disconnect();
+        }
+
         public void VM_Connect(string ip, int port)
         {
             this.model.connect(ip, port);

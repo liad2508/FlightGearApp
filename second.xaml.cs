@@ -275,8 +275,10 @@ namespace WpfApp2
             li.FontSize = 30;
         }
 
-
-
-
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            this.vm.VM_Disconnect();
+            Environment.Exit(0);
+        }
     }
 }

@@ -8,7 +8,7 @@
         xmlns:local="clr-namespace:WpfApp2"
         mc:Ignorable="d"
         
-        Title="second" Height="450" Width = "1000">
+        Title="Flight Gear App" Height="450" Width = "1000">
     <Grid RenderTransformOrigin="0.501,0.508">
 
         <Grid.ColumnDefinitions>
@@ -57,6 +57,7 @@
 
         </m:Map>
         <TextBox x:Name="lat_tag"  Grid.Column="1" HorizontalAlignment="Left" Height="27" Margin="161,10,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="387" Background="Black" BorderBrush="#FF000410"/>
+        <TextBox x:Name="statis_tag" Text="Status :"  Grid.Column="1" HorizontalAlignment="Left" Height="22" Margin="110,10,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="51" Background="Black" BorderBrush="#FF01040D" Foreground="#FF1FBAA2" FontWeight="Bold" FontStyle="Italic" TextDecorations="{x:Null}"/>
 
         <Slider Name="throttle"  Margin="729,361,0,28.667" 
   Width="100" Orientation="Horizontal" HorizontalAlignment="Left" 
@@ -232,6 +233,7 @@
                 </TransformGroup>
             </Label.RenderTransform>
         </Label>
+        <Button Content="disconnect" HorizontalAlignment="Left" Margin="19,11,0,0" VerticalAlignment="Top" Width="75" Grid.ColumnSpan="2" Click="Button_Click"/>
 
 
 

@@ -216,7 +216,6 @@ namespace FlightGearApp
         public void disconnect()
         {
             this.stop = true;
-
             this.telnetClient.disconnect();
         }
         /*
