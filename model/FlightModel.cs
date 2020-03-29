@@ -197,6 +197,17 @@ namespace FlightGearApp
             } 
         }
 
+        private string _dis;
+        public string dis
+        {
+            get { return _dis; }
+            set
+            {
+                _dis = value;
+                NotifyPropertyChanged("Dis");
+            }
+        }
+
         public void NotifyPropertyChanged(string propName)
         {
             if (this.PropertyChanged != null)
@@ -553,16 +564,7 @@ namespace FlightGearApp
                     switch (result)
                     {
                         case MessageBoxResult.Yes:
-                            /*
-                            try
-                            {
-                                
-                                m.Show();
-                                System.Windows.Threading.Dispatcher.Run();
-                            } catch (ThreadAbortException) {
-                                m.Close();
-                                 Application.Current.Dispatcher.Invoke(Application.Current.Shutdown);
-                            }*/
+                            dis = "error";
                             break;
                         case MessageBoxResult.No:
                             disconnect();

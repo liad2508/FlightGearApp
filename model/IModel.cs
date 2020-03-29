@@ -33,6 +33,7 @@ namespace FlightGearApp
         string pitch { set; get; }
         string airSpeed { set; get; }
         string roll { set; get; }
+         string dis { set; get; }
 
         void setRudder(double rudderVal);
         //void setThrottle(double thrVal);

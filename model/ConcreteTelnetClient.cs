@@ -7,6 +7,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using WpfApp2;
 
 namespace FlightGearApp.model
 {
@@ -51,9 +52,9 @@ namespace FlightGearApp.model
                 MessageBoxResult result = MessageBox.Show(messageBoxText, caption, button, icon);
                if (result == MessageBoxResult.OK)
                 {
-                   // System.Diagnostics.Process.Start(Application.ResourceAssembly.Location);
-                    //Application.Current.Shutdown();
-                    //Environment.Exit(0);
+                    for (int intCounter = App.Current.Windows.Count - 1; intCounter > 0; intCounter--)
+                        App.Current.Windows[intCounter].Close();
+                    
                 }
 
             }
@@ -66,6 +67,8 @@ namespace FlightGearApp.model
         {
             _ns.Close();
             _client.Close();
+            for (int intCounter = App.Current.Windows.Count - 1; intCounter > 0; intCounter--)
+                App.Current.Windows[intCounter].Close();
         }
 
         // This menthod get the data form the simulator

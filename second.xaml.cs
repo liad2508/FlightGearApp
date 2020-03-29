@@ -62,6 +62,7 @@ namespace WpfApp2
             this.joystick.positionchange += delegate (object sender, PositionChangeEventArgs e)
             {
                 {
+                        
                     
                         if (e.positionChanged.Equals("X"))
                         {
@@ -95,6 +96,14 @@ namespace WpfApp2
                 {
                     this.Dispatcher.Invoke(() =>
                     {
+
+
+                        if (e.PropertyName.Equals("VM_Dis"))
+                        {                           
+                            this.Close();
+                            Console.WriteLine("disssssssssssssss");
+                            this.Owner.Show();
+                        }
 
 
                         if (e.PropertyName.Equals("VM_AirSpeed"))
@@ -189,6 +198,7 @@ namespace WpfApp2
                             {
                                 text_altitude.Foreground = Brushes.Red;
                                 text_altitude.Text = "ERR";
+                                
                             }
                             else
                             {
@@ -278,7 +288,7 @@ namespace WpfApp2
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             this.vm.VM_Disconnect();
-            Environment.Exit(0);
+            this.Owner.Show();
         }
     }
 }

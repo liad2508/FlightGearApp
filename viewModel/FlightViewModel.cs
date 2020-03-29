@@ -190,6 +190,11 @@ namespace FlightGearApp
             get { return model.roll; }
         }
 
+        public string VM_Dis
+        {
+            get { return model.dis; }
+        }
+
         /*
         public void changeThrottle(double t)
         {
