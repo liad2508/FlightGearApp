@@ -44,6 +44,7 @@ namespace FlightGearApp.model
             }
             catch (Exception e)
             {
+                
                 string messageBoxText = "Please connect again";
                 string caption = "Error Connection";
                 MessageBoxButton button = MessageBoxButton.OK;

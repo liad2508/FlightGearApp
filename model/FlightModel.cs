@@ -15,6 +15,7 @@ namespace FlightGearApp
     class FlightModel : IModel
     {
         private volatile Boolean stop;
+        private Boolean con = true;
         public Mutex MuTexLock = new Mutex();
         ITelnetClient telnetClient;
         public event PropertyChangedEventHandler PropertyChanged;
@@ -415,21 +416,27 @@ namespace FlightGearApp
 
         public void changeThrottle(double throttle)
         {
-
-            MuTexLock.WaitOne();
-            this.telnetClient.write("set /controls/engines/current-engine/throttle " + throttle.ToString() + "\r\n");
-                    this.telnetClient.read();          
-            MuTexLock.ReleaseMutex();           
+            if (this.con)
+            {
+                MuTexLock.WaitOne();
+                this.telnetClient.write("set /controls/engines/current-engine/throttle " + throttle.ToString() + "\r\n");
+                this.telnetClient.read();
+                MuTexLock.ReleaseMutex();
+            }
+         
 
         }
 
         public void changeAileron(double aileron)
         {
-            MuTexLock.WaitOne();
-            this.telnetClient.write("set /controls/flight/aileron " + aileron.ToString() + "\r\n");
-            this.telnetClient.read();
-            Console.WriteLine("change telnet  aileronnnnnnn " + aileron.ToString());
-            MuTexLock.ReleaseMutex();
+            if (this.con)
+            {
+                MuTexLock.WaitOne();
+                this.telnetClient.write("set /controls/flight/aileron " + aileron.ToString() + "\r\n");
+                this.telnetClient.read();
+                Console.WriteLine("change telnet  aileronnnnnnn " + aileron.ToString());
+                MuTexLock.ReleaseMutex();
+            }
         }
 
         private static string getBetween(string strSource, string strStart, string strEnd)
@@ -449,18 +456,24 @@ namespace FlightGearApp
 
         public void changeRudder(double rudder)
         {
-            MuTexLock.WaitOne();
-            this.telnetClient.write("set /controls/flight/rudder " + rudder.ToString() + "\r\n");
-            this.telnetClient.read();
-            MuTexLock.ReleaseMutex();
+            if (this.con)
+            {
+                MuTexLock.WaitOne();
+                this.telnetClient.write("set /controls/flight/rudder " + rudder.ToString() + "\r\n");
+                this.telnetClient.read();
+                MuTexLock.ReleaseMutex();
+            }
         }
 
         public void changeElevator(double elevator)
         {
-            MuTexLock.WaitOne();
-            this.telnetClient.write("set /controls/flight/elevator " + elevator.ToString() + "\r\n");
-            this.telnetClient.read();
-            MuTexLock.ReleaseMutex();
+            if (this.con)
+            {
+                MuTexLock.WaitOne();
+                this.telnetClient.write("set /controls/flight/elevator " + elevator.ToString() + "\r\n");
+                this.telnetClient.read();
+                MuTexLock.ReleaseMutex();
+            }
         }
 
         [Obsolete]
@@ -553,7 +566,7 @@ namespace FlightGearApp
                     }
                 } catch(Exception e)
                 {
-                    
+                    con = false;
                     string messageBoxText = "Do you want to connect again?";
                     string caption = "Error Connection";
                     MessageBoxButton button = MessageBoxButton.YesNo;
