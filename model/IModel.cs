@@ -11,7 +11,7 @@ namespace FlightGearApp
         void connect(string ip, int port);
         void disconnect();
         void startFromServer();
-        void startFromSimulator();
+        //void startFromSimulator();
         
         // Declaring all the Properties
         // The forth Joystick Properties:
@@ -25,14 +25,14 @@ namespace FlightGearApp
         double lon { set; get; }
 
         // 4X2 matrix properties
-        double heading_Degree { set; get; }
-        double altitude { set; get; }
-        double ground_Speed { set; get; }
-        double altimeter { set; get; }
-        double vertical_Speed { set; get; }
-        double pitch { set; get; }
-        double airSpeed { set; get; }
-        double roll { set; get; }
+        string heading_Degree { set; get; }
+        string altitude { set; get; }
+        string ground_Speed { set; get; }
+        string altimeter { set; get; }
+        string vertical_Speed { set; get; }
+        string pitch { set; get; }
+        string airSpeed { set; get; }
+        string roll { set; get; }
 
         void setRudder(double rudderVal);
         //void setThrottle(double thrVal);

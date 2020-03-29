@@ -10,7 +10,7 @@
         
         Title="second" Height="450" Width = "1000">
     <Grid RenderTransformOrigin="0.501,0.508">
-       
+
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="46*"/>
             <ColumnDefinition Width="947*"/>
@@ -48,13 +48,13 @@
 
         <m:Map CredentialsProvider="5iBEqLV4wJCTxuTELWwD~tnCo7PaYxJ5dY4gZnT5OrA~AvRL0tyooGFj5rKTHmJdF-994CI9upWm-MpCB_hIpjlDK-JUdaPn7JScsLpZ8MU6" 
                x:Name="myMap" Margin="10,42,363.333,9.667" ZoomLevel="0" Center="{Binding Margin}" Grid.ColumnSpan="2" Background="#FFE10D0D">
-           
+
             <Canvas Width="5" Height="8" x:Name="plane"
                     m:MapLayer.Position="30,50"
                     m:MapLayer.PositionOrigin="BottomCenter" Opacity="0.7">
                 <Image x:Name="_image" Source="loc.png" HorizontalAlignment="Left" Height="55" VerticalAlignment="Top" Width="30" Margin="0,0,0,0"  />
             </Canvas>
-           
+
         </m:Map>
         <TextBox x:Name="lat_tag"  Grid.Column="1" HorizontalAlignment="Left" Height="27" Margin="161,10,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="387" Background="Black" BorderBrush="#FF000410"/>
 
@@ -123,13 +123,46 @@
             </Grid.RowDefinitions>
 
             <ProgressBar x:Name="air_tag" Value="{Binding VM_AirSpeed,Mode=OneWay}" Grid.Column="1" HorizontalAlignment="Left" Height="15" Margin="10.333,4,0,0" Grid.Row="3" VerticalAlignment="Top" Width="61" Grid.ColumnSpan="2"  Minimum="0" Maximum="20"/>
+            <TextBlock x:Name="text_airspeed"  Text="{Binding ElementName=air_tag, Path=Value, StringFormat={}{0:0}%}" 
+           HorizontalAlignment="Center" TextAlignment="Center"  
+           VerticalAlignment="Top" RenderTransformOrigin="5.406,5.823" Grid.Column="1" Margin="23.333,5,93,0" Grid.Row="3" FontSize="10" Width="35" FontWeight="Bold" Grid.ColumnSpan="2" Height="13" />
             <ProgressBar x:Name="ver_speed" Value="{Binding VM_VerticalSpeed, Mode=OneWay}" HorizontalAlignment="Left" Height="15" Margin="10.333,7.667,0,0" Grid.Row="2" VerticalAlignment="Top" Width="61" Grid.ColumnSpan="2" Grid.Column="1"/>
+            <TextBlock x:Name="text_verticalspeed"  Text="{Binding ElementName=ver_speed, Path=Value, StringFormat={}{0:0}%}" 
+           HorizontalAlignment="Center" TextAlignment="Center"  
+           VerticalAlignment="Top" RenderTransformOrigin="5.406,5.823" Grid.Column="1" Margin="23.333,9.667,93,0" Grid.Row="2" FontSize="10" Width="35" FontWeight="Bold" Grid.ColumnSpan="2" Height="13" />
             <ProgressBar x:Name="head_deg" Value="{Binding VM_HeadingDegree, Mode=OneWay}" Grid.Column="1" HorizontalAlignment="Left" Height="15" Margin="10.333,8,0,0" VerticalAlignment="Top" Width="61" Grid.ColumnSpan="2"/>
+            <TextBlock x:Name="text_headdeg"  Text="{Binding ElementName=head_deg, Path=Value, StringFormat={}{0:0}%}" 
+           HorizontalAlignment="Center" TextAlignment="Center"  
+           VerticalAlignment="Top" RenderTransformOrigin="5.406,5.823" Grid.Column="1" Margin="23.333,9,93,0" FontSize="10" Width="35" FontWeight="Bold" Grid.ColumnSpan="2" Height="13" />
+
+
             <ProgressBar x:Name="roll_tag" Value="{Binding VM_Roll,Mode=OneWay}" Grid.Column="3" HorizontalAlignment="Left" Height="15" Margin="14,5,-24.333,0" Grid.Row="3" VerticalAlignment="Top" Width="61"/>
+            <TextBlock x:Name="text_roll"  Text="{Binding ElementName=roll_tag, Path=Value, StringFormat={}{0:0}%}" 
+           HorizontalAlignment="Center" TextAlignment="Center"  
+           VerticalAlignment="Top" RenderTransformOrigin="5.406,5.823" Grid.Column="3" Margin="26,7,-10.333,0" Grid.Row="3" FontSize="10" Width="35" FontWeight="Bold" Height="13" />
+
             <ProgressBar x:Name="altimeter_tag" Value="{Binding VM_Altimeter,Mode=OneWay}" Grid.Column="3" HorizontalAlignment="Left" Height="15" Margin="14,7.333,-24.333,0" Grid.Row="1" VerticalAlignment="Top" Width="61" RenderTransformOrigin="2.779,-2.744"/>
+            <TextBlock x:Name="text_altimeter"  Text="{Binding ElementName=altimeter_tag, Path=Value, StringFormat={}{0:0}%}" 
+           HorizontalAlignment="Center" TextAlignment="Center"  
+           VerticalAlignment="Top" RenderTransformOrigin="5.406,5.823" Grid.Column="3" Margin="26,10.333,-10.333,0" Grid.Row="1" FontSize="10" Width="35" FontWeight="Bold" Height="13" />
+
+
             <ProgressBar x:Name="pitch_tag" Value="{Binding VM_Pitch,Mode=OneWay}" Grid.Column="3" HorizontalAlignment="Left" Height="15" Margin="14,7.667,-24.333,0" Grid.Row="2" VerticalAlignment="Top" Width="61"/>
+            <TextBlock x:Name="text_pitch"  Text="{Binding ElementName=pitch_tag, Path=Value, StringFormat={}{0:0}%}" 
+           HorizontalAlignment="Center" TextAlignment="Center"  
+           VerticalAlignment="Top" RenderTransformOrigin="5.406,5.823" Grid.Column="3" Margin="26,9.667,-10.333,0" Grid.Row="2" FontSize="10" Width="35" FontWeight="Bold" Height="13" />
+
             <ProgressBar x:Name="altitude_tag" Value="{Binding VM_Altitude,Mode=OneWay}" Grid.Column="3" HorizontalAlignment="Left" Height="15" Margin="14,9,-24.333,0" VerticalAlignment="Top" Width="61"/>
+            <TextBlock x:Name="text_altitude"  Text="{Binding ElementName=altitude_tag, Path=Value, StringFormat={}{0:0}%}" 
+           HorizontalAlignment="Center" TextAlignment="Center"  
+           VerticalAlignment="Top" RenderTransformOrigin="5.406,5.823" Grid.Column="3" Margin="27,11,-11.333,0" FontSize="10" Width="35" FontWeight="Bold" Height="13" />
+
             <ProgressBar x:Name="ground_tag" Value="{Binding VM_GroundSpeed, Mode=OneWay}" Grid.Column="1" HorizontalAlignment="Left" Height="15" Margin="10.333,7.333,0,0" Grid.Row="1" VerticalAlignment="Top" Width="61" Grid.ColumnSpan="2"/>
+            <TextBlock x:Name="text_ground"  Text="{Binding ElementName=ground_tag, Path=Value, StringFormat={}{0:0}%}" 
+           HorizontalAlignment="Center" TextAlignment="Center"  
+           VerticalAlignment="Top" RenderTransformOrigin="5.406,5.823" Grid.Column="1" Margin="23.333,9.333,93,0" Grid.Row="1" FontSize="10" Width="35" FontWeight="Bold" Grid.ColumnSpan="2" Height="13" />
+
+
 
             <Label Margin="0,0,0.667,26.333" Grid.RowSpan="2" FontStyle="Italic" >Heading-Degree:</Label>
             <Label Grid.Row="1" Grid.Column="0" Margin="0,0,0.667,0.333" FontStyle="Italic">Ground Speed:</Label>
@@ -199,7 +232,7 @@
                 </TransformGroup>
             </Label.RenderTransform>
         </Label>
-       
+
 
 
         <!--

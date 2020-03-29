@@ -135,40 +135,40 @@ namespace FlightGearApp
             get { return model.lon; }
         }
 
-        public double VM_HeadingDegree
+        public string VM_HeadingDegree
         {
             get { return model.heading_Degree; }
         }
 
-        public double VM_Altitude
+        public string VM_Altitude
         {
             get { return model.altitude; }
         }
 
-        public double VM_GroundSpeed
+        public string VM_GroundSpeed
         {
             get { return model.ground_Speed; }
         }
 
-        public double VM_Altimeter
+        public string VM_Altimeter
         {
             get { return model.altimeter; }
         }
 
         
-        public double VM_VerticalSpeed
+        public string VM_VerticalSpeed
         {
             get { return model.vertical_Speed; }
             
         }
 
-        public double VM_Pitch
+        public string VM_Pitch
         {
             get { return model.pitch; }
         }
 
-        private double vm_air;
-        public double VM_AirSpeed
+        private string vm_air;
+        public string VM_AirSpeed
         {
             get {
                
@@ -180,15 +180,15 @@ namespace FlightGearApp
             }
         }
 
-        public double VM_Roll
+        public string VM_Roll
         {
             get { return model.roll; }
         }
 
-
+        /*
         public void changeThrottle(double t)
         {
 
-        }
+        }*/
     }
 }

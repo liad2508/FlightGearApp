@@ -53,6 +53,8 @@ namespace WpfApp2
             
             DataContext = vm;                       
             vm.VM_Connect(Ip, port);
+            IModel m = vm.getModel();
+            m.startFromServer();
             updateView();
             updateJoystick();
         }
@@ -98,86 +100,135 @@ namespace WpfApp2
 
 
                         if (e.PropertyName.Equals("VM_AirSpeed"))
-                        {
-                            //Dispatcher.BeginInvoke(
-                            //new ThreadStart(() =>
-                            air_tag.Value = vm.VM_AirSpeed;
-                            //));
+                        {    
+                            if (vm.VM_AirSpeed.Equals("ERR\n") || vm.VM_AirSpeed.Equals("err\n"))
+                            {
+                                text_airspeed.Foreground = Brushes.Red;
+                                text_airspeed.Text = "ERR";
+                            }
+                            else
+                            {
+                                air_tag.Value = Double.Parse(vm.VM_AirSpeed);
+                            }             
 
                         }
                         if (e.PropertyName.Equals("VM_VerticalSpeed"))
                         {
-                            //Dispatcher.BeginInvoke(
-                            //new ThreadStart(() =>
-                            ver_speed.Value = vm.VM_VerticalSpeed;
-                            //));
+                            if (vm.VM_VerticalSpeed.Equals("ERR\n") || vm.VM_VerticalSpeed.Equals("err\n"))
+                            {
+                                text_verticalspeed.Foreground = Brushes.Red;
+                                text_verticalspeed.Text = "ERR";
+
+                       
+                            } else
+                            {
+                                ver_speed.Value = Double.Parse(vm.VM_VerticalSpeed);
+                            }
+                            //)); 
                         }
 
                         if (e.PropertyName.Equals("VM_HeadingDegree"))
                         {
-                            // Dispatcher.BeginInvoke(
-                            // new ThreadStart(() => 
-                            head_deg.Value = vm.VM_HeadingDegree;
-                            //));
+                            if (vm.VM_HeadingDegree.Equals("ERR\n") || vm.VM_HeadingDegree.Equals("err\n"))
+                            {
+                                text_headdeg.Foreground = Brushes.Red;
+                                text_headdeg.Text = "ERR";
+                            }
+                            else
+                            {
+                                head_deg.Value = Double.Parse(vm.VM_HeadingDegree);
+                            }
+                           
                         }
 
                         if (e.PropertyName.Equals("VM_Roll"))
                         {
-                            //Dispatcher.BeginInvoke(
-                            //new ThreadStart(() =>
-                            roll_tag.Value = vm.VM_Roll;
-                            //));
+                            if (vm.VM_Roll.Equals("ERR\n") || vm.VM_Roll.Equals("err\n"))
+                            {
+                                text_roll.Foreground = Brushes.Red;
+                                text_roll.Text = "ERR";
+                            }
+                            else
+                            {
+                                
+                                roll_tag.Value = Double.Parse(vm.VM_Roll);
+                            }
+                           
                         }
 
                         if (e.PropertyName.Equals("VM_Altimeter"))
                         {
-                            // Dispatcher.BeginInvoke(
-                            //new ThreadStart(() =>
-                            altimeter_tag.Value = vm.VM_Altimeter;
-                            //)) ;
+                            if (vm.VM_Altimeter.Equals("ERR\n") || vm.VM_Altimeter.Equals("err\n"))
+                            {
+                                text_altimeter.Foreground = Brushes.Red;
+                                text_altimeter.Text = "ERR";
+                            }
+                            else
+                            {
+                                altimeter_tag.Value = Double.Parse(vm.VM_Altimeter);
+                            }
+                
                         }
 
                         if (e.PropertyName.Equals("VM_Pitch"))
                         {
-                            //Dispatcher.BeginInvoke(
-                            //new ThreadStart(() => 
-                            pitch_tag.Value = vm.VM_Pitch;
-                            //));
+                            if (vm.VM_Pitch.Equals("ERR\n") || vm.VM_Pitch.Equals("err\n"))
+                            {
+                                text_pitch.Foreground = Brushes.Red;
+                                text_pitch.Text = "ERR";
+                            } 
+                            else {
+
+                                pitch_tag.Value = Double.Parse(vm.VM_Pitch);
+
+                            }
+                            
                         }
 
                         if (e.PropertyName.Equals("VM_Altitude"))
                         {
-                            //Dispatcher.BeginInvoke(
-                            //new ThreadStart(() =>
-                            altitude_tag.Value = vm.VM_Altitude;
-                            //));
+                            if (vm.VM_Altitude.Equals("ERR\n") || vm.VM_Altitude.Equals("err\n"))
+                            {
+                                text_altitude.Foreground = Brushes.Red;
+                                text_altitude.Text = "ERR";
+                            }
+                            else
+                            {
+             
+                                altitude_tag.Value = Double.Parse(vm.VM_Altitude);
+                            }
+                            
                         }
 
                         if (e.PropertyName.Equals("VM_GroundSpeed"))
                         {
-                            //Dispatcher.BeginInvoke(
-                            //new ThreadStart(() =>
-                            ground_tag.Value = vm.VM_GroundSpeed;
-                            //));
+                            if (vm.VM_GroundSpeed.Equals("ERR\n") || vm.VM_GroundSpeed.Equals("err\n"))
+                            {
+                                text_ground.Foreground = Brushes.Red;
+                                text_ground.Text = "ERR";
+                            }
+                            else
+                            {
+                                ground_tag.Value = Double.Parse(vm.VM_GroundSpeed);
+                            }
+                           
                         }
 
                         if (e.PropertyName.Equals("VM_Lat") || e.PropertyName.Equals("VM_Lon"))
                         {
-                            //this.Dispatcher.Invoke(() =>
-                            // { 
-                            if (vm.VM_Lat > -81 && vm.VM_Lat < 81 && vm.VM_Lon > -180 && vm.VM_Lon < 180)
+                         
+                            if (vm.VM_Lat > -90 && vm.VM_Lat < 90 && vm.VM_Lon > -180 && vm.VM_Lon < 180)
                             {
                                 lat_tag.Foreground = Brushes.Green;
                                 lat_tag.Text = "Latitude: " + vm.VM_Lat
                                 + ", Longtitude: " + vm.VM_Lon;
+                                MapLayer.SetPosition(plane, new Location(vm.VM_Lat, vm.VM_Lon));
                             }
                             else
                             {
                                 lat_tag.Foreground = Brushes.Red;
                                 lat_tag.Text = "Invalid airplane coordinates";
-                            }
-
-                            MapLayer.SetPosition(plane, new Location(vm.VM_Lat, vm.VM_Lon));
+                            }                            
 
                             //});
                         }

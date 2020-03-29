@@ -19,25 +19,34 @@ using Microsoft.Maps.MapControl.WPF;
 using System.ComponentModel;
 
 
-
 namespace WpfApp2
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
+    ///
+
     public partial class MainWindow : Window
     {
+       
         private void connect_button_Click(object sender, RoutedEventArgs e)
         {
             if (true) {
                 this.Hide();
                 second sec = new second();
                 sec.ShowDialog();
-                this.Show();
+                //this.Show();
              
             } else { 
                 Console.WriteLine("IP or Port are incorrect");
             }
+        }
+        
+        public void showMain()
+        {
+            this.Hide();
+            second sec = new second();
+            sec.ShowDialog();
         }
 
         /*private FlightViewModel vm;

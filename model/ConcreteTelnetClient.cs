@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace FlightGearApp.model
 {
@@ -17,9 +18,30 @@ namespace FlightGearApp.model
 
         // This method connects the simulator to the program
         public void connect(string ip, int port)
-        {           
-            _client = new TcpClient("localhost", port);
-            _ns = _client.GetStream();
+        {
+            try
+            {
+                _client = new TcpClient("localhost", port);
+                _ns = _client.GetStream();
+            }
+            catch (Exception e)
+            {
+                string messageBoxText = "Please connect again";
+                string caption = "Error Connection";
+                MessageBoxButton button = MessageBoxButton.OK;
+                MessageBoxImage icon = MessageBoxImage.Warning;
+                // Display message box
+                MessageBoxResult result = MessageBox.Show(messageBoxText, caption, button, icon);
+               if (result == MessageBoxResult.OK)
+                {
+                    System.Diagnostics.Process.Start(Application.ResourceAssembly.Location);
+                    Application.Current.Shutdown();
+                    //Environment.Exit(0);
+                }
+
+            }
+
+
         }
 
 
