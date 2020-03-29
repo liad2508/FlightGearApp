@@ -579,8 +579,7 @@ namespace FlightGearApp
                         case MessageBoxResult.Yes:
                             dis = "error";
                             break;
-                        case MessageBoxResult.No:
-                            disconnect();
+                        case MessageBoxResult.No:                            
                             Environment.Exit(0);
                             break;
                     }

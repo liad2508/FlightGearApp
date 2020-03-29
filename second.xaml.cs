@@ -46,9 +46,19 @@ namespace WpfApp2
             {
                 Ip = userIp;
             }
+            int n;
             if (!userPort.Equals(""))
             {
-                port = Int32.Parse(userPort);
+                bool isNumeric = int.TryParse(userPort, out n);
+                if (isNumeric)
+                {
+                    port = Int32.Parse(userPort);
+                }
+                else
+                {
+
+                    port = 01;
+                }
             }
             
             DataContext = vm;                       
@@ -100,8 +110,7 @@ namespace WpfApp2
 
                         if (e.PropertyName.Equals("VM_Dis"))
                         {                           
-                            this.Close();
-                            Console.WriteLine("disssssssssssssss");
+                            this.Close();                            
                             this.Owner.Show();
                         }
 
