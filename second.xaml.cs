@@ -52,9 +52,7 @@ namespace WpfApp2
             }
             
             DataContext = vm;                       
-            vm.VM_Connect(Ip, port);
-            IModel m = vm.getModel();
-            m.startFromServer();
+            vm.VM_Connect(Ip, port);        
             updateView();
             updateJoystick();
         }

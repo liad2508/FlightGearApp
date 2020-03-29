@@ -15,6 +15,21 @@ namespace FlightGearApp.model
         private TcpClient _client;
         private NetworkStream _ns;
 
+       private Boolean isc = false;
+       public Boolean isConnect { 
+            get
+            {
+                return isc;
+            }
+            set
+            {
+                isc = value;
+            }
+        
+        }
+
+        
+
 
         // This method connects the simulator to the program
         public void connect(string ip, int port)
@@ -23,6 +38,8 @@ namespace FlightGearApp.model
             {
                 _client = new TcpClient("localhost", port);
                 _ns = _client.GetStream();
+                isc = true;
+
             }
             catch (Exception e)
             {
@@ -34,8 +51,8 @@ namespace FlightGearApp.model
                 MessageBoxResult result = MessageBox.Show(messageBoxText, caption, button, icon);
                if (result == MessageBoxResult.OK)
                 {
-                    System.Diagnostics.Process.Start(Application.ResourceAssembly.Location);
-                    Application.Current.Shutdown();
+                   // System.Diagnostics.Process.Start(Application.ResourceAssembly.Location);
+                    //Application.Current.Shutdown();
                     //Environment.Exit(0);
                 }
 

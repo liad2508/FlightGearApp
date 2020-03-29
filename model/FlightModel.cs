@@ -203,11 +203,14 @@ namespace FlightGearApp
                 this.PropertyChanged(this, new PropertyChangedEventArgs(propName));
         }
 
+        
         public void connect(string ip, int port)
         {
             this.telnetClient.connect(ip, port);
-
-            //startFromServer();            
+            if (this.telnetClient.isConnect == true)
+            {
+                startFromServer();   
+            }
         }
 
         public void disconnect()
