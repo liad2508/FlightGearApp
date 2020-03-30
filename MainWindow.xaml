@@ -11,11 +11,27 @@
 
 
 
+
+
     <Grid>
+
 
         <Image HorizontalAlignment="Left" Width="993"
                Source="luf.jpg" Stretch="Fill" 
                RenderTransformOrigin="0.433,0.533" Margin="0,0,0,0.333" />
+        <TextBlock FontSize="20" Margin="10,10,-10.667,-10.667" Foreground="#FF5B6D38">           
+    <Hyperlink NavigateUri="https://github.com/liad2508/FlightGearApp" RequestNavigate="Hyperlink_RequestNavigate" Foreground="#FFEEEA1C" FontStyle="Italic">
+        Click here to github
+    </Hyperlink>
+        </TextBlock>
+
+
+        <TextBlock FontSize="20" Margin="10,56,-11.667,-57.667" Foreground="#FF5B6D38">           
+    <Hyperlink NavigateUri="https://www.flightgear.org/" RequestNavigate="Hyperlink_RequestNavigate1" Foreground="#FFEEEA1C" FontStyle="Italic">
+        Click here to flight gear
+    </Hyperlink>
+        </TextBlock>
+
 
         <TextBox x:Name ="tb1" HorizontalAlignment="Left" 
              Height="25" Margin="581,243,0,0" TextWrapping="Wrap"
@@ -295,3 +311,5 @@
     -->
 
 </Window>
+
+    

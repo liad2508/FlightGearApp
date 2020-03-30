@@ -17,6 +17,8 @@ using FlightGearApp;
 using FlightGearApp.model;
 using Microsoft.Maps.MapControl.WPF;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.Windows.Navigation;
 
 
 namespace WpfApp2
@@ -45,7 +47,18 @@ namespace WpfApp2
 
             }
              
-        }   
+        }
 
+        private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
+        {            
+            Process.Start("chrome.exe", "https://github.com/liad2508/FlightGearApp");
+            e.Handled = true;
+        }
+
+        private void Hyperlink_RequestNavigate1(object sender, RequestNavigateEventArgs e)
+        {
+            Process.Start("chrome.exe", "https://www.flightgear.org/");
+            e.Handled = true;
+        }
     }
 }
