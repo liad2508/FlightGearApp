@@ -75,21 +75,35 @@ namespace FlightGearApp.model
         // This menthod get the data form the simulator
         public string read()
         {
-            
-            string retval;
-            _ns.ReadTimeout = 10000;
-            byte[] bytes = new byte[1024];
-            int bytesRead = _ns.Read(bytes, 0, bytes.Length);
-            retval = Encoding.ASCII.GetString(bytes, 0, bytesRead);
-            return retval;
+            try
+            {
+                string retval;                
+                byte[] bytes = new byte[1024];
+                _ns.ReadTimeout = 2000;
+                int bytesRead = _ns.Read(bytes, 0, bytes.Length);
+                retval = Encoding.ASCII.GetString(bytes, 0, bytesRead);
+                return retval;
+            } catch (Exception e)
+            {
+                e.ToString();
+                Console.WriteLine("time out read");
+                return "Time Out 10s";
+            }
         }
 
         public void write(string command)
         {
-            
-            byte[] bytes = new byte[1024];
-            bytes = Encoding.ASCII.GetBytes(command);
-            _ns.Write(bytes, 0, bytes.Length);
+            try
+            {
+                byte[] bytes = new byte[1024];
+                bytes = Encoding.ASCII.GetBytes(command);
+                _ns.WriteTimeout = 2000;
+                _ns.Write(bytes, 0, bytes.Length);
+            } catch (Exception e)
+            {
+                e.ToString();
+                Console.WriteLine("wait to write to server");
+            }
         }
     }
 }

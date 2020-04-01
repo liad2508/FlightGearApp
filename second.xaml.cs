@@ -114,6 +114,13 @@ namespace WpfApp2
                             this.Owner.Show();
                         }
 
+                        if (e.PropertyName.Equals("VM_TimeOut"))
+                        {
+                            _timeOut.Foreground = Brushes.Red;
+                            _timeOut.Text = vm.VM_TimeOut;
+
+                        }
+
 
                         if (e.PropertyName.Equals("VM_AirSpeed"))
                         {    

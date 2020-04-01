@@ -195,6 +195,11 @@ namespace FlightGearApp
             get { return model.dis; }
         }
 
+        public string VM_TimeOut
+        {
+            get { return model.timeOut; }
+        }
+
         /*
         public void changeThrottle(double t)
         {

@@ -209,6 +209,17 @@ namespace FlightGearApp
             }
         }
 
+        private string _time;
+        public string timeOut
+        {
+            get { return _time; }
+            set
+            {
+                _time = value;
+                NotifyPropertyChanged("TimeOut");
+            }
+        }
+
         public void NotifyPropertyChanged(string propName)
         {
             if (this.PropertyChanged != null)
@@ -476,6 +487,18 @@ namespace FlightGearApp
             }
         }
 
+        private string[] paths = { "get /instrumentation/airspeed-indicator/indicated-speed-kt\r\n",
+        "get /instrumentation/heading-indicator/indicated-heading-deg\r\n",
+        "get /instrumentation/gps/indicated-altitude-ft\r\n",
+        "get /instrumentation/gps/indicated-ground-speed-kt\r\n",
+        "get /instrumentation/altimeter/indicated-altitude-ft\r\n",
+        "get /instrumentation/gps/indicated-vertical-speed\r\n",
+        "get /instrumentation/attitude-indicator/internal-pitch-deg\r\n",
+        "get /instrumentation/attitude-indicator/internal-roll-deg\r\n",
+        "get /position/latitude-deg\r\n",
+        "get /position/longitude-deg\r\n"};
+
+        
         [Obsolete]
         public void startFromServer()
         {
@@ -489,76 +512,142 @@ namespace FlightGearApp
                         string s;
 
                         this.telnetClient.write("get /instrumentation/airspeed-indicator/indicated-speed-kt\r\n");
-                        this.airSpeed = telnetClient.read();
-                      
-                        /*
-                        this.telnetClient.write("get /controls/flight/aileron\r\n");
                         s = telnetClient.read();
-                        aileron = Double.Parse(s);
+                        if (s.Equals("Time Out 10s"))
+                        {
+                            this.timeOut = s;                            
+                        }
+                        else
+                        {
+                            this.timeOut = "";
+                            this.airSpeed = s;
+                        }
 
-                        this.telnetClient.write("get /controls/flight/elevator\r\n");
-                        s = telnetClient.read();
-                        elevator = Double.Parse(s);
-
-                        this.telnetClient.write("get /controls/flight/rudder\r\n");
-                        s = telnetClient.read();
-                        rudder = Double.Parse(s);
-
-                        this.telnetClient.write("get /controls/engines/current-engine/throttle\r\n");
-                        s = telnetClient.read();
-                        throttle = Double.Parse(s);
-
-                        
-                        this.telnetClient.write("get /position/latitude-deg\r\n");
-                        s = telnetClient.read();
-                        lat = string.Parse(s);
-
-                        this.telnetClient.write("get /position/longitude-deg\r\n");
-                        s = telnetClient.read();
-                        lon = string.Parse(s);*/
 
                         this.telnetClient.write("get /instrumentation/heading-indicator/indicated-heading-deg\r\n");
-                        heading_Degree = telnetClient.read();                        
-
-
-                        this.telnetClient.write("get /instrumentation/gps/indicated-altitude-ft\r\n");
-                        altitude = telnetClient.read();
-                        
-
-
-                        this.telnetClient.write("get /instrumentation/gps/indicated-ground-speed-kt\r\n");
-                        ground_Speed = telnetClient.read();
-                        
-
-
-                        this.telnetClient.write("get /instrumentation/altimeter/indicated-altitude-ft\r\n");
-                        altimeter = telnetClient.read();
-                        
-
-
-                        this.telnetClient.write("get /instrumentation/gps/indicated-vertical-speed\r\n");
-                        vertical_Speed = telnetClient.read();
-                        
-
-
-                        this.telnetClient.write("get /instrumentation/attitude-indicator/internal-pitch-deg\r\n");
-                        pitch = telnetClient.read();
-                        
-
-                        this.telnetClient.write("get /instrumentation/attitude-indicator/internal-roll-deg\r\n");
-                        roll = telnetClient.read(); ;
-                        
-
-
-                        this.telnetClient.write("get /position/latitude-deg\r\n");
                         s = telnetClient.read();
-                        lat = Double.Parse(s);
+                         if (s.Equals("Time Out 10s"))
+                        {
+                            this.timeOut = s;                            
+                        }
+                        else
+                        {
+                            this.timeOut = "";
+                            this.heading_Degree = s;
+                        }
+
+                        
+                        this.telnetClient.write("get /instrumentation/gps/indicated-altitude-ft\r\n");
+                        s = telnetClient.read();
+                        if (s.Equals("Time Out 10s"))
+                        {
+                            this.timeOut = s;
+                        }
+                        else
+                        {
+                            this.timeOut = "";
+                            this.altitude = s;
+                        }
+
+                        
+                        this.telnetClient.write("get /instrumentation/gps/indicated-ground-speed-kt\r\n");
+                        s = telnetClient.read();
+                        if (s.Equals("Time Out 10s"))
+                        {
+                            this.timeOut = s;
+                        }
+                        else
+                        {
+                            this.timeOut = "";
+                            this.ground_Speed = s;
+                        }
+
+                        
+                        this.telnetClient.write("get /instrumentation/altimeter/indicated-altitude-ft\r\n");
+                        s = telnetClient.read();
+                        if (s.Equals("Time Out 10s"))
+                        {
+                            this.timeOut = s;
+                        }
+                        else
+                        {
+                            this.timeOut = "";
+                            this.altimeter = s;
+                        }
+
+                        
+                        this.telnetClient.write("get /instrumentation/gps/indicated-vertical-speed\r\n");
+                        s = telnetClient.read();
+                        if (s.Equals("Time Out 10s"))
+                        {
+                            this.timeOut = s;
+                        }
+                        else
+                        {
+                            this.timeOut = "";
+                            this.vertical_Speed = s;
+                        }
 
 
+                       
+                        this.telnetClient.write("get /instrumentation/attitude-indicator/internal-pitch-deg\r\n");
+                        s = telnetClient.read();
+                        if (s.Equals("Time Out 10s"))
+                        {
+                            this.timeOut = s;
+                        }
+                        else
+                        {
+                            this.timeOut = "";
+                            this.pitch = s;
+                        }
+
+                        
+                        this.telnetClient.write("get /instrumentation/attitude-indicator/internal-roll-deg\r\n");
+                        s = telnetClient.read();
+                        if (s.Equals("Time Out 10s"))
+                        {
+                            this.timeOut = s;
+                        }
+                        else
+                        {
+                            this.timeOut = "";
+                            this.roll = s;
+                        }
+
+
+                        string t;
+                        this.telnetClient.write("get /position/latitude-deg\r\n");
+                        s = (telnetClient.read()).ToString();
+                        this.telnetClient.write("get /position/longitude-deg\r\n");
+                        t = (telnetClient.read()).ToString();
+
+                        try
+                        {
+                            if ((!s.Equals("Time Out 10s")) && (!t.Equals("Time Out 10s")))
+                            {
+                                lat = Double.Parse(s);
+                                lon = Double.Parse(t);
+                            }
+
+                        } catch (Exception e)
+                        {
+                            e.ToString();
+                            this.timeOut = s;
+                        }
+
+                        /*
                         this.telnetClient.write("get /position/longitude-deg\r\n");
                         s = telnetClient.read();
-                        lon = Double.Parse(s);
-                        
+
+                        try
+                        {
+                            lon = Double.Parse(s);
+                        } catch (Exception e)
+                        {
+                            e.ToString();
+                            this.timeOut = s;
+                        }  */                     
 
                         
                         MuTexLock.ReleaseMutex();
