@@ -9,35 +9,38 @@ using System.Threading;
 
 namespace FlightGearApp
 {
+    // The following class represnts the VM of our program.
+    // It implements the INotifyPropertyChanged interface as an Observable,
+    // that passes notifications about modified properties from the Model to the View.
+    // In addition, the VM is also an Observer because it listens to the Model's notifications.
     class FlightViewModel : INotifyPropertyChanged
     {
+        // The VM class composite the Model according the MVVM architecture.
         private IModel model;
-        // CTR
+        // Constructor.
         public FlightViewModel(IModel m)
         {
+            // Using delgate property in order to notify the View.
             this.model = m;
             model.PropertyChanged +=
                 delegate (Object sender, PropertyChangedEventArgs e)
             {
-                NotifyPropertyChanged("VM_"+e.PropertyName);
+                NotifyPropertyChanged("VM_"+ e.PropertyName);
             };
 
 
         }
 
+        // Calling the method disconnect of the Model.
         public void VM_Disconnect()
         {
             this.model.disconnect();
         }
 
+        // calling the method connect of the Model.
         public void VM_Connect(string ip, int port)
         {
             this.model.connect(ip, port);
-        }
-
-        public IModel getModel()
-        {
-            return this.model;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -45,25 +48,23 @@ namespace FlightGearApp
         public void NotifyPropertyChanged(string propName)
         {
             if (this.PropertyChanged != null)
-                // using downcasting for the object PropertyChangedEventArgs
                 this.PropertyChanged(this, new PropertyChangedEventArgs(propName));
         }
 
-        // Properties:
+        // Properties: 
+        // The purpose of each Getter is to get the notification from the Model to the View.
+        // The purpose of each Setter is to pass commands from the View through the VM to the Model.
         private double aileron;
         public double VM_Aileron
         {
             get 
             {
-                Console.WriteLine("Aileron: View <-- VM <-- Model");
                 return this.aileron;
             }
             set
             {
-                Console.WriteLine("Aileron: View --> VM --> Model" + this.aileron.ToString());
                 this.aileron = value;
                 Thread t2 = new Thread(() => this.model.changeAileron(this.aileron));
-                //this.model.changeAileron(this.aileron);
                 t2.Start();
             }
         }
@@ -73,16 +74,13 @@ namespace FlightGearApp
         {
             get 
             {
-                Console.WriteLine("Elevator: View <-- VM <-- Model");
                 return this.elevator;
             }
             set
             {
-                Console.WriteLine("Elevator: View --> VM --> Model");
                 this.elevator = value;
                 Thread t3 = new Thread(() => this.model.changeElevator(this.elevator));
                 t3.Start();
-                //this.model.changeElevator(this.elevator);
             }
         }
 
@@ -91,18 +89,13 @@ namespace FlightGearApp
         {
             get 
             {
-                Console.WriteLine("Throttle: View <-- VM <-- Model");
                 return this.throttle;            
-              
             } 
             set
             {
-                Console.WriteLine("Throttle: View --> VM --> Model");
                 this.throttle = value;
                 Thread t = new Thread(() => this.model.changeThrottle(this.throttle));
-                //this.model.changeThrottle(this.throttle); 
                 t.Start();
-
             }
         }
         private double rudder;
@@ -110,31 +103,26 @@ namespace FlightGearApp
         {
             get 
             {
-                Console.WriteLine("Rudder: View <-- VM <-- Model " + this.rudder.ToString());
-                return rudder;  
+                return this.rudder;  
             }
             set
             {
-                Console.WriteLine("Rudder: View --> VM --> Model" + this.rudder.ToString());
                 this.rudder = value;
                 Thread t1 = new Thread(() => this.model.changeRudder(this.rudder));
-                //this.model.changeRudder(this.rudder);
                 t1.Start();
             }
         }
-        public Thickness Margin
-        {
-            get { return new Thickness(VM_Lat, VM_Lat, VM_Lon, VM_Lon); }
-        }
 
-        // The X coordinate
+        // The X & Y coordinates can't be set by the user, therefore their's property
+        // includes only Getters.
+        // The X coordinate.
         public double VM_Lat
         {
             get {
                               
                 return model.lat; }
         }
-        // The Y coordinate
+        // The Y coordinate.
         public double VM_Lon
         {
             get { return model.lon; }
@@ -200,10 +188,5 @@ namespace FlightGearApp
             get { return model.timeOut; }
         }
 
-        /*
-        public void changeThrottle(double t)
-        {
-
-        }*/
     }
 }

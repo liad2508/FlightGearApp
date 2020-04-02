@@ -6,25 +6,31 @@ using System.Threading.Tasks;
 
 namespace FlightGearApp
 {
+    // The following interface represents all the properties of the Model object of our application.
+    // The IModel interface implements another interface called INotifyPropertyChanged, by
+    // implementing it the Model will be an Observable of properties which have been changed.
+    // A notify about the modified properties will be passed to the VM by using ,from the Model,
+    // INotifyPropertyChanged interface as a part of the Observer Design Pattern.
     interface IModel : INotifyPropertyChanged
     {
+        // Functions declarations:
         void connect(string ip, int port);
         void disconnect();
         void startFromServer();
+
+        // A function for connecting to the flight gear simulator.
         //void startFromSimulator();
         
-        // Declaring all the Properties
+        // Declaring all the Properties.
         // The forth Joystick Properties:
         double elevator { set; get; }
-        //double aileron { set; get; }
-        //double throttle { set; get; }
         double rudder { set; get; }
 
-        // coordinates Properties
+        // coordinates Properties:
         double lat { set; get; }
         double lon { set; get; }
 
-        // 4X2 matrix properties
+        // 4X2 matrix properties:
         string heading_Degree { set; get; }
         string altitude { set; get; }
         string ground_Speed { set; get; }
@@ -36,12 +42,9 @@ namespace FlightGearApp
         string dis { set; get; }
         string timeOut { set; get; }
 
-        void setRudder(double rudderVal);
-        //void setThrottle(double thrVal);
-        void setElevator(double eleVal);
-        //void setAileron(double aileronVal);
 
-        // we need to add functions to the interface
+        // The following functions will be in used by commands from
+        // the View through the VM to the Model. 
         void changeThrottle(double throttle);
         void changeAileron(double aileron);
         void changeRudder(double rudder);

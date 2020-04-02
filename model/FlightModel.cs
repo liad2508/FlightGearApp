@@ -12,36 +12,26 @@ using System.Windows.Media;
 
 namespace FlightGearApp
 {
+    // A concrete class which implements the IModel interface.
     class FlightModel : IModel
     {
+        // Fields:
         private volatile Boolean stop;
         private Boolean con = true;
         public Mutex MuTexLock = new Mutex();
         ITelnetClient telnetClient;
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private readonly object balanceLock = new object();
-
-        bool isLocked(object o)
-        {
-            if (!Monitor.TryEnter(o))
-                return true;
-            Monitor.Exit(o);
-            return false;
-        }
-
+        // Constructor.
         public FlightModel(ITelnetClient telnetClient)
         {
             this.telnetClient = telnetClient;
-            this.stop = false;
-            //this.airSpeed = 10;
-            //this.airSpeed = 5;
-            this.lat = 0;
-            this.lon = 0;        
-                        
+            this.stop = false; 
         }
 
-        // implements all the Properties
+        // implements all the Properties from the IModel interface:
+        // Notice: in the setter of each property we notify about the
+        // the property which was modified.
         private double _elevator;
         public double elevator
         {
@@ -87,7 +77,7 @@ namespace FlightGearApp
             }
         }
 
-        // The X coordinate
+        // The X coordinate's property.
         private double x;
         public double lat
         { 
@@ -98,7 +88,7 @@ namespace FlightGearApp
             }
         }
 
-        // The Y coordinate
+        // The Y coordinate property.
         private double y;
         public double lon
         { 
@@ -181,10 +171,8 @@ namespace FlightGearApp
              get { return air; }
              set 
             {
-                air = value;
-                Console.WriteLine(air);                
+                air = value;               
                 NotifyPropertyChanged("AirSpeed");
-                Console.WriteLine("after notify");
             }
         }
         private string _roll;
@@ -220,13 +208,14 @@ namespace FlightGearApp
             }
         }
 
+        // By the following function we pass the notification about each property to the VM.
         public void NotifyPropertyChanged(string propName)
         {
             if (this.PropertyChanged != null)
                 this.PropertyChanged(this, new PropertyChangedEventArgs(propName));
         }
 
-        
+        // Create a connecting between the Model and the server.
         public void connect(string ip, int port)
         {
             this.telnetClient.connect(ip, port);
@@ -236,12 +225,15 @@ namespace FlightGearApp
             }
         }
 
+        // Disconnect the connecting between the Model and the server.
         public void disconnect()
         {
             this.stop = true;
             this.telnetClient.disconnect();
         }
-        /*
+
+        /* The following function will be used when the user would like to connect
+         * to the Flight Gear Simulator.
         public void startFromSimulator()
         {
             new Thread(delegate ()
@@ -409,22 +401,10 @@ namespace FlightGearApp
             }).Start();
         }*/
 
-        // Sets function for the 4th JoyStick's Properties
-        public void setRudder(double rudderVal)
-        {
-            rudder = rudderVal;
-            this.telnetClient.write("set /controls/flight/rudder" + rudderVal.ToString() + "\n");
-        }
 
-
-
-        public void setElevator(double eleVal)
-        {
-            elevator = eleVal;
-            this.telnetClient.write("set /controls/flight/elevator" + eleVal.ToString() + "\n");
-        }
-    
-
+        // The following 4th Change functions will be called from the View through the VM
+        // and finally to the Model in a case the user changed one of the following 4th components.
+        // 1st fucntion.
         public void changeThrottle(double throttle)
         {
             if (this.con)
@@ -438,6 +418,7 @@ namespace FlightGearApp
 
         }
 
+        // 2nd function.
         public void changeAileron(double aileron)
         {
             if (this.con)
@@ -450,6 +431,31 @@ namespace FlightGearApp
             }
         }
 
+        // 3rd function.
+        public void changeRudder(double rudder)
+        {
+            if (this.con)
+            {
+                MuTexLock.WaitOne();
+                this.telnetClient.write("set /controls/flight/rudder " + rudder.ToString() + "\r\n");
+                this.telnetClient.read();
+                MuTexLock.ReleaseMutex();
+            }
+        }
+
+        // 4th function.
+        public void changeElevator(double elevator)
+        {
+            if (this.con)
+            {
+                MuTexLock.WaitOne();
+                this.telnetClient.write("set /controls/flight/elevator " + elevator.ToString() + "\r\n");
+                this.telnetClient.read();
+                MuTexLock.ReleaseMutex();
+            }
+        }
+
+        // The following function will be in used in startFromSimulator in order to parse values.
         private static string getBetween(string strSource, string strStart, string strEnd)
         {
             int Start, End;
@@ -465,47 +471,20 @@ namespace FlightGearApp
             }
         }
 
-        public void changeRudder(double rudder)
-        {
-            if (this.con)
-            {
-                MuTexLock.WaitOne();
-                this.telnetClient.write("set /controls/flight/rudder " + rudder.ToString() + "\r\n");
-                this.telnetClient.read();
-                MuTexLock.ReleaseMutex();
-            }
-        }
-
-        public void changeElevator(double elevator)
-        {
-            if (this.con)
-            {
-                MuTexLock.WaitOne();
-                this.telnetClient.write("set /controls/flight/elevator " + elevator.ToString() + "\r\n");
-                this.telnetClient.read();
-                MuTexLock.ReleaseMutex();
-            }
-        }
-
-        private string[] paths = { "get /instrumentation/airspeed-indicator/indicated-speed-kt\r\n",
-        "get /instrumentation/heading-indicator/indicated-heading-deg\r\n",
-        "get /instrumentation/gps/indicated-altitude-ft\r\n",
-        "get /instrumentation/gps/indicated-ground-speed-kt\r\n",
-        "get /instrumentation/altimeter/indicated-altitude-ft\r\n",
-        "get /instrumentation/gps/indicated-vertical-speed\r\n",
-        "get /instrumentation/attitude-indicator/internal-pitch-deg\r\n",
-        "get /instrumentation/attitude-indicator/internal-roll-deg\r\n",
-        "get /position/latitude-deg\r\n",
-        "get /position/longitude-deg\r\n"};
-
-        
+        // The following function is the main function of our concrete Model class.
+        // By using this function the Model reads from the server values per each property.
+        // The values of each property will be sampled from the server and will be passed to the VM
+        // and then to the View correspondingly.
         [Obsolete]
         public void startFromServer()
         {
+            // Using a seperate thread for reading the values from the server.
             new Thread(delegate ()
             {
+                // Using try & catch to deal with a case of crashing.
                 try
                 {
+                    // A main loop of reading the values from the server.
                     while (!stop)
                     {
                         MuTexLock.WaitOne();                        
@@ -635,24 +614,12 @@ namespace FlightGearApp
                             e.ToString();
                             this.timeOut = s;
                         }
-
-                        /*
-                        this.telnetClient.write("get /position/longitude-deg\r\n");
-                        s = telnetClient.read();
-
-                        try
-                        {
-                            lon = Double.Parse(s);
-                        } catch (Exception e)
-                        {
-                            e.ToString();
-                            this.timeOut = s;
-                        }  */                     
-
+              
                         
                         MuTexLock.ReleaseMutex();
                         Thread.Sleep(250);
                     }
+                    // In a case of exception the user will be asked if he would like to connect again.
                 } catch(Exception e)
                 {
                     con = false;
@@ -665,9 +632,11 @@ namespace FlightGearApp
                    
                     switch (result)
                     {
+                        // The user chose Yes.
                         case MessageBoxResult.Yes:
                             dis = "error";
                             break;
+                        // The user chose No.
                         case MessageBoxResult.No:                            
                             Environment.Exit(0);
                             break;
