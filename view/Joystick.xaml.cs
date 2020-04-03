@@ -20,7 +20,7 @@ namespace WpfApp2
     /// </summary>
     /// 
     public delegate void PositionChange(object sender, PositionChangeEventArgs e);
-
+    // Notify the changes that occur with the joystick
     public class PositionChangeEventArgs : EventArgs
     {
         private string data;
@@ -34,11 +34,14 @@ namespace WpfApp2
 
     public partial class Joystick : UserControl
     {
+        // Initialize Joystick control
         public Joystick()
         {
             InitializeComponent();
-        }
+        }        
         private void centerKnob_Completed(object sender, EventArgs e) { }
+
+        // Fields
         private Point firstPoint = new Point();
         bool mousePressed = false;
         double x, y, x1, y1, positionX, positionY;
@@ -47,7 +50,8 @@ namespace WpfApp2
         private double upBorder = 45;
         private double downBoarder = -45;
         public event PositionChange positionchange;
-        
+
+        // Property for the position of y on the joystick
         public double PositionY
         {
             get
@@ -72,6 +76,7 @@ namespace WpfApp2
             }
         }
 
+        // Property for the position of x on the joystick
         public double PositionX
         {
             get
@@ -96,6 +101,7 @@ namespace WpfApp2
             }
         }
 
+        // Function for the event that the user press with mouse on the joystick
         private void Knob_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left)
@@ -105,6 +111,7 @@ namespace WpfApp2
             }
         }
 
+        // Function for the event that the user leave the mouse from the joystick
         private void Knob_MouseUp(object sender, MouseButtonEventArgs e)
         {
             knobPosition.X = 0;
@@ -115,12 +122,16 @@ namespace WpfApp2
 
         }
 
+        // Function for the event that the user (press) and move the mouse over the joystick
         private void Knob_MouseMove(object sender, MouseEventArgs e)
         {
+            // check if the mouse is pressed
             if (e.LeftButton == MouseButtonState.Pressed)
             {
+                // calculate the position
                 double x = e.GetPosition(this).X - this.firstPoint.X;
                 double y = e.GetPosition(this).Y - this.firstPoint.Y;
+                // check if the joystick in the right area
                 if (Math.Sqrt(x * x + y * y) < Base.Width / 6)
                 {
                     knobPosition.X = x;
@@ -129,8 +140,7 @@ namespace WpfApp2
                     PositionY = -y;
                 }
             }
-        }   
-       
+        }      
         
     }
 }

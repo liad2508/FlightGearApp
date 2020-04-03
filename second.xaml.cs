@@ -20,11 +20,10 @@ using System.Configuration;
 
 namespace WpfApp2
 {
-    /// <summary>
-    /// Interaction logic for second.xaml
-    /// </summary>
+   // Display the second 
     public partial class second : Window
     {
+        // Fields
         private FlightViewModel vm;
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         const Double BOARDER_UP = 45;
@@ -36,10 +35,12 @@ namespace WpfApp2
             InitializeComponent();
             this.vm = new FlightViewModel(new FlightModel(new ConcreteTelnetClient()));
             //myMap.Mode = new AerialMode(true);           
-           
-            string Ip = ConfigurationSettings.AppSettings["Ip"]; 
-            int port = Int32.Parse(ConfigurationSettings.AppSettings["Port"]); 
 
+            // Default Port and IP (app config) 
+            string Ip = ConfigurationSettings.AppSettings["Ip"]; 
+            int port = Int32.Parse(ConfigurationSettings.AppSettings["Port"]);
+
+            // Port and IP from the user
             string userIp = ((MainWindow)Application.Current.MainWindow).tb1.Text;
             string userPort = ((MainWindow)Application.Current.MainWindow).tb2.Text;
             if (!userIp.Equals(""))
@@ -56,42 +57,36 @@ namespace WpfApp2
                 }
                 else
                 {
-
                     port = 01;
                 }
             }
             
+            // binding to vm
             DataContext = vm;                       
             vm.VM_Connect(Ip, port);        
             updateView();
             updateJoystick();
         }
 
+        // Method to display the changes made by the joystick and update the simulator
         public void updateJoystick()
         {
             this.joystick.positionchange += delegate (object sender, PositionChangeEventArgs e)
             {
-                {
-                        
+                {                    
                     
                         if (e.positionChanged.Equals("X"))
                         {
-                            double rudder = joystick.PositionX / BOARDER_RIGHT;
-                            //Dispatcher.BeginInvoke(
-                            //new ThreadStart(() => 
-                            vm.VM_Rudder = rudder;
-                            //));
+                            // Normalize the value
+                            double rudder = joystick.PositionX / BOARDER_RIGHT;                           
+                            vm.VM_Rudder = rudder;                            
                             rudder_tag.Text = rudder.ToString();
-
-
                         }
                         if (e.positionChanged.Equals("Y"))
                         {
-                            double elevator = joystick.PositionY / BOARDER_UP;
-                            // Dispatcher.BeginInvoke(
-                            //new ThreadStart(() =>
-                            vm.VM_Elevator = elevator;
-                            //));
+                            // Normalize the value
+                            double elevator = joystick.PositionY / BOARDER_UP;                           
+                            vm.VM_Elevator = elevator;                            
                             elevator_tag.Text = elevator.ToString();
                         }
                    
@@ -99,6 +94,7 @@ namespace WpfApp2
             };
         }
 
+        // update the dashboars from the simulator via the vm
         public void updateView()
         {
             this.vm.PropertyChanged += delegate (object sender, PropertyChangedEventArgs e)
@@ -107,7 +103,7 @@ namespace WpfApp2
                     this.Dispatcher.Invoke(() =>
                     {
 
-
+                        
                         if (e.PropertyName.Equals("VM_Dis"))
                         {                           
                             this.Close();                            
@@ -147,7 +143,7 @@ namespace WpfApp2
                             {
                                 ver_speed.Value = Double.Parse(vm.VM_VerticalSpeed);
                             }
-                            //)); 
+                             
                         }
 
                         if (e.PropertyName.Equals("VM_HeadingDegree"))
@@ -254,10 +250,10 @@ namespace WpfApp2
                                 lat_tag.Text = "Invalid airplane coordinates";
                             }                            
 
-                            //});
+                           
                         }
 
-                        // end of 1st dispatcher invoke
+                        
                     });
 
 
@@ -301,6 +297,7 @@ namespace WpfApp2
             li.FontSize = 30;
         }
 
+        // If the user want to disconnect
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             this.vm.VM_Disconnect();
